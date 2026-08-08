@@ -3656,34 +3656,406 @@
 
 </div>
 
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-    import { getDatabase, ref, set, get, update, push, remove, onValue, serverTimestamp, runTransaction } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+/* ==========================================================================
+   SUPABASE DATA LAYER  ·  Solar Power
+   Имитира Firebase RTDB API-то, за да остане останалата логика непокътната.
+   Сървърното време идва ИЗКЛЮЧИТЕЛНО от Postgres (Europe/Sofia).
+   ========================================================================== */
+(function () {
+  'use strict';
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyCKD4r6pVA4QRQxOt9zsJ2icBghkPK3_qU",
-        authDomain: "solar-power-ono.firebaseapp.com",
-        databaseURL: "https://solar-power-ono-default-rtdb.europe-west1.firebasedatabase.app",
-        projectId: "solar-power-ono",
-        storageBucket: "solar-power-ono.firebasestorage.app",
-        messagingSenderId: "263040168510",
-        appId: "1:263040168510:web:46517e20c66bacbfabd76f",
-        measurementId: "G-9HMVSMFW5P"
+  var SUPABASE_URL = 'https://nyfyalnmenzfwxxsvlpp.supabase.co';
+  var SUPABASE_KEY = 'sb_publishable_U9O68-oHqkTUVVZyUogQWw_hrrIbj43';
+
+  var SB = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+    auth: { persistSession: false },
+    realtime: { params: { eventsPerSecond: 20 } }
+  });
+
+  var SENTINEL = { __srvts: true };
+
+  /* ---------- пътища ---------------------------------------------------- */
+
+  function norm(p) {
+    if (p === undefined || p === null) return '';
+    return String(p).replace(/^\/+|\/+$/g, '');
+  }
+
+  function lastSeg(p) {
+    var s = norm(p).split('/');
+    return s.length ? s[s.length - 1] : null;
+  }
+
+  var PUSH_CHARS = '-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz';
+  var lastPushMs = 0;
+
+  function pushId(nowMs) {
+    var ts = nowMs || SrvTime.now();
+    if (ts <= lastPushMs) ts = lastPushMs + 1;
+    lastPushMs = ts;
+    var id = '';
+    for (var i = 0; i < 8; i++) { id = PUSH_CHARS.charAt(ts % 64) + id; ts = Math.floor(ts / 64); }
+    for (var j = 0; j < 12; j++) id += PUSH_CHARS.charAt(Math.floor(Math.random() * 64));
+    return id;
+  }
+
+  /* ---------- СЪРВЪРНО ВРЕМЕ -------------------------------------------- */
+
+  var SrvTime = {
+    offset: 0,
+    ready: false,
+    info: null,
+    _waiters: [],
+
+    apply: function (d) {
+      if (!d) return;
+      this.info = d;
+      this.offset = Number(d.nowMs) - Date.now();
+      this.ready = true;
+      try { localStorage.setItem('srvOffset', String(this.offset)); } catch (e) {}
+      var w = this._waiters; this._waiters = [];
+      w.forEach(function (fn) { try { fn(); } catch (e) {} });
+      notifyInfoListeners();
+    },
+
+    now: function () { return Date.now() + (this.offset || 0); },
+
+    sync: async function () {
+      var r = await SB.rpc('server_time_info');
+      if (!r.error) this.apply(r.data);
+      return this.now();
+    },
+
+    tick: async function () {
+      var r = await SB.rpc('tick_automation');
+      if (!r.error) this.apply(r.data);
+      else await this.sync();
+      return this.now();
+    },
+
+    whenReady: function () {
+      var self = this;
+      if (this.ready) return Promise.resolve(this.now());
+      return new Promise(function (res) { self._waiters.push(function () { res(self.now()); }); });
+    },
+
+    withdrawalsOpen: function () { return !!(this.info && this.info.withdrawalsOpen); },
+    sofiaDay: function () { return sofiaDayKey(this.now()); },
+    dayStart: function () { return sofiaDayStart(this.now()); }
+  };
+
+  var SOFIA_FMT = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Europe/Sofia', year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
+  });
+
+  function sofiaParts(ms) {
+    var out = {};
+    SOFIA_FMT.formatToParts(new Date(ms)).forEach(function (p) { out[p.type] = p.value; });
+    if (out.hour === '24') out.hour = '00';
+    return out;
+  }
+
+  function sofiaDayKey(ms) {
+    var p = sofiaParts(ms);
+    return p.year + '-' + p.month + '-' + p.day;
+  }
+
+  function sofiaDayStart(ms) {
+    var p = sofiaParts(ms);
+    var into = (+p.hour) * 3600000 + (+p.minute) * 60000 + (+p.second) * 1000 + (ms % 1000);
+    return ms - into;
+  }
+
+  function sofiaIsWithdrawWindow(ms) {
+    var p = sofiaParts(ms);
+    var dow = new Date(p.year + '-' + p.month + '-' + p.day + 'T12:00:00Z').getUTCDay();
+    var h = +p.hour;
+    return dow >= 1 && dow <= 5 && h >= 8 && h < 20;
+  }
+
+  try {
+    var saved = parseFloat(localStorage.getItem('srvOffset'));
+    if (!isNaN(saved) && isFinite(saved)) SrvTime.offset = saved;
+  } catch (e) {}
+
+  /* ---------- сентинели за timestamp ------------------------------------ */
+
+  function isSentinel(v) {
+    return v && typeof v === 'object' && v.__srvts === true;
+  }
+
+  function clean(v) {
+    if (v === undefined) return null;
+    if (isSentinel(v)) return { __srvts: true };
+    if (Array.isArray(v)) return v.map(clean);
+    if (v && typeof v === 'object') {
+      var o = {};
+      for (var k in v) if (Object.prototype.hasOwnProperty.call(v, k)) {
+        var c = clean(v[k]);
+        if (c !== undefined) o[k] = c;
+      }
+      return o;
+    }
+    return v;
+  }
+
+  /* ---------- snapshot --------------------------------------------------- */
+
+  function mkSnap(path, value) {
+    var v = (value === undefined ? null : value);
+    return {
+      key: lastSeg(path),
+      ref: null,
+      exists: function () { return v !== null && v !== undefined; },
+      val: function () { return v; },
+      child: function (c) {
+        var nv = (v && typeof v === 'object') ? v[c] : null;
+        return mkSnap(norm(path) + '/' + c, nv === undefined ? null : nv);
+      },
+      hasChild: function (c) { return !!(v && typeof v === 'object' && v[c] !== undefined && v[c] !== null); },
+      numChildren: function () { return (v && typeof v === 'object') ? Object.keys(v).length : 0; },
+      forEach: function (fn) {
+        if (!v || typeof v !== 'object') return false;
+        var keys = Object.keys(v);
+        for (var i = 0; i < keys.length; i++) {
+          var s = mkSnap(norm(path) + '/' + keys[i], v[keys[i]]);
+          if (fn(s) === true) return true;
+        }
+        return false;
+      },
+      toJSON: function () { return v; }
     };
+  }
 
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
+  /* ---------- слушатели -------------------------------------------------- */
 
-    window.fdb = db;
-    window.fref = ref;
-    window.fset = set;
-    window.fget = get;
-    window.fupdate = update;
-    window.fpush = push;
-    window.fremove = remove;
-    window.fonValue = onValue;
-    window.fserverTimestamp = serverTimestamp;
-    window.frunTransaction = runTransaction;
+  var listeners = [];       // { path, cb, last }
+  var infoListeners = [];   // за '.info/serverTimeOffset'
+  var pending = {};
+  var channel = null;
+
+  function affects(changedPath, listenPath) {
+    if (listenPath === '') return true;
+    if (changedPath === listenPath) return true;
+    if (changedPath.indexOf(listenPath + '/') === 0) return true;
+    if (listenPath.indexOf(changedPath + '/') === 0) return true;
+    return false;
+  }
+
+  function notifyInfoListeners() {
+    infoListeners.forEach(function (l) {
+      try { l.cb(mkSnap('.info/serverTimeOffset', SrvTime.offset)); } catch (e) {}
+    });
+  }
+
+  async function refresh(path, force) {
+    var r = await SB.rpc('rtdb_get', { p_path: path });
+    if (r.error) return;
+    var val = (r.data === undefined ? null : r.data);
+    var enc = JSON.stringify(val);
+    listeners.forEach(function (l) {
+      if (l.path !== path) return;
+      if (!force && l.last === enc) return;
+      l.last = enc;
+      try { l.cb(mkSnap(path, val)); } catch (e) { console.error('[rtdb] listener', path, e); }
+    });
+  }
+
+  function scheduleRefresh(path) {
+    if (pending[path]) return;
+    pending[path] = setTimeout(function () {
+      delete pending[path];
+      refresh(path, false);
+    }, 180);
+  }
+
+  function onRowChanged(rowPath) {
+    var seen = {};
+    listeners.forEach(function (l) {
+      if (seen[l.path]) return;
+      if (rowPath === '' || affects(rowPath, l.path)) { seen[l.path] = 1; scheduleRefresh(l.path); }
+    });
+  }
+
+  function ensureChannel() {
+    if (channel) return;
+    try {
+      channel = SB.channel('rtdb-stream')
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'rtdb' }, function (payload) {
+          var row = payload['new'] || payload.old || {};
+          if (row.path) onRowChanged(row.path);
+        })
+        .subscribe();
+    } catch (e) { console.warn('[rtdb] realtime недостъпен, работи само поллингът', e); }
+  }
+
+  // Резервен полинг — приложението работи и ако Realtime не е включен.
+  var polling = false;
+  setInterval(function () {
+    if (polling || !listeners.length || document.hidden) return;
+    polling = true;
+    var paths = {};
+    listeners.forEach(function (l) { paths[l.path] = 1; });
+    Promise.all(Object.keys(paths).map(function (p) { return refresh(p, false); }))
+      .catch(function () {})
+      .then(function () { polling = false; });
+  }, 12000);
+
+  /* ---------- Ref -------------------------------------------------------- */
+
+  function SbRef(path) {
+    this.path = norm(path);
+    this.key = lastSeg(this.path);
+  }
+
+  SbRef.prototype.child = function (p) { return new SbRef(this.path + '/' + norm(p)); };
+
+  SbRef.prototype.parent = function () {
+    var s = this.path.split('/'); s.pop();
+    return new SbRef(s.join('/'));
+  };
+
+  SbRef.prototype.get = async function () {
+    if (this.path === '.info/serverTimeOffset') {
+      await SrvTime.sync();
+      return mkSnap(this.path, SrvTime.offset);
+    }
+    var r = await SB.rpc('rtdb_get', { p_path: this.path });
+    if (r.error) { console.error('[rtdb_get]', this.path, r.error.message); return mkSnap(this.path, null); }
+    return mkSnap(this.path, r.data === undefined ? null : r.data);
+  };
+
+  SbRef.prototype.once = function (evt) { return this.get(); };
+
+  SbRef.prototype.set = async function (value) {
+    // Корен + null = пълно изтриване (пази admin_config/admin_security/settings).
+    if (this.path === '') {
+      if (value === null || value === undefined) {
+        var w = await SB.rpc('rtdb_wipe');
+        if (w.error) { console.error('[rtdb_wipe]', w.error.message); throw w.error; }
+        onRowChanged('');
+        return null;
+      }
+      throw new Error('rtdb: не може да се записва директно в корена');
+    }
+    var r = await SB.rpc('rtdb_set', { p_path: this.path, p_value: clean(value) });
+    if (r.error) { console.error('[rtdb_set]', this.path, r.error.message); throw r.error; }
+    onRowChanged(this.path);
+    return null;
+  };
+
+  SbRef.prototype.update = async function (obj) {
+    var r;
+    if (this.path === '') r = await SB.rpc('rtdb_multi_update', { p_updates: clean(obj) });
+    else r = await SB.rpc('rtdb_update', { p_path: this.path, p_patch: clean(obj) });
+    if (r.error) { console.error('[rtdb_update]', this.path, r.error.message); throw r.error; }
+    onRowChanged(this.path);
+    return null;
+  };
+
+  SbRef.prototype.remove = async function () {
+    if (this.path === '') return this.set(null);
+    var r = await SB.rpc('rtdb_remove', { p_path: this.path });
+    if (r.error) { console.error('[rtdb_remove]', this.path, r.error.message); throw r.error; }
+    onRowChanged(this.path);
+    return null;
+  };
+
+  SbRef.prototype.push = function (value) {
+    var ref = new SbRef(this.path + '/' + pushId());
+    if (value !== undefined) {
+      var p = ref.set(value);
+      ref.then = p.then.bind(p);
+      ref.catch = p.catch.bind(p);
+    }
+    return ref;
+  };
+
+  // Използва се само за заемане на свободно потребителско ID.
+  SbRef.prototype.transaction = async function (fn) {
+    var cur = await this.get();
+    var next = fn(cur.exists() ? cur.val() : null);
+    if (next === undefined) return { committed: false, snapshot: cur };
+    var r = await SB.rpc('rtdb_claim', { p_path: this.path, p_value: clean(next) });
+    if (r.error) { console.error('[rtdb_claim]', this.path, r.error.message); return { committed: false, snapshot: cur }; }
+    return { committed: !!r.data, snapshot: mkSnap(this.path, r.data ? next : cur.val()) };
+  };
+
+  SbRef.prototype.on = function (evt, cb) {
+    if (evt !== 'value') return cb;
+    if (this.path === '.info/serverTimeOffset') {
+      infoListeners.push({ cb: cb });
+      cb(mkSnap(this.path, SrvTime.offset));
+      return cb;
+    }
+    listeners.push({ path: this.path, cb: cb, last: undefined });
+    ensureChannel();
+    refresh(this.path, true);
+    return cb;
+  };
+
+  SbRef.prototype.off = function (evt, cb) {
+    listeners = listeners.filter(function (l) { return !(l.cb === cb || cb === undefined); });
+    infoListeners = infoListeners.filter(function (l) { return !(l.cb === cb || cb === undefined); });
+  };
+
+  /* ---------- публичен API ----------------------------------------------- */
+
+  function ref(a, b) {
+    // ref('path')  |  ref(db, 'path')  |  ref()  →  корен
+    if (typeof a === 'string' || a === undefined || a === null) return new SbRef(a || '');
+    return new SbRef(b || '');
+  }
+
+  var database = { ref: ref, goOnline: function () {}, goOffline: function () {} };
+
+  // ---- Firebase compat (admin.html) ----
+  window.firebase = {
+    initializeApp: function () { return {}; },
+    database: Object.assign(function () { return database; }, {
+      ServerValue: { TIMESTAMP: SENTINEL }
+    }),
+    apps: [{}]
+  };
+
+  // ---- Firebase modular (solarpower.html) ----
+  window.fdb = database;
+  window.fref = ref;
+  window.fget = function (r) { return r.get(); };
+  window.fset = function (r, v) { return r.set(v); };
+  window.fupdate = function (r, o) { return r.update(o); };
+  window.fremove = function (r) { return r.remove(); };
+  window.fpush = function (r, v) { return r.push(v); };
+  window.fonValue = function (r, cb) { var h = r.on('value', cb); return function () { r.off('value', h); }; };
+  window.fserverTimestamp = function () { return SENTINEL; };
+  window.frunTransaction = function (r, fn) { return r.transaction(fn); };
+
+  // ---- сървърно време + автоматика ----
+  window.SrvTime = SrvTime;
+  window.sofiaDayKey = sofiaDayKey;
+  window.sofiaDayStart = sofiaDayStart;
+  window.sofiaIsWithdrawWindow = sofiaIsWithdrawWindow;
+
+  window.SUPABASE = SB;
+  window.rtdbReady = SrvTime.tick().catch(function (e) {
+    console.error('[Supabase] първоначален тик се провали:', e);
+    return SrvTime.sync().catch(function () {});
+  });
+
+  setInterval(function () {
+    if (document.hidden) return;
+    SrvTime.tick().catch(function () {});
+  }, 30000);
+
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden) SrvTime.tick().catch(function () {});
+  });
+})();
+</script>
+<script type="module">
 
     const basePackages = [
         { id: 'solar_start', name: 'Solar Start', price: 30, daily: 1.5, monthly: 45, defaultRemaining: 9412 },
@@ -3715,7 +4087,6 @@
         promoEndTime: 0,
         promoTimerInterval: null,
         dynamicStock: {},
-        serverTimeOffset: 0,
         serverTimeReady: false,
         currentCurrency: localStorage.getItem('appCurrency') || 'USDT',
         currentLang: localStorage.getItem('appLang') || 'en',
@@ -3763,51 +4134,12 @@
         },
 
         initServerTime() {
-            try {
-                const saved = parseFloat(localStorage.getItem('serverTimeOffset'));
-                if (!isNaN(saved) && isFinite(saved)) this.serverTimeOffset = saved;
-            } catch(e) {}
-
-            try {
-                const offRef = window.fref(window.fdb, '.info/serverTimeOffset');
-                window.fonValue(offRef, (snap) => {
-                    const off = snap.val();
-                    if (typeof off === 'number' && isFinite(off)) {
-                        this.serverTimeOffset = off;
-                        this.serverTimeReady = true;
-                        try { localStorage.setItem('serverTimeOffset', String(off)); } catch(e) {}
-                    }
-                });
-            } catch(e) {}
-
-            try {
-                this.fetchTrustedNow().then(() => {}).catch(() => {});
-            } catch(e) {}
-
-            try {
-                if (this._serverTimeResync) clearInterval(this._serverTimeResync);
-                this._serverTimeResync = setInterval(() => {
-                    this.fetchTrustedNow().then(() => {}).catch(() => {});
-                }, 45000);
-            } catch(e) {}
-
-            try {
-                fetch('https://worldtimeapi.org/api/timezone/Etc/UTC', { cache: 'no-store' })
-                    .then(r => r.ok ? r.json() : null)
-                    .then(d => {
-                        if (d && d.unixtime && !this.serverTimeReady) {
-                            const off = (d.unixtime * 1000) - Date.now();
-                            if (isFinite(off)) {
-                                this.serverTimeOffset = off;
-                                try { localStorage.setItem('serverTimeOffset', String(off)); } catch(e) {}
-                            }
-                        }
-                    }).catch(() => {});
-            } catch(e) {}
+            // Времето идва само от Postgres (Europe/Sofia). Няма външни източници.
+            window.rtdbReady.then(() => { this.serverTimeReady = true; });
         },
 
         serverNow() {
-            return Date.now() + (this.serverTimeOffset || 0);
+            return window.SrvTime.now();
         },
 
         resolveAnchor(value, fallbackNow) {
@@ -3819,37 +4151,17 @@
         },
 
         profitDayStart(ts) {
-            const d = new Date(ts);
-            d.setHours(0, 0, 0, 0);
-            return d.getTime();
+            // Начало на деня по Europe/Sofia, а не по часовника на устройството.
+            return window.sofiaDayStart(ts);
         },
 
         async fetchTrustedNow() {
-            const uid = localStorage.getItem('uid') || 'anon';
             try {
-                const stampRef = window.fref(window.fdb, 'server_time_probe/' + uid);
-                await window.fset(stampRef, window.fserverTimestamp());
-                const snap = await window.fget(stampRef);
-                const val = snap.val();
-                if (typeof val === 'number' && isFinite(val) && val > 0) {
-                    this.serverTimeOffset = val - Date.now();
-                    this.serverTimeReady = true;
-                    try { localStorage.setItem('serverTimeOffset', String(this.serverTimeOffset)); } catch(e) {}
-                    return val;
-                }
+                const now = await window.SrvTime.sync();
+                this.serverTimeReady = true;
+                return now;
             } catch(e) {}
-            try {
-                const offRef = window.fref(window.fdb, '.info/serverTimeOffset');
-                const snap = await window.fget(offRef);
-                if (snap.exists() && typeof snap.val() === 'number' && isFinite(snap.val())) {
-                    const off = snap.val();
-                    this.serverTimeOffset = off;
-                    this.serverTimeReady = true;
-                    try { localStorage.setItem('serverTimeOffset', String(off)); } catch(e) {}
-                    return Date.now() + off;
-                }
-            } catch(e) {}
-            return this.serverTimeReady ? this.serverNow() : null;
+            return window.SrvTime.ready ? window.SrvTime.now() : null;
         },
 
         async guardServerTime() {
@@ -3947,7 +4259,7 @@
                 const uid = localStorage.getItem('uid');
                 if (!uid || !this.currentUserData) return;
 
-                if (!this.serverTimeReady) return;
+                if (!window.SrvTime.ready) return;
                 const c = this._computeLiveBalance();
                 if (!c) return;
                 window.fupdate(window.fref(window.fdb, 'users/' + uid), {
@@ -4405,18 +4717,11 @@
             window.fonValue(addrRef, (snap) => {
                 this._depositAddress = snap.exists() ? snap.val() : '';
             });
-            const schedRef = window.fref(window.fdb, 'settings/withdrawalsScheduleLock');
-            window.fonValue(schedRef, (snap) => {
-                this._withdrawalsScheduleLock = snap.exists() ? !!snap.val() : false;
-            });
-            const accrualActiveRef = window.fref(window.fdb, 'settings/profitAccrualActive');
-            window.fonValue(accrualActiveRef, (snap) => {
-                this._profitAccrualActive = snap.exists() ? !!snap.val() : false;
-                if (this.currentUserData) this.updateLiveDashboards();
-            });
-            const accrualSinceRef = window.fref(window.fdb, 'settings/profitAccrualSince');
-            window.fonValue(accrualSinceRef, (snap) => {
-                this._profitAccrualSince = snap.exists() ? snap.val() : 0;
+            // Начисляването е винаги активно и се управлява от базата.
+            this._profitAccrualActive = true;
+            const accrualEpochRef = window.fref(window.fdb, 'settings/accrualEpoch');
+            window.fonValue(accrualEpochRef, (snap) => {
+                this._profitAccrualSince = snap.exists() ? Number(snap.val()) : 0;
                 if (this.currentUserData) this.updateLiveDashboards();
             });
         },
@@ -5351,89 +5656,10 @@
 
                 this.verifyWithdrawalEligibility(data.myCode);
                 this.loadTeamData(data.myCode);
-
-                this.checkMidnightCommissions();
             });
 
             if (this.liveUpdateTimer) clearInterval(this.liveUpdateTimer);
             this.liveUpdateTimer = setInterval(() => { this.updateLiveDashboards(); this.liveBalanceToDB(); if(this._adminEditMode) this.injectAdminPencils(); }, 30000);
-        },
-
-        async checkMidnightCommissions() {
-            if (!this.currentUserData) return;
-
-            const now = new Date(this.serverNow());
-            const todayStr = now.getUTCFullYear() + '-' + (now.getUTCMonth() + 1) + '-' + now.getUTCDate();
-
-            if (this.currentUserData.lastCommCheck === todayStr) return;
-
-            try {
-                const usersSnapshot = await window.fget(window.fref(window.fdb, 'users'));
-                if (!usersSnapshot.exists()) return;
-
-                let totalCommissionUSDT = 0;
-                const usersData = usersSnapshot.val();
-                const myCode = this.currentUserData.myCode;
-
-                let activeTeamCount = 0;
-                let teamPercent = 0.05;
-
-                for(let key in usersData) {
-                    if(usersData[key].inviteCodeUsed === myCode && usersData[key].activePackage && usersData[key].activePackage !== "none") {
-                        activeTeamCount++;
-                    }
-                }
-                if (activeTeamCount >= 50) teamPercent = 0.20;
-                else if (activeTeamCount >= 6) teamPercent = 0.10;
-
-                for (const key in usersData) {
-                    const u = usersData[key];
-                    if (u.inviteCodeUsed === myCode && u.activePackage && u.activePackage !== "none") {
-                        const mDailyRate = parseFloat(u.dailyProfit || 0);
-                        if(mDailyRate > 0) {
-                            totalCommissionUSDT += mDailyRate * teamPercent;
-                        }
-                    }
-                }
-
-                let ownDailyRate = parseFloat(this.currentUserData.dailyProfit || 0);
-                if (!(this.currentUserData.activePackage && this.currentUserData.activePackage !== "none")) {
-                    ownDailyRate = 0;
-                }
-                const extraPkgsForYesterday = this.currentUserData.extraPackages || {};
-                for (const key in extraPkgsForYesterday) {
-                    ownDailyRate += parseFloat(extraPkgsForYesterday[key].daily || 0);
-                }
-
-                const yesterdayProfitUSDT = ownDailyRate + totalCommissionUSDT;
-
-                const myUid = localStorage.getItem('uid');
-
-                if (totalCommissionUSDT > 0) {
-                    const currentBal = this.currentUserData.balance || 0;
-                    const newBalance = currentBal + totalCommissionUSDT;
-
-                    await window.fupdate(window.fref(window.fdb, 'users/' + myUid), {
-                        balance: newBalance,
-                        lastCommCheck: todayStr,
-                        yesterdayProfit: yesterdayProfitUSDT
-                    });
-
-                    await window.fset(window.fpush(window.fref(window.fdb, `users/${myUid}/withdrawals`)), {
-                        amount: totalCommissionUSDT,
-                        netAmount: totalCommissionUSDT,
-                        status: "completed",
-                        timestamp: window.fserverTimestamp(),
-                        type: "daily_commission"
-                    });
-
-                    this.showToast(`Received daily commission: ${totalCommissionUSDT.toFixed(2)} USDT!`, 'success');
-                } else {
-                    await window.fupdate(window.fref(window.fdb, 'users/' + myUid), { lastCommCheck: todayStr, yesterdayProfit: yesterdayProfitUSDT });
-                }
-            } catch (e) {
-                console.error("Commission check error", e);
-            }
         },
 
         listenToBroadcast() {
@@ -5661,15 +5887,8 @@
             const now = this.serverNow();
             const msInDay = 24 * 60 * 60 * 1000;
 
-            const todayKey = (() => {
-                const d = new Date(now);
-                return d.getUTCFullYear() + '-' + (d.getUTCMonth() + 1) + '-' + d.getUTCDate();
-            })();
-            if (this._lastServerDayKey && this._lastServerDayKey !== todayKey) {
-                if (data.lastCommCheck !== todayKey) {
-                    this.checkMidnightCommissions();
-                }
-            }
+            const todayKey = window.sofiaDayKey(now);
+            // Смяната на деня се обработва от базата (run_daily_report).
             this._lastServerDayKey = todayKey;
 
             const st = this.computeLiveState(now);
@@ -6193,34 +6412,30 @@
         },
 
         async syncBalanceToDB() {
+            // Балансът се начислява от базата (tick_automation). Клиентът само
+            // изчаква поредното начисляване и прочита резултата.
             if (!this.currentUserData) return { newBalance: 0, newTotalProfit: 0 };
 
             const uid = localStorage.getItem('uid');
             const data = this.currentUserData;
 
-            let now = await this.fetchTrustedNow();
-            if (now === null) now = this.serverNow();
+            try { await window.SrvTime.tick(); } catch (e) {}
 
-            const st = this.computeLiveState(now);
+            try {
+                const snap = await window.fget(window.fref(window.fdb, 'users/' + uid));
+                if (snap.exists()) {
+                    const fresh = snap.val();
+                    data.balance = parseFloat(fresh.balance || 0);
+                    data.totalProfit = parseFloat(fresh.totalProfit || 0);
+                    data.syncedPackageProfit = parseFloat(fresh.syncedPackageProfit || 0);
+                    data.lastSyncedTeamBonus = parseFloat(fresh.lastSyncedTeamBonus || 0);
+                }
+            } catch (e) {}
 
-            const newBalance = st.liveBalance;
-            const newTotalProfit = st.liveTotalProfit;
-
-            const updates = {
-                balance: newBalance,
-                totalProfit: newTotalProfit,
-                syncedPackageProfit: st.packageTotalGen,
-                lastSyncedTeamBonus: st.totalTeamEarnings
+            return {
+                newBalance: parseFloat(data.balance || 0),
+                newTotalProfit: parseFloat(data.totalProfit || 0)
             };
-
-            data.balance = newBalance;
-            data.totalProfit = newTotalProfit;
-            data.syncedPackageProfit = st.packageTotalGen;
-            data.lastSyncedTeamBonus = st.totalTeamEarnings;
-
-            await window.fupdate(window.fref(window.fdb, 'users/' + uid), updates);
-
-            return { newBalance, newTotalProfit };
         },
 
         async withdraw() {
@@ -6234,8 +6449,19 @@
                 return;
             }
 
-            if (!isAdmin && this._withdrawalsScheduleLock) {
-                return this.showToast("Withdrawals are currently locked. They are available Mon-Fri, 08:00-20:00.", "error");
+            if (!isAdmin) {
+                // Проверката е на сървъра — часовникът на устройството е без значение.
+                let windowOpen = false;
+                try {
+                    const r = await window.SUPABASE.rpc('withdrawals_open');
+                    if (r.error) throw r.error;
+                    windowOpen = !!r.data;
+                } catch (e) {
+                    return this.showToast("Could not verify server time. Please check your connection and try again.", "error");
+                }
+                if (!windowOpen) {
+                    return this.showToast("Withdrawals are currently locked. They are available Mon-Fri, 08:00-20:00 (Sofia).", "error");
+                }
             }
 
             if(!this.currentUserData.withdrawPin) {
