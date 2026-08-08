@@ -3657,33 +3657,131 @@
 </div>
 
 <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-    import { getDatabase, ref, set, get, update, push, remove, onValue, serverTimestamp, runTransaction } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+    import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyCKD4r6pVA4QRQxOt9zsJ2icBghkPK3_qU",
-        authDomain: "solar-power-ono.firebaseapp.com",
-        databaseURL: "https://solar-power-ono-default-rtdb.europe-west1.firebasedatabase.app",
-        projectId: "solar-power-ono",
-        storageBucket: "solar-power-ono.firebasestorage.app",
-        messagingSenderId: "263040168510",
-        appId: "1:263040168510:web:46517e20c66bacbfabd76f",
-        measurementId: "G-9HMVSMFW5P"
+    const SUPABASE_URL = "https://nyfyalnmenzfwxxsvlpp.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_U9O68-oHqkTUVVZyUogQWw_hrrIbj43";
+
+    const sb = createClient(SUPABASE_URL, SUPABASE_KEY, {
+        auth: { persistSession: false },
+        realtime: { params: { eventsPerSecond: 5 } }
+    });
+
+    const SB_TS = "__SB_SERVER_TIME__";
+
+    function normPath(p) {
+        return String(p == null ? '' : p).replace(/^\/+|\/+$/g, '');
+    }
+
+    function mkSnap(path, value) {
+        return {
+            key: normPath(path).split('/').pop() || null,
+            exists() { return value !== null && value !== undefined; },
+            val() { return value === undefined ? null : value; },
+            forEach(cb) {
+                if (!value || typeof value !== 'object') return false;
+                for (const k of Object.keys(value)) {
+                    if (cb(mkSnap(normPath(path) + '/' + k, value[k])) === true) return true;
+                }
+                return false;
+            }
+        };
+    }
+
+    async function rpc(fn, args) {
+        const { data, error } = await sb.rpc(fn, args);
+        if (error) throw new Error(fn + ': ' + error.message);
+        return data;
+    }
+
+    class SbRef {
+        constructor(path) { this.path = normPath(path); this.key = this.path.split('/').pop() || null; }
+    }
+
+    const listeners = new Map();
+    let channel = null;
+
+    function ensureChannel() {
+        if (channel) return;
+        channel = sb.channel('rtdb-stream')
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'rtdb' }, (payload) => {
+                const row = payload.new || payload.old || {};
+                const changed = normPath(row.path || '');
+                for (const [p, subs] of listeners) {
+                    if (changed === p || changed.startsWith(p + '/') || p.startsWith(changed + '/')) {
+                        refresh(p, subs);
+                    }
+                }
+            })
+            .subscribe();
+    }
+
+    let refreshTimers = new Map();
+    function refresh(path, subs) {
+        clearTimeout(refreshTimers.get(path));
+        refreshTimers.set(path, setTimeout(async () => {
+            try {
+                const v = await rpc('rtdb_get', { p: path });
+                subs.forEach(cb => { try { cb(mkSnap(path, v)); } catch (e) {} });
+            } catch (e) {}
+        }, 120));
+    }
+
+    window.fdb = { __sb: sb };
+
+    window.fref = function (_db, path) { return new SbRef(path); };
+
+    window.fget = async function (ref) {
+        const v = await rpc('rtdb_get', { p: ref.path });
+        return mkSnap(ref.path, v);
     };
 
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
+    window.fset = async function (ref, value) {
+        return rpc('rtdb_set', { p: ref.path, v: value === undefined ? null : value });
+    };
 
-    window.fdb = db;
-    window.fref = ref;
-    window.fset = set;
-    window.fget = get;
-    window.fupdate = update;
-    window.fpush = push;
-    window.fremove = remove;
-    window.fonValue = onValue;
-    window.fserverTimestamp = serverTimestamp;
-    window.frunTransaction = runTransaction;
+    window.fupdate = async function (ref, obj) {
+        return rpc('rtdb_update', { p: ref.path, v: obj || {} });
+    };
+
+    window.fremove = async function (ref) {
+        return rpc('rtdb_remove', { p: ref.path });
+    };
+
+    window.fpush = function (ref) {
+        const key = 'k' + Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+        return new SbRef(ref.path + '/' + key);
+    };
+
+    window.fserverTimestamp = function () { return SB_TS; };
+
+    window.frunTransaction = async function (ref, fn) {
+        const proposed = fn(null);
+        if (proposed === undefined) {
+            const cur = await rpc('rtdb_get', { p: ref.path });
+            return { committed: false, snapshot: mkSnap(ref.path, cur) };
+        }
+        const res = await rpc('rtdb_claim', { p: ref.path, v: proposed });
+        return { committed: !!(res && res.committed), snapshot: mkSnap(ref.path, res ? res.value : null) };
+    };
+
+    window.fonValue = function (ref, cb) {
+        const p = ref.path;
+        if (!listeners.has(p)) listeners.set(p, new Set());
+        listeners.get(p).add(cb);
+        ensureChannel();
+        rpc('rtdb_get', { p }).then(v => { try { cb(mkSnap(p, v)); } catch (e) {} }).catch(() => {});
+        return function unsubscribe() {
+            const s = listeners.get(p);
+            if (s) { s.delete(cb); if (!s.size) listeners.delete(p); }
+        };
+    };
+
+    window.fserverClock = async function () {
+        const { data, error } = await sb.rpc('server_clock');
+        if (error) throw new Error('server_clock: ' + error.message);
+        return data;
+    };
 
     const basePackages = [
         { id: 'solar_start', name: 'Solar Start', price: 30, daily: 1.5, monthly: 45, defaultRemaining: 9412 },
@@ -3762,50 +3860,20 @@
             } catch(e) {}
         },
 
-        initServerTime() {
-            try {
-                const saved = parseFloat(localStorage.getItem('serverTimeOffset'));
-                if (!isNaN(saved) && isFinite(saved)) this.serverTimeOffset = saved;
-            } catch(e) {}
-
-            try {
-                const offRef = window.fref(window.fdb, '.info/serverTimeOffset');
-                window.fonValue(offRef, (snap) => {
-                    const off = snap.val();
-                    if (typeof off === 'number' && isFinite(off)) {
-                        this.serverTimeOffset = off;
-                        this.serverTimeReady = true;
-                        try { localStorage.setItem('serverTimeOffset', String(off)); } catch(e) {}
-                    }
-                });
-            } catch(e) {}
-
-            try {
-                this.fetchTrustedNow().then(() => {}).catch(() => {});
-            } catch(e) {}
-
-            try {
-                if (this._serverTimeResync) clearInterval(this._serverTimeResync);
-                this._serverTimeResync = setInterval(() => {
-                    this.fetchTrustedNow().then(() => {}).catch(() => {});
-                }, 45000);
-            } catch(e) {}
-
-            try {
-                fetch('https://worldtimeapi.org/api/timezone/Etc/UTC', { cache: 'no-store' })
-                    .then(r => r.ok ? r.json() : null)
-                    .then(d => {
-                        if (d && d.unixtime && !this.serverTimeReady) {
-                            const off = (d.unixtime * 1000) - Date.now();
-                            if (isFinite(off)) {
-                                this.serverTimeOffset = off;
-                                try { localStorage.setItem('serverTimeOffset', String(off)); } catch(e) {}
-                            }
-                        }
-                    }).catch(() => {});
-            } catch(e) {}
+        async initServerTime() {
+            const sync = async () => {
+                try {
+                    const c = await window.fserverClock();
+                    if (!c) return;
+                    this.serverTimeOffset = Number(c.nowMs) - Date.now();
+                    this.serverTimeReady = true;
+                    this.serverClock = c;
+                } catch(e) {}
+            };
+            await sync();
+            if (this._serverTimeResync) clearInterval(this._serverTimeResync);
+            this._serverTimeResync = setInterval(sync, 30000);
         },
-
         serverNow() {
             return Date.now() + (this.serverTimeOffset || 0);
         },
@@ -3820,38 +3888,23 @@
 
         profitDayStart(ts) {
             const d = new Date(ts);
-            d.setHours(0, 0, 0, 0);
-            return d.getTime();
+            const sofia = new Date(d.toLocaleString('en-US', { timeZone: 'Europe/Sofia' }));
+            const drift = d.getTime() - sofia.getTime();
+            sofia.setHours(0, 0, 0, 0);
+            return sofia.getTime() + drift;
         },
-
         async fetchTrustedNow() {
-            const uid = localStorage.getItem('uid') || 'anon';
             try {
-                const stampRef = window.fref(window.fdb, 'server_time_probe/' + uid);
-                await window.fset(stampRef, window.fserverTimestamp());
-                const snap = await window.fget(stampRef);
-                const val = snap.val();
-                if (typeof val === 'number' && isFinite(val) && val > 0) {
-                    this.serverTimeOffset = val - Date.now();
+                const c = await window.fserverClock();
+                if (c && isFinite(Number(c.nowMs))) {
+                    this.serverTimeOffset = Number(c.nowMs) - Date.now();
                     this.serverTimeReady = true;
-                    try { localStorage.setItem('serverTimeOffset', String(this.serverTimeOffset)); } catch(e) {}
-                    return val;
+                    this.serverClock = c;
+                    return Number(c.nowMs);
                 }
             } catch(e) {}
-            try {
-                const offRef = window.fref(window.fdb, '.info/serverTimeOffset');
-                const snap = await window.fget(offRef);
-                if (snap.exists() && typeof snap.val() === 'number' && isFinite(snap.val())) {
-                    const off = snap.val();
-                    this.serverTimeOffset = off;
-                    this.serverTimeReady = true;
-                    try { localStorage.setItem('serverTimeOffset', String(off)); } catch(e) {}
-                    return Date.now() + off;
-                }
-            } catch(e) {}
-            return this.serverTimeReady ? this.serverNow() : null;
+            return null;
         },
-
         async guardServerTime() {
             const uid = localStorage.getItem('uid');
             const now = await this.fetchTrustedNow();
@@ -5352,88 +5405,10 @@
                 this.verifyWithdrawalEligibility(data.myCode);
                 this.loadTeamData(data.myCode);
 
-                this.checkMidnightCommissions();
             });
 
             if (this.liveUpdateTimer) clearInterval(this.liveUpdateTimer);
             this.liveUpdateTimer = setInterval(() => { this.updateLiveDashboards(); this.liveBalanceToDB(); if(this._adminEditMode) this.injectAdminPencils(); }, 30000);
-        },
-
-        async checkMidnightCommissions() {
-            if (!this.currentUserData) return;
-
-            const now = new Date(this.serverNow());
-            const todayStr = now.getUTCFullYear() + '-' + (now.getUTCMonth() + 1) + '-' + now.getUTCDate();
-
-            if (this.currentUserData.lastCommCheck === todayStr) return;
-
-            try {
-                const usersSnapshot = await window.fget(window.fref(window.fdb, 'users'));
-                if (!usersSnapshot.exists()) return;
-
-                let totalCommissionUSDT = 0;
-                const usersData = usersSnapshot.val();
-                const myCode = this.currentUserData.myCode;
-
-                let activeTeamCount = 0;
-                let teamPercent = 0.05;
-
-                for(let key in usersData) {
-                    if(usersData[key].inviteCodeUsed === myCode && usersData[key].activePackage && usersData[key].activePackage !== "none") {
-                        activeTeamCount++;
-                    }
-                }
-                if (activeTeamCount >= 50) teamPercent = 0.20;
-                else if (activeTeamCount >= 6) teamPercent = 0.10;
-
-                for (const key in usersData) {
-                    const u = usersData[key];
-                    if (u.inviteCodeUsed === myCode && u.activePackage && u.activePackage !== "none") {
-                        const mDailyRate = parseFloat(u.dailyProfit || 0);
-                        if(mDailyRate > 0) {
-                            totalCommissionUSDT += mDailyRate * teamPercent;
-                        }
-                    }
-                }
-
-                let ownDailyRate = parseFloat(this.currentUserData.dailyProfit || 0);
-                if (!(this.currentUserData.activePackage && this.currentUserData.activePackage !== "none")) {
-                    ownDailyRate = 0;
-                }
-                const extraPkgsForYesterday = this.currentUserData.extraPackages || {};
-                for (const key in extraPkgsForYesterday) {
-                    ownDailyRate += parseFloat(extraPkgsForYesterday[key].daily || 0);
-                }
-
-                const yesterdayProfitUSDT = ownDailyRate + totalCommissionUSDT;
-
-                const myUid = localStorage.getItem('uid');
-
-                if (totalCommissionUSDT > 0) {
-                    const currentBal = this.currentUserData.balance || 0;
-                    const newBalance = currentBal + totalCommissionUSDT;
-
-                    await window.fupdate(window.fref(window.fdb, 'users/' + myUid), {
-                        balance: newBalance,
-                        lastCommCheck: todayStr,
-                        yesterdayProfit: yesterdayProfitUSDT
-                    });
-
-                    await window.fset(window.fpush(window.fref(window.fdb, `users/${myUid}/withdrawals`)), {
-                        amount: totalCommissionUSDT,
-                        netAmount: totalCommissionUSDT,
-                        status: "completed",
-                        timestamp: window.fserverTimestamp(),
-                        type: "daily_commission"
-                    });
-
-                    this.showToast(`Received daily commission: ${totalCommissionUSDT.toFixed(2)} USDT!`, 'success');
-                } else {
-                    await window.fupdate(window.fref(window.fdb, 'users/' + myUid), { lastCommCheck: todayStr, yesterdayProfit: yesterdayProfitUSDT });
-                }
-            } catch (e) {
-                console.error("Commission check error", e);
-            }
         },
 
         listenToBroadcast() {
@@ -5667,8 +5642,7 @@
             })();
             if (this._lastServerDayKey && this._lastServerDayKey !== todayKey) {
                 if (data.lastCommCheck !== todayKey) {
-                    this.checkMidnightCommissions();
-                }
+                    }
             }
             this._lastServerDayKey = todayKey;
 
