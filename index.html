@@ -10,8 +10,9 @@
     <title>⚡️Solar Power⚡️</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
@@ -416,28 +417,6 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
             flex: 1;
             min-width: 0;
         }
-.admin-square-controls{
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            margin-left: 4px;
-        }
-.admin-square-btn{
-            width: 34px;
-            height: 34px;
-            border-radius: 9px;
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.25);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            font-weight: 900;
-            color: #ffffff;
-            cursor: pointer;
-            transition: background 0.2s, transform 0.15s;
-        }
-.admin-square-btn:active{ transform: scale(0.92); background: rgba(255,255,255,0.18); }
 .hamburger-wrapper{
             position: relative;
             flex-shrink: 0;
@@ -1051,95 +1030,10 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
 .gt-btn-icon{ width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border: 2px solid rgba(255,200,70,0.85); background: radial-gradient(circle at 35% 30%, rgba(80,55,0,0.5) 0%, rgba(0,0,0,0.9) 75%); }
 .gt-btn-label{ flex: 1; text-align: center; font-size: 22px; font-weight: 800; color: #ffffff; letter-spacing: 0.3px; }
 .gt-btn-chev{ font-size: 26px; font-weight: 900; color: #ffd75e; line-height: 1; }
-#kyc-status-btn.kyc-needed{
-            background-color: #000000;
-            background-image: radial-gradient(circle at top left, rgba(255,190,60,0.35) 0%, transparent 60%), radial-gradient(circle at bottom right, rgba(255,120,20,0.35) 0%, transparent 65%);
-            border: 1.5px solid #FFD700;
-            color: #FFD700;
-        }
-#kyc-status-btn.kyc-pending{
-            background-color: #000000;
-            border: 1.5px solid #C7CDD4;
-            color: #C7CDD4;
-        }
-#kyc-status-btn.kyc-rejected{
-            background-color: #000000;
-            border: 1.5px solid #ff4d6d;
-            color: #ff4d6d;
-        }
-#kyc-modal-overlay{
-            display: none;
-            position: fixed;
-            inset: 0;
-            z-index: 100050;
-            background: #000000;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 30px 24px;
-            text-align: center;
-        }
-#kyc-modal-overlay.show{ display: flex; }
-.kyc-close-x{
-            position: absolute;
-            top: 24px;
-            right: 24px;
-            font-size: 26px;
-            color: #ffffff;
-            cursor: pointer;
-        }
 
-        @keyframes kycSpin { to { transform: rotate(360deg); } }
-#kyc-scan-instruction{
-            color: #ffffff;
-            font-size: 16px;
-            font-weight: 800;
-            margin-bottom: 8px;
-        }
-#kyc-scan-sub{
-            color: #C7CDD4;
-            font-size: 12.5px;
-            margin-bottom: 10px;
-        }
-.kyc-upload-box{
-            width: 100%;
-            max-width: 320px;
-            border: 1.5px dashed #C7CDD4;
-            border-radius: 14px;
-            padding: 30px 16px;
-            color: #C7CDD4;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-.kyc-upload-box i{ font-size: 34px; color: #FFD700; display:block; margin-bottom: 10px; }
-#kyc-id-preview{
-            max-width: 260px;
-            border-radius: 10px;
-            margin-top: 14px;
-            display: none;
-        }
-.kyc-thumb{
-            width: 100%;
-            max-width: 260px;
-            border-radius: 10px;
-            margin: 0 auto 12px;
-            display: block;
-        }
-.kyc-success-check{
-            width: 96px; height: 96px;
-            border-radius: 50%;
-            background: #0b5133;
-            border: 3px solid #1ecb6b;
-            display: flex; align-items: center; justify-content: center;
-            margin: 0 auto;
-            font-size: 46px; color: #4ade80;
-            animation: kycPop 0.5s cubic-bezier(0.22,1.4,0.36,1) both;
-        }
+        
 
-        @keyframes kycPop {
-            0% { transform: scale(0); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
+        
 #packages-container{
             display: grid;
             grid-template-columns: 1fr;
@@ -1260,20 +1154,6 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
 .emoji-item:hover{ transform: scale(1.12); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
 .emoji-item svg{ display: block; width: 100%; height: 100%; }
 .profile-avatar-circle svg{ display:block; }
-.admin-edit-pencil{
-            color: #f5d77a;
-            font-size: 13px;
-            margin-left: 8px;
-            cursor: pointer;
-            background: rgba(0,0,0,0.35);
-            padding: 5px;
-            border-radius: 6px;
-            border: 1px solid #FFD700;
-            transition: transform 0.15s, background 0.2s;
-            display: inline-block;
-        }
-.admin-edit-pencil:hover{ transform: scale(1.15); background: rgba(0,0,0,0.55); }
-.admin-edit-pencil:active{ transform: scale(0.95); }
 #admin-view{
             background-color:#000000; background-image:none;
             background-attachment: fixed;
@@ -1437,15 +1317,6 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
 #shop-calc-modal{ background: transparent !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
 #shop-calc-modal .close-modal-x{ right: 20px; left: auto; }
 #calc-package-list div,#calc-fee-list div{ color:#ffffff !important; }
-#impersonate-modal{ background: transparent !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
-#impersonate-modal .modal-content{
-            background-color:#000000 !important;
-            background-image: radial-gradient(circle at top left, rgba(80,140,255,0.35) 0%, transparent 60%), radial-gradient(circle at bottom right, rgba(30,60,120,0.5) 0%, transparent 65%) !important;
-            border:1.5px solid #C7CDD4 !important;
-        }
-#impersonate-modal .close-modal-x{ left: 14px; top: 12px; right: auto; color:#C7CDD4 !important; }
-#impersonate-modal .input-wrapper{ border:1.5px solid #C7CDD4 !important; background:transparent !important; }
-#impersonate-modal .input-wrapper input,#impersonate-modal .input-wrapper input::placeholder{ color:#ffffff !important; }
 #packages-view{
             background-color: #ffffff;
             background-image:
@@ -1532,7 +1403,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
             padding: 12px !important;
         }
 #global-currency option{ background:#ffffff !important; color:#000000 !important; }
-#profile-view [data-i18n="setupPinDesc"]{ color:#ffffff !important; }
+#profile-view []{ color:#ffffff !important; }
 #login-country-code,#reg-country-code{
             background: transparent !important;
             background-color: transparent !important;
@@ -1619,7 +1490,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
             color: #FFD700 !important;
             text-shadow: 0 2px 6px rgba(255,215,0,0.4);
         }
-#energy-plans-view h2[data-i18n="information"]{ color:#000000 !important; }
+#energy-plans-view h2[]{ color:#000000 !important; }
 
 
         @keyframes cardLineFlow {
@@ -1880,7 +1751,6 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
 <body>
     <div id="welcome-overlay" style="display:none; position:fixed; inset:0; z-index:99999; background-color:#000000; background-image:none; align-items:center; justify-content:center; flex-direction:column;">
         <div id="welcome-text" style="color:#ffffff; font-size:34px; font-weight:900; text-align:center; letter-spacing:1px; padding:0 24px; opacity:0; transform:translateY(40px); line-height:1.2;">Welcome to Solar Power</div>
-        <div id="welcome-line" style="height:3px; width:0; margin-top:22px; background:linear-gradient(90deg, #FFD700, #FFF3B0, #FFD700); box-shadow:0 0 10px rgba(255,215,0,0.95), 0 0 22px rgba(255,215,0,0.8), 0 0 34px rgba(255,215,0,0.5);"></div>
     </div>
 
 <div id="toast-container"></div>
@@ -1899,47 +1769,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
     <div id="account-lock-message" style="color:#C7CDD4; font-size:15px; line-height:1.6; max-width:340px;">Your account has been locked. Please contact support.</div>
 </div>
 
-<div id="kyc-modal-overlay">
-    <i class="fas fa-times kyc-close-x" onclick="appLogic.closeKycFlow()"></i>
 
-    <div id="kyc-step-intro" style="width:100%; max-width:360px;">
-        <i class="fas fa-shield-halved" style="font-size:64px; color:#FFD700; margin-bottom:22px;"></i>
-        <div id="kyc-scan-instruction" style="margin-bottom:14px;">KYC Verification</div>
-        <div id="kyc-scan-sub" style="line-height:1.6; margin-bottom:26px;">KYC verification is mandatory to verify your account and protect the platform from misuse.</div>
-        <button class="btn btn-invest" style="max-width:320px;" onclick="appLogic.kycStart()">Start</button>
-    </div>
-
-    <div id="kyc-step-details" style="display:none; width:100%; max-width:340px; text-align:center;">
-        <div id="kyc-scan-instruction" style="margin-bottom:20px; text-align:center;">Verification details</div>
-        <input type="text" id="kyc-fullname" placeholder="Full Name" oninput="appLogic._refreshKycSubmitState()" style="width:100%; text-align:center; background:#0a1428; border:1.5px solid #C7CDD4; border-radius:10px; padding:14px; color:#fff; font-size:14px; outline:none; margin-bottom:14px; box-sizing:border-box;">
-        <input type="text" id="kyc-dob" placeholder="Date of Birth" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'" onchange="appLogic._refreshKycSubmitState()" style="width:100%; text-align:center; background:#0a1428; border:1.5px solid #C7CDD4; border-radius:10px; padding:14px; color:#fff; font-size:14px; outline:none; margin-bottom:18px; box-sizing:border-box;">
-
-        <div class="kyc-upload-box" onclick="document.getElementById('kyc-photo-id-file').click()" style="margin-bottom:10px;">
-            <i class="fas fa-id-card"></i>
-            <span id="kyc-photo-id-label">Attach ID card photo</span>
-        </div>
-        <img id="kyc-photo-id-preview" class="kyc-thumb" alt="" style="display:none;">
-        <input type="file" id="kyc-photo-id-file" accept="image/*" style="display:none;" onchange="appLogic.handleKycPhoto(event,'id')">
-
-        <div class="kyc-upload-box" onclick="document.getElementById('kyc-photo-selfie-file').click()" style="margin-bottom:10px;">
-            <i class="fas fa-portrait"></i>
-            <span id="kyc-photo-selfie-label">Attach selfie holding ID</span>
-        </div>
-        <img id="kyc-photo-selfie-preview" class="kyc-thumb" alt="" style="display:none;">
-        <input type="file" id="kyc-photo-selfie-file" accept="image/*" style="display:none;" onchange="appLogic.handleKycPhoto(event,'selfie')">
-
-        <div style="font-size:11px; color:#C7CDD4; line-height:1.5; margin:6px 0 16px;">Photos must be high-quality and free of glare.</div>
-
-        <button class="btn btn-invest" style="max-width:320px;" onclick="appLogic.submitKycVerification()" id="kyc-submit-btn" disabled>Submit Verification</button>
-    </div>
-
-    <div id="kyc-step-done" style="display:none;">
-        <div class="kyc-success-check"><i class="fas fa-check"></i></div>
-        <div id="kyc-scan-instruction" style="margin-top:20px;">Verification submitted</div>
-        <div id="kyc-scan-sub" style="line-height:1.6;">Your request has been sent successfully.<br>Verification may take up to 24 hours.</div>
-        <button class="btn btn-nav-outline" style="margin-top:22px; max-width:320px; color:#fff !important; border-color:#C7CDD4 !important;" onclick="appLogic.closeKycFlow()">Close</button>
-    </div>
-</div>
 
 <div id="reinvest-pin-overlay">
     <p id="reinvest-pin-title">Enter your withdrawal PIN</p>
@@ -1956,7 +1786,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
 </div>
 
 <div id="invest-slide-overlay">
-    <p style="text-align:center; font-size:13px; font-weight:800; margin-bottom:15px; text-transform:uppercase; letter-spacing:0.5px;" id="invest-slide-title" data-i18n="slideConfirm">Slide to confirm purchase</p>
+    <p style="text-align:center; font-size:13px; font-weight:800; margin-bottom:15px; text-transform:uppercase; letter-spacing:0.5px;" id="invest-slide-title">Slide to confirm purchase</p>
     <div class="slide-track" id="invest-slide-track">
         <div class="slide-fill" id="invest-slide-fill"></div>
         <div class="slide-label" id="invest-slide-label">Slide to buy</div>
@@ -1972,10 +1802,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
 </div>
 
 <div id="app-container">
-    <div id="impersonate-banner" style="display:none; position:fixed; top:0; left:0; right:0; z-index:9999; background:#7c2d12; color:#fff; padding:10px 14px; font-size:12px; font-weight:800; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.3);">
-        <span id="impersonate-banner-text" data-i18n="viewingAccount">Viewing user account</span>
-        <button onclick="appLogic.exitImpersonate()" style="margin-left:12px; background:#fff; color:#7c2d12; border:none; border-radius:6px; padding:4px 10px; font-weight:800; cursor:pointer; font-size:11px;">Exit</button>
-    </div>
+    
 
     <div id="auth-view" class="view active">
         <div class="auth-hero">
@@ -1984,8 +1811,8 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
         </div>
 
         <div class="auth-tabs-container">
-            <div class="auth-tab-btn active" id="auth-tab-register" onclick="appLogic.switchAuthView('register')" data-i18n="register">Register</div>
-            <div class="auth-tab-btn" id="auth-tab-login" onclick="appLogic.switchAuthView('login')" data-i18n="login">Log in</div>
+            <div class="auth-tab-btn active" id="auth-tab-register" onclick="appLogic.switchAuthView('register')">Register</div>
+            <div class="auth-tab-btn" id="auth-tab-login" onclick="appLogic.switchAuthView('login')">Log in</div>
         </div>
 
         <div class="auth-form-slot">
@@ -2001,27 +1828,27 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                             <input type="hidden" id="login-country-code" value="+359">
                         </div>
                         <div class="input-wrapper phone-number">
-                            <input type="tel" id="login-phone" placeholder="Phone Number" data-i18n-ph="phoneNumber">
+                            <input type="tel" id="login-phone" placeholder="Phone Number">
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="input-wrapper">
-                        <input type="password" id="login-password" placeholder="Password" data-i18n-ph="password" style="padding-right: 35px;">
+                        <input type="password" id="login-password" placeholder="Password" style="padding-right: 35px;">
                         <i class="fas fa-eye toggle-password" onclick="appLogic.togglePassword('login-password', this)"></i>
                     </div>
                 </div>
 
                 <button class="btn" id="btn-login" onclick="appLogic.login()">
-                    <span data-i18n="logIn">Log In</span>
+                    <span>Log In</span>
                 </button>
             </div>
 
             <div id="auth-register-form" class="auth-pane active">
                 <div class="form-group">
                     <div class="input-wrapper">
-                        <input type="text" id="reg-name" placeholder="Full Name" data-i18n-ph="fullName">
+                        <input type="text" id="reg-name" placeholder="Full Name">
                     </div>
                 </div>
 
@@ -2036,46 +1863,44 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                             <input type="hidden" id="reg-country-code" value="+359">
                         </div>
                         <div class="input-wrapper phone-number">
-                            <input type="tel" id="reg-phone" placeholder="Phone Number" data-i18n-ph="phoneNumber">
+                            <input type="tel" id="reg-phone" placeholder="Phone Number">
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="input-wrapper">
-                        <input type="text" id="reg-invite" placeholder="Invitation Code" data-i18n-ph="inviteCode" inputmode="numeric" pattern="[0-9]*">
+                        <input type="text" id="reg-invite" placeholder="Invitation Code" inputmode="numeric" pattern="[0-9]*">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="input-wrapper">
-                        <input type="password" id="reg-password" placeholder="Password (minimum 6 characters)" data-i18n-ph="passwordHint" minlength="6" style="padding-right: 35px;">
+                        <input type="password" id="reg-password" placeholder="Password (minimum 6 characters)" minlength="6" style="padding-right: 35px;">
                         <i class="fas fa-eye toggle-password" onclick="appLogic.togglePassword('reg-password', this)"></i>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="input-wrapper">
-                        <input type="password" id="reg-password-confirm" placeholder="Confirm Password" data-i18n-ph="confirmPw" minlength="6" style="padding-right: 35px;">
+                        <input type="password" id="reg-password-confirm" placeholder="Confirm Password" minlength="6" style="padding-right: 35px;">
                         <i class="fas fa-eye toggle-password" onclick="appLogic.togglePassword('reg-password-confirm', this)"></i>
                     </div>
                 </div>
 
                 <label class="checkbox-container">
-                    <input type="checkbox" id="robot-check"> <span data-i18n="notRobot">I am not a robot</span>
+                    <input type="checkbox" id="robot-check"> <span>I am not a robot</span>
                 </label>
 
                 <button class="btn" id="btn-register" onclick="appLogic.register()">
-                    <span data-i18n="registerBtn">Register</span>
+                    <span>Register</span>
                 </button>
             </div>
         </div>
     </div>
 
     <div id="dashboard-view" class="view">
-        <div id="kyc-status-btn" style="display:none; margin-bottom:16px; padding:14px 16px; border-radius:12px; cursor:pointer; text-align:center; font-weight:800; font-size:13px; letter-spacing:0.3px;" onclick="appLogic.openKycFlow()">
-            <i class="fas fa-id-card"></i> <span id="kyc-status-btn-text">KYC Verification</span>
-        </div>
+        
         <div class="dash-top-bar">
             <div class="top-bar-left">
                 <div class="avatar-wrapper">
@@ -2090,10 +1915,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                     <div class="display-id" id="display-id">ID: 00000</div>
                 </div>
 
-                <div class="admin-square-controls" id="admin-square-controls">
-                    <div class="admin-square-btn" id="btn-admin-search" style="display:none;" onclick="appLogic.openImpersonateModal()" title="Search user by ID">?</div>
-                    <div class="admin-square-btn" id="btn-admin-logout" style="display:none;" onclick="appLogic.secureLogout()" title="Logout"><i class="fas fa-right-from-bracket"></i></div>
-                </div>
+                
             </div>
 
             <div class="hamburger-wrapper" id="hamburger-wrapper">
@@ -2104,13 +1926,13 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                 <div class="hamburger-backdrop" id="hamburger-backdrop" onclick="appLogic.closeHamburgerMenu()"></div>
                 <div class="hamburger-menu" id="hamburger-menu">
                     <i class="fas fa-times" onclick="appLogic.closeHamburgerMenu()" style="position:absolute; top:22px; right:22px; font-size:22px; color:#fff; cursor:pointer;"></i>
-                    <button onclick="appLogic.hamburgerNav('dashboard')" data-i18n="dashboard">Dashboard</button>
-                    <button onclick="appLogic.hamburgerNav('packages')" data-i18n="shop">Shop</button>
-                    <button onclick="appLogic.hamburgerNav('affiliate')" data-i18n="myTeam">My Team</button>
-                    <button onclick="appLogic.hamburgerNav('checkin')" data-i18n="checkIn">Check In</button>
-                    <button onclick="appLogic.hamburgerWithdraw()" data-i18n="withdrawal">Withdrawal</button>
-                    <button onclick="appLogic.hamburgerNav('energy-plans')" data-i18n="information">Information</button>
-                    <button onclick="appLogic.hamburgerNav('profile')" data-i18n="settings">Settings</button>
+                    <button onclick="appLogic.hamburgerNav('dashboard')">Dashboard</button>
+                    <button onclick="appLogic.hamburgerNav('packages')">Shop</button>
+                    <button onclick="appLogic.hamburgerNav('affiliate')">My Team</button>
+                    <button onclick="appLogic.hamburgerNav('checkin')">Check In</button>
+                    <button onclick="appLogic.hamburgerWithdraw()">Withdrawal</button>
+                    <button onclick="appLogic.hamburgerNav('energy-plans')">Information</button>
+                    <button onclick="appLogic.hamburgerNav('profile')">Settings</button>
                 </div>
             </div>
         </div>
@@ -2151,7 +1973,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                     </div>
                     <div class="nd-divider"></div>
                     <div class="nd-text-box">
-                        <div class="nd-title" data-i18n="yourCurrentLevel">LEVEL</div>
+                        <div class="nd-title">LEVEL</div>
                         <div class="nd-subtitle" id="dash-card-level">Gold Sapphire</div>
                     </div>
                 </div>
@@ -2175,9 +1997,9 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                     </div>
                     <div class="nd-divider"></div>
                     <div class="nd-text-box">
-                        <div class="nd-title" data-i18n="activePackage" style="font-size:15px;">ACTIVE PACKAGE</div>
+                        <div class="nd-title" style="font-size:15px;">ACTIVE PACKAGE</div>
                         <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
-                            <div class="nd-subtitle" id="dash-package-name" data-i18n="noActivePackage" style="font-size:11px; text-transform:uppercase;">NO ACTIVE PACKAGE</div>
+                            <div class="nd-subtitle" id="dash-package-name" style="font-size:11px; text-transform:uppercase;">NO ACTIVE PACKAGE</div>
                             <span id="dash-more-packages" onclick="event.stopPropagation(); appLogic.openPackagesModal()" style="display:none; cursor:pointer; color:#fff; background:rgba(255,255,255,0.2); border-radius:50%; width:20px; height:20px; align-items:center; justify-content:center; font-weight:900; font-size:13px; line-height:1; flex-shrink:0;">…</span>
                         </div>
                     </div>
@@ -2196,8 +2018,8 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                 </div>
                 <div class="nd-divider"></div>
                 <div class="nd-text-box">
-                    <div class="nd-title" data-i18n="availableBalance">AVAILABLE BALANCE</div>
-                    <input type="hidden" id="dash-currency-label" value="USDT">
+                    <div class="nd-title">AVAILABLE BALANCE</div>
+                    
                     <div class="nd-value"><span id="dash-balance">0.00</span></div>
                     <div id="dash-withdrawn-flash" style="display:none; font-size:13px; font-weight:800; color:#ffdde3; margin-top:4px; letter-spacing:0.3px;"></div>
                 </div>
@@ -2215,7 +2037,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                     </div>
                     <div class="nd-divider"></div>
                     <div class="nd-text-box">
-                        <div class="nd-title" data-i18n="investment">INVESTMENT</div>
+                        <div class="nd-title">INVESTMENT</div>
                         <div class="nd-value" id="dash-invest">0.00</div>
                     </div>
                 </div>
@@ -2246,7 +2068,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                     </div>
                     <div class="nd-divider"></div>
                     <div class="nd-text-box">
-                        <div class="nd-title" data-i18n="totalProfit">TOTAL PROFIT</div>
+                        <div class="nd-title">TOTAL PROFIT</div>
                         <div class="nd-value" id="dash-total">0.00</div>
                     </div>
                 </div>
@@ -2264,7 +2086,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                     </div>
                     <div class="nd-divider"></div>
                     <div class="nd-text-box">
-                        <div class="nd-title" data-i18n="profitToday">TOTAL PROFIT<br>TODAY</div>
+                        <div class="nd-title">TOTAL PROFIT<br>TODAY</div>
                         <div class="nd-value" id="dash-today">0.00</div>
                     </div>
                 </div>
@@ -2280,7 +2102,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                     </div>
                     <div class="nd-divider"></div>
                     <div class="nd-text-box">
-                        <div class="nd-title" data-i18n="profitYesterday">TOTAL PROFIT<br>YESTERDAY</div>
+                        <div class="nd-title">TOTAL PROFIT<br>YESTERDAY</div>
                         <div class="nd-value" id="dash-yesterday">0.00</div>
                     </div>
                 </div>
@@ -2293,20 +2115,20 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
         <button class="back-btn close-btn" onclick="appLogic.navTo('dashboard')"><i class="fas fa-times"></i></button>
 
         <div id="support-chat-box" style="background: rgba(255,255,255,0.06); border:1px solid rgba(255,215,0,0.4); border-radius: 16px; padding: 15px; min-height: 320px; max-height: 50vh; overflow-y: auto; margin-bottom: 15px; margin-top: 48px; display:flex; flex-direction:column; gap:10px;">
-            <p style="text-align:center; color:rgba(255,255,255,0.7); font-size:12px;" data-i18n="chatStart" id="support-empty-hint">Start a conversation or pick a topic below.</p>
+            <p style="text-align:center; color:rgba(255,255,255,0.7); font-size:12px;" id="support-empty-hint">Start a conversation or pick a topic below.</p>
         </div>
 
         <div id="support-presets" style="display:flex; flex-direction:column; gap:8px; margin-bottom:15px;">
-            <button class="btn btn-settings-outline" style="font-size:12px; padding:12px; text-align:left;" onclick="appLogic.sendPreset('forgotPassword')" data-i18n="presetForgotPw">I forgot my password to log into my account.</button>
-            <button class="btn btn-settings-outline" style="font-size:12px; padding:12px; text-align:left;" onclick="appLogic.sendPreset('forgotPin')" data-i18n="presetForgotPin">I forgot my withdrawal PIN code.</button>
-            <button class="btn btn-settings-outline" style="font-size:12px; padding:12px; text-align:left;" onclick="appLogic.sendPreset('withdrawNotApproved')" data-i18n="presetWithdraw">Withdrawal request not approved</button>
-            <button class="btn btn-settings-outline" style="font-size:12px; padding:12px; text-align:left;" onclick="appLogic.sendPreset('packageMissing')" data-i18n="presetPackage">I purchased an investment package but I don't see it.</button>
-            <button class="btn btn-settings-outline" style="font-size:12px; padding:12px; text-align:left;" onclick="appLogic.sendPreset('somethingElse')" data-i18n="presetOther">Something else</button>
+            <button class="btn btn-settings-outline" style="font-size:12px; padding:12px; text-align:left;" onclick="appLogic.sendPreset('I forgot my password to log into my account.')">I forgot my password to log into my account.</button>
+            <button class="btn btn-settings-outline" style="font-size:12px; padding:12px; text-align:left;" onclick="appLogic.sendPreset('I forgot my withdrawal PIN code.')">I forgot my withdrawal PIN code.</button>
+            <button class="btn btn-settings-outline" style="font-size:12px; padding:12px; text-align:left;" onclick="appLogic.sendPreset('My withdrawal request was not approved.')">Withdrawal request not approved</button>
+            <button class="btn btn-settings-outline" style="font-size:12px; padding:12px; text-align:left;" onclick="appLogic.sendPreset('I purchased an investment package but I don\'t see it.')">I purchased an investment package but I don't see it.</button>
+            <button class="btn btn-settings-outline" style="font-size:12px; padding:12px; text-align:left;" onclick="appLogic.sendPreset('I have another question.')">Something else</button>
         </div>
 
         <div style="display:flex; gap:10px; align-items:center;">
             <div class="input-wrapper" style="flex:1; margin:0; padding:6px 14px;">
-                <input type="text" id="support-chat-input" data-i18n-ph="typeMessage" placeholder="Type a message..." onkeydown="if(event.key==='Enter'){appLogic.sendChatMessage();}">
+                <input type="text" id="support-chat-input" placeholder="Type a message..." onkeydown="if(event.key==='Enter'){appLogic.sendChatMessage();}">
             </div>
             <button class="btn btn-invest" style="width:auto; padding:14px 18px;" onclick="appLogic.sendChatMessage()">
                 <i class="fas fa-paper-plane"></i>
@@ -2320,18 +2142,18 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
 
         <div style="background-color:#000000; background-image:none; border: 1.5px solid #C7CDD4; border-radius: 16px; padding: 18px; margin-bottom: 16px; margin-top: 48px;">
             <div id="withdraw-wallet-line" style="text-align:center; font-family:monospace; font-size:13px; font-weight:800; color:#ffffff; margin-bottom:14px; word-break:break-all; display:none;"></div>
-            <p style="font-size:12px; margin-bottom:12px; font-weight:bold; text-align:center; color:#ffffff;" data-i18n="selectAmount">Select Amount</p>
+            <p style="font-size:12px; margin-bottom:12px; font-weight:bold; text-align:center; color:#ffffff;">Select Amount</p>
             <div class="amount-grid" id="withdraw-amount-grid"></div>
             <input type="hidden" id="selected-withdraw-amt" value="10">
         </div>
 
         <div style="background-color:#000000; background-image:none; border: 1.5px solid #C7CDD4; border-radius: 16px; padding: 16px; margin-bottom: 16px; text-align: center;">
-            <span style="font-size: 13px; font-weight: bold; color: #ffffff; display:block; margin-bottom:6px;"><span data-i18n="withdrawalFee">Withdrawal Fee</span>: <span id="withdraw-fee-text">10%</span></span>
-            <span style="font-size: 14px; font-weight: 900; color: #ffffff;"><span data-i18n="youWillReceive">You will receive</span>: <span id="withdraw-net-amount"></span></span>
+            <span style="font-size: 13px; font-weight: bold; color: #ffffff; display:block; margin-bottom:6px;"><span>Withdrawal Fee</span>: <span id="withdraw-fee-text">10%</span></span>
+            <span style="font-size: 14px; font-weight: 900; color: #ffffff;"><span>You will receive</span>: <span id="withdraw-net-amount"></span></span>
         </div>
 
         <div style="background-color:#000000; background-image:none; border: 1.5px solid #C7CDD4; border-radius: 16px; padding: 18px; margin-bottom: 16px;">
-            <p style="font-size:12px; color:#ffffff; margin-bottom:14px; font-weight:bold; text-align:center;" data-i18n="enterPin">Enter 6-digit PIN</p>
+            <p style="font-size:12px; color:#ffffff; margin-bottom:14px; font-weight:bold; text-align:center;">Enter 6-digit PIN</p>
             <div class="pin-grid" id="withdraw-pin-grid">
                 <input type="password" inputmode="numeric" class="pin-box" maxlength="1" onkeyup="appLogic.movePin(this, 1)">
                 <input type="password" inputmode="numeric" class="pin-box" maxlength="1" onkeyup="appLogic.movePin(this, 2)">
@@ -2343,112 +2165,45 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
         </div>
 
         <button class="btn" id="btn-withdraw" onclick="appLogic.withdraw()" style="background: linear-gradient(135deg, #6B0011 0%, #B11226 55%, #E11D2E 100%); color:#fff; border:1.5px solid #C7CDD4; box-shadow:0 4px 12px rgba(177,18,38,0.4);">
-            <span data-i18n="withdrawal">Withdrawal</span>
+            <span>Withdrawal</span>
         </button>
     </div>
 
     <div id="packages-modal" class="modal-overlay">
         <div class="modal-content">
             <span class="close-modal-x" onclick="appLogic.closeModal('packages-modal')">&times;</span>
-            <h3 style="margin-bottom:6px; text-align:center;" data-i18n="myActivePackages">My Active Packages</h3>
-            <p style="font-size:12px; text-align:center; margin-bottom:16px;" data-i18n="allActivePackages">All your active investment packages</p>
+            <h3 style="margin-bottom:6px; text-align:center;">My Active Packages</h3>
+            <p style="font-size:12px; text-align:center; margin-bottom:16px;">All your active investment packages</p>
             <div id="packages-modal-list" style="max-height:55vh; overflow-y:auto;">
                 <p style="font-size:12px; text-align:center;">Loading...</p>
             </div>
         </div>
     </div>
 
-    <div id="chat-support-modal" class="modal-overlay">
-        <div class="modal-content" style="display:flex; flex-direction:column; height:88vh; max-height:88vh;">
-            <span class="close-modal-x" onclick="appLogic.closeModal('chat-support-modal')">&times;</span>
-            <h3 style="margin-bottom:14px; text-align:center;"><i class="fas fa-comments"></i> <span data-i18n="chatSupport">Chat Support</span></h3>
-            <div style="display:flex; gap:8px; margin-bottom:14px;">
-                <button id="chat-tab-unread" class="btn" style="flex:1; padding:10px; font-size:13px; background:#8B001A; color:#fff; border:none;" onclick="appLogic.switchChatTab('unread')" data-i18n="noSeen">No seen</button>
-                <button id="chat-tab-read" class="btn" style="flex:1; padding:10px; font-size:13px; background:#15803d; color:#fff; border:none;" onclick="appLogic.switchChatTab('read')" data-i18n="seen">Seen</button>
-            </div>
-            <div id="chat-unread-list" style="flex:1; overflow-y:auto;"><p style="font-size:12px; color:#888; text-align:center;" data-i18n="noChats">No chats</p></div>
-            <div id="chat-read-list" style="flex:1; overflow-y:auto; display:none;"><p style="font-size:12px; color:#888; text-align:center;" data-i18n="noChats">No chats</p></div>
-        </div>
-    </div>
+    
 
-    <div id="transactions-modal" class="modal-overlay">
-        <div class="modal-content" style="display:flex; flex-direction:column; height:88vh; max-height:88vh;">
-            <span class="close-modal-x" onclick="appLogic.closeModal('transactions-modal')">&times;</span>
-            <h3 style="margin-bottom:14px; text-align:center;"><i class="fas fa-exchange-alt"></i> <span data-i18n="transactions">Transactions</span></h3>
-            <div style="display:flex; gap:8px; margin-bottom:14px;">
-                <button id="tx-tab-pending" class="btn" style="flex:1; padding:10px; font-size:13px; background:#8B001A; color:#fff; border:none;" onclick="appLogic.switchTxTab('pending')" data-i18n="pending">Pending</button>
-                <button id="tx-tab-completed" class="btn" style="flex:1; padding:10px; font-size:13px; background:#15803d; color:#fff; border:none;" onclick="appLogic.switchTxTab('completed')" data-i18n="completed">Completed</button>
-            </div>
-            <div id="tx-list" style="flex:1; overflow-y:auto;">
-                <p style="font-size:12px; text-align:center; color:#cdd8ec;" data-i18n="noTransactions">No transactions yet</p>
-            </div>
-        </div>
-    </div>
+    
 
     <div id="team-overview-modal" class="modal-overlay">
         <div class="modal-content">
             <span class="close-modal-x" onclick="appLogic.closeModal('team-overview-modal')">&times;</span>
-            <h3 style="margin-bottom:6px; text-align:center;"><i class="fas fa-users"></i> <span data-i18n="teamOverview">Team Overview</span></h3>
-            <p style="font-size:12px; text-align:center; margin-bottom:16px;" id="team-overview-sub" data-i18n="invitedByThis">Members invited by this person</p>
+            <h3 style="margin-bottom:6px; text-align:center;"><i class="fas fa-users"></i> <span>Team Overview</span></h3>
+            <p style="font-size:12px; text-align:center; margin-bottom:16px;" id="team-overview-sub">Members invited by this person</p>
             <div id="team-overview-list" style="max-height:55vh; overflow-y:auto;">
                 <p style="font-size:12px; text-align:center;">Loading...</p>
             </div>
         </div>
     </div>
 
-    <div id="report-modal" class="modal-overlay" style="background: rgba(10,29,58,0.85);">
-        <div class="modal-content text-center" style="background-color:#000000; background-image:none; border: 1.5px solid #FFD700;">
-            <span class="close-modal-x" onclick="appLogic.closeModal('report-modal')" style="color:#ffffff;">&times;</span>
-            <h3 style="margin-bottom: 6px; color:#ffffff;"><i class="fas fa-chart-line"></i> Admin Info</h3>
-            <p style="font-size:11px; color:rgba(255,255,255,0.7); margin-bottom:18px;">Last 24 hours overview</p>
+    
 
-            <div style="display:flex; flex-direction:column; gap:12px;">
-                <div style="background-color:#000000; background-image: radial-gradient(circle at top left, rgba(80,140,255,0.3) 0%, transparent 60%); border:1.5px solid #FFD700; border-radius:12px; padding:16px; text-align:left;">
-                    <div style="font-size:11px; color:rgba(255,255,255,0.75); font-weight:700; text-transform:uppercase;" data-i18n="newUsers24h">New users (24h)</div>
-                    <div style="font-size:26px; font-weight:900; color:#ffffff;" id="report-newusers">0</div>
-                </div>
-                <div style="background-color:#000000; background-image: radial-gradient(circle at top left, rgba(80,140,255,0.3) 0%, transparent 60%); border:1.5px solid #FFD700; border-radius:12px; padding:16px; text-align:left;">
-                    <div style="font-size:11px; color:rgba(255,255,255,0.75); font-weight:700; text-transform:uppercase;" data-i18n="moneyToTransfer">Money to be transferred</div>
-                    <div style="font-size:26px; font-weight:900; color:#ffffff;" id="report-pending">0.00 USDT</div>
-                </div>
-                <div style="background-color:#000000; background-image: radial-gradient(circle at top left, rgba(80,140,255,0.3) 0%, transparent 60%); border:1.5px solid #FFD700; border-radius:12px; padding:16px; text-align:left;">
-                    <div style="font-size:11px; color:rgba(255,255,255,0.75); font-weight:700; text-transform:uppercase;" data-i18n="moneyTransferred">Money transferred</div>
-                    <div style="font-size:26px; font-weight:900; color:#ffffff;" id="report-paid">0.00 USDT</div>
-                </div>
-                <div style="background-color:#000000; background-image: radial-gradient(circle at top left, rgba(80,140,255,0.3) 0%, transparent 60%); border:1.5px solid #FFD700; border-radius:12px; padding:16px; text-align:left;">
-                    <div style="font-size:11px; color:rgba(255,255,255,0.75); font-weight:700; text-transform:uppercase;" data-i18n="totalUserBalances">Total user balances</div>
-                    <div style="font-size:26px; font-weight:900; color:#ffffff;" id="report-balances">0.00 USDT</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="impersonate-modal" class="modal-overlay">
-        <div class="modal-content" style="text-align:left;">
-            <span class="close-modal-x" onclick="appLogic.closeModal('impersonate-modal')">&times;</span>
-
-            <div style="display:flex; align-items:center; gap:8px; margin:14px 0 16px; background:rgba(255,255,255,0.06); border:1.5px solid #C7CDD4; border-radius:10px; padding:10px 14px;">
-                <i class="fas fa-search" style="color:#C7CDD4; font-size:15px;"></i>
-                <input type="text" id="impersonate-id" inputmode="numeric" pattern="[0-9]*" placeholder="Search by ID" oninput="appLogic.filterImpersonateList()" style="flex:1; background:transparent; border:none; color:#fff; outline:none; height:24px; line-height:24px;">
-                <i class="fas fa-arrow-right" onclick="appLogic.impersonateUser()" style="color:#FFD700; font-size:15px; cursor:pointer;"></i>
-            </div>
-
-            <div style="display:flex; gap:8px; margin-bottom:14px;">
-                <button id="imp-tab-invested" onclick="appLogic.switchImpersonateTab('invested')" style="flex:1; padding:10px; border-radius:8px; border:1px solid #FFD700; background:#FFD700; color:#000000; font-weight:800; font-size:12px; cursor:pointer;">Invested</button>
-                <button id="imp-tab-notinvested" onclick="appLogic.switchImpersonateTab('notinvested')" style="flex:1; padding:10px; border-radius:8px; border:1px solid #C7CDD4; background:transparent; color:#fff; font-weight:800; font-size:12px; cursor:pointer;">Not Invested</button>
-            </div>
-
-            <div id="impersonate-list" style="max-height:340px; overflow-y:auto; display:flex; flex-direction:column; gap:8px;">
-                <p style="color:#C7CDD4; font-size:12px; text-align:center;">Loading...</p>
-            </div>
-        </div>
-    </div>
+    
 
     <div id="verification-modal" class="modal-overlay">
         <div class="modal-content text-center">
             <span class="close-modal-x" onclick="appLogic.closeModal('verification-modal')">&times;</span>
             <i class="fas fa-shield-alt" style="font-size: 40px; color: var(--text-gray); margin-bottom: 15px;"></i>
-            <h3 style="margin-bottom: 15px;" data-i18n="verifyRequired">Account Verification Required</h3>
+            <h3 style="margin-bottom: 15px;">Account Verification Required</h3>
             <p style="font-size: 13px; color: var(--text-gray); margin-bottom: 20px; line-height: 1.5;">
                 You must send exactly <strong id="verify-amt-txt">50 USDT</strong> to the crypto address below in order to verify your account and unlock your withdrawals.
             </p>
@@ -2457,7 +2212,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                 0x4490f7dDCd1c2dC32C8592bea599ef61BeebB74F
             </div>
 
-            <button class="btn" style="background:#6B0011; color:#fff; border:none;" onclick="appLogic.copyVerifyAddress()" data-i18n="copyAddress">Copy Address</button>
+            <button class="btn" style="background:#6B0011; color:#fff; border:none;" onclick="appLogic.copyVerifyAddress()">Copy Address</button>
         </div>
     </div>
 
@@ -2494,7 +2249,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
     <div id="shop-calc-modal" class="modal-overlay">
         <div class="modal-content">
             <span class="close-modal-x" onclick="appLogic.closeModal('shop-calc-modal')">&times;</span>
-            <h3 style="margin-bottom: 20px; text-align: center; text-transform: capitalize;" data-i18n="profitCalculator">Profit Calculator</h3>
+            <h3 style="margin-bottom: 20px; text-align: center; text-transform: capitalize;">Profit Calculator</h3>
             <div class="form-group">
                 <div class="input-wrapper" style="cursor:pointer;" onclick="appLogic.openCalcPackagePicker()">
                     <div style="display:flex; align-items:center; gap:8px; width:100%; color:#ffffff; font-weight:700;">
@@ -2518,7 +2273,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                     <input type="number" inputmode="numeric" pattern="[0-9]*" id="shop-calc-days" placeholder="Number of Days" value="30">
                 </div>
             </div>
-            <button class="btn" style="background:#000000 !important; color:#ffffff !important; border:1.5px solid #C7CDD4 !important; text-shadow:none !important; box-shadow:0 4px 12px rgba(0,0,0,0.3), 0 0 8px rgba(199,205,212,0.35) !important;" onclick="appLogic.calculateShopProfit()" data-i18n="calculate">Calculate</button>
+            <button class="btn" style="background:#000000 !important; color:#ffffff !important; border:1.5px solid #C7CDD4 !important; text-shadow:none !important; box-shadow:0 4px 12px rgba(0,0,0,0.3), 0 0 8px rgba(199,205,212,0.35) !important;" onclick="appLogic.calculateShopProfit()">Calculate</button>
             <div class="calc-box" style="margin-top: 20px; display: none;" id="shop-calc-result-box">
                 <div style="font-size: 12px; color: var(--text-gray); font-weight: bold; text-align: center;">Net Profit:</div>
                 <div class="calc-result"><span id="shop-calc-net">0.00</span></div>
@@ -2529,7 +2284,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
     <div id="payment-modal" class="modal-overlay" style="background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none;">
         <div class="modal-content text-center" style="background-color:#000000; background-image:none; border: 2px solid transparent; border-image: linear-gradient(135deg, #f4f7fa 0%, #c7cdd4 30%, #8f979f 55%, #eef2f6 80%, #b8bec6 100%) 1; box-shadow: 0 0 22px rgba(199,205,212,0.35), 0 18px 50px rgba(0,0,0,0.55);">
             <span class="close-modal-x" style="color: #C7CDD4; left: 20px; right: auto;" onclick="appLogic.closeModal('payment-modal')">&times;</span>
-            <h3 style="margin-bottom: 20px; color: #ffffff; text-transform: uppercase;" data-i18n="depositToInvest">Deposit to Invest</h3>
+            <h3 style="margin-bottom: 20px; color: #ffffff; text-transform: uppercase;">Deposit to Invest</h3>
             <p id="modal-pkg-name" style="color: #C7CDD4; font-size: 15px; font-weight: 800; margin-bottom: 20px;">Package</p>
             <input type="hidden" id="modal-pkg-raw-name">
 
@@ -2551,13 +2306,13 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                 <div style="background: rgba(255,255,255,0.06); padding: 15px; border-radius: 10px; border: 1px solid rgba(199,205,212,0.4); text-align: left;">
                     <p style="font-size: 14px; font-weight: bold; margin-bottom: 5px; color: #ffffff;">USDT (ERC20)</p>
                     <p style="font-size: 11px; font-family: monospace; word-break: break-all; margin-bottom: 10px; color: #C7CDD4;">0xb757dD4d892c7ac47A803e8A0490857771747aB5</p>
-                    <button class="btn" style="background:#000000; color:#ffffff; padding: 10px; font-size: 12px; width: 100%; border:1.5px solid #C7CDD4;" onclick="appLogic.copySpecificAddress('0xb757dD4d892c7ac47A803e8A0490857771747aB5')" data-i18n="copyAddress">Copy Address</button>
+                    <button class="btn" style="background:#000000; color:#ffffff; padding: 10px; font-size: 12px; width: 100%; border:1.5px solid #C7CDD4;" onclick="appLogic.copySpecificAddress('0xb757dD4d892c7ac47A803e8A0490857771747aB5')">Copy Address</button>
                 </div>
 
                 <div style="background: rgba(255,255,255,0.06); padding: 15px; border-radius: 10px; border: 1px solid rgba(199,205,212,0.4); text-align: left;">
                     <p style="font-size: 14px; font-weight: bold; margin-bottom: 5px; color: #ffffff;">USDT (TRC20)</p>
                     <p style="font-size: 11px; font-family: monospace; word-break: break-all; margin-bottom: 10px; color: #C7CDD4;">TVNxLugPKdsKF8ETgXxze7mrqBvfn7xUKt</p>
-                    <button class="btn" style="background:#000000; color:#ffffff; padding: 10px; font-size: 12px; width: 100%; border:1.5px solid #C7CDD4;" onclick="appLogic.copySpecificAddress('TVNxLugPKdsKF8ETgXxze7mrqBvfn7xUKt')" data-i18n="copyAddress">Copy Address</button>
+                    <button class="btn" style="background:#000000; color:#ffffff; padding: 10px; font-size: 12px; width: 100%; border:1.5px solid #C7CDD4;" onclick="appLogic.copySpecificAddress('TVNxLugPKdsKF8ETgXxze7mrqBvfn7xUKt')">Copy Address</button>
                 </div>
             </div>
         </div>
@@ -2566,7 +2321,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
     <div id="affiliate-view" class="view">
         <button class="back-btn close-btn" onclick="appLogic.navTo('dashboard')"><i class="fas fa-times"></i></button>
         <div class="card" style="margin-top: 48px;">
-            <h3 style="font-size: 15px; margin-bottom: 15px; text-transform: capitalize; text-align: center; color:#c0c0c0;" data-i18n="partnershipLevels">Partnership Levels</h3>
+            <h3 style="font-size: 15px; margin-bottom: 15px; text-transform: capitalize; text-align: center; color:#c0c0c0;">Partnership Levels</h3>
 
             <div class="tl-row">
                 <div class="tl-gem"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="29" fill="#0c0d10" stroke="#e6b95e" stroke-width="3"/><circle cx="32" cy="32" r="21" fill="#1d2f7a"/><polygon points="32,13 45,22 48,36 39,49 25,49 16,36 19,22" fill="#3a5cd6"/><polygon points="32,13 39,30 32,44 25,30" fill="#6d8df2"/><polygon points="19,22 32,26 25,30" fill="#2c48b0"/><polygon points="45,22 39,30 32,26" fill="#8fa8f7"/><circle cx="26" cy="21" r="3.4" fill="#ffffff" opacity="0.85"/></svg></div>
@@ -2604,64 +2359,45 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                     <i class="fas fa-share-nodes" style="font-size:17px;"></i>
                 </button>
                 <button class="btn" style="flex:1; background: transparent; color: #ffffff; border: 1.5px solid #FFD700;" onclick="appLogic.copyInviteLink()">
-                    <i class="fas fa-link"></i> <span data-i18n="copyInviteLink">Copy Invitation Link</span>
+                    <i class="fas fa-link"></i> <span>Copy Invitation Link</span>
                 </button>
             </div>
         </div>
 
         <div class="card">
-            <h3 style="font-size: 15px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 12px; margin-bottom: 15px; text-transform: capitalize; color:#ffffff;" data-i18n="teamStatistics">Team Statistics</h3>
+            <h3 style="font-size: 15px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 12px; margin-bottom: 15px; text-transform: capitalize; color:#ffffff;">Team Statistics</h3>
             <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
                 <div style="text-align: center; width: 48%; background-color:#000000; background-image:none; padding: 15px 5px; border-radius: 8px; border: 1.5px solid #FFD700;">
-                    <div style="font-size: 11px; color: #ffffff; font-weight: 700;" data-i18n="totalUsers">Total Users</div>
+                    <div style="font-size: 11px; color: #ffffff; font-weight: 700;">Total Users</div>
                     <div style="font-size: 22px; font-weight: 900; margin-top: 8px; color: #ffffff;" id="affiliate-team-size">0</div>
                 </div>
                 <div style="text-align: center; width: 48%; background-color:#000000; background-image:none; padding: 15px 5px; border-radius: 8px; border: 1.5px solid #FFD700;">
-                    <div style="font-size: 11px; color: #ffffff; font-weight: 700;" data-i18n="totalEarned">Total Earned</div>
+                    <div style="font-size: 11px; color: #ffffff; font-weight: 700;">Total Earned</div>
                     <div style="font-size: 22px; font-weight: 900; margin-top: 8px; color: #ffffff;"><span id="affiliate-earned">0.00</span></div>
                 </div>
             </div>
         </div>
 
         <div class="card">
-            <h4 style="font-size: 14px; margin-bottom: 15px; text-transform: capitalize; font-weight: 900; color:#ffffff;" data-i18n="myTeamMembers">My Team Members</h4>
+            <h4 style="font-size: 14px; margin-bottom: 15px; text-transform: capitalize; font-weight: 900; color:#ffffff;">My Team Members</h4>
             <div id="team-list">
                 <p style="color:rgba(255,255,255,0.6); font-size:12px; text-align:center;">Loading team data...</p>
             </div>
         </div>
     </div>
 
-    <div id="calendar-modal" class="modal-overlay">
-        <div class="modal-content" style="padding-top: 35px; position: relative;">
-            <span class="close-modal-x" style="left: 20px; right: auto;" onclick="appLogic.closeModal('calendar-modal')">&times;</span>
-            <h3 style="margin-bottom: 10px; font-size: 18px; text-transform: capitalize; text-align: center;">365 Days Challenge</h3>
-            <p style="color: var(--text-gray); font-size: 12px; margin-bottom: 20px; font-weight: 700; text-align: center;" data-i18n="checkInDaily">Check in daily to unlock rewards!</p>
-
-            <div class="calendar-grid" id="calendar-grid"></div>
-
-            <button class="btn" id="btn-checkin" onclick="appLogic.checkIn()" style="margin-bottom: 20px;">
-                Check In Now
-            </button>
-
-            <div class="rewards-text">
-                <p data-i18n="reward7">💵 Log in for a total of 7 days to get a 5 USDT Bonus!</p>
-                <p data-i18n="reward40">📉 Log in for 40 days to get -5% withdrawal fee</p>
-                <p data-i18n="reward180">☀️ Log in for 180 days to get free SOLAR START</p>
-                <p data-i18n="reward365">📱 Log in for 365 days to get a new iPhone 17 Pro Max</p>
-            </div>
-        </div>
-    </div>
+    
 
     <div id="checkin-view" class="view">
         <button class="back-btn close-btn" onclick="appLogic.navTo('dashboard')"><i class="fas fa-times"></i></button>
         <div style="text-align:center; margin-bottom:8px;">
-            <p style="font-size:14px; font-weight:800; color:#ffffff; margin-bottom:4px;" data-i18n="sequentialCheckin">Sequential check-in</p>
+            <p style="font-size:14px; font-weight:800; color:#ffffff; margin-bottom:4px;">Sequential check-in</p>
             <div id="sequential-checkin-count" style="font-size:64px; font-weight:900; color:#FFD700; line-height:1;">0</div>
         </div>
 
         <div class="calendar-grid" id="checkin-view-grid"></div>
 
-        <button class="btn" id="btn-checkin-view" onclick="appLogic.checkIn()" style="margin-bottom: 20px; background:#6B0011; color:#fff; border:none;" data-i18n="checkInNow">
+        <button class="btn" id="btn-checkin-view" onclick="appLogic.checkIn()" style="margin-bottom: 20px; background:#6B0011; color:#fff; border:none;">
             Check In Now
         </button>
 
@@ -2675,7 +2411,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
 
     <div id="energy-plans-view" class="view">
         <button class="back-btn close-btn" onclick="appLogic.navTo('dashboard')"><i class="fas fa-times"></i></button>
-        <button onclick="window.open('https://docs.google.com/document/d/1ybBIPgAr_T0BC_EPkL774pThAGT7uVISC2mLL3Gwiqk/edit?usp=drivesdk', '_blank')" style="display:block; width:100%; margin:48px 0 18px; padding:14px; background-color:#000000; background-image:none; color:#ffffff; border:1.5px solid #C7CDD4; border-radius:12px; font-weight:800; font-size:15px; cursor:pointer;" data-i18n="seeMore">See more</button>
+        <button onclick="window.open('https://docs.google.com/document/d/1ybBIPgAr_T0BC_EPkL774pThAGT7uVISC2mLL3Gwiqk/edit?usp=drivesdk', '_blank')" style="display:block; width:100%; margin:48px 0 18px; padding:14px; background-color:#000000; background-image:none; color:#ffffff; border:1.5px solid #C7CDD4; border-radius:12px; font-weight:800; font-size:15px; cursor:pointer;">See more</button>
 
             <style>
 
@@ -2683,7 +2419,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
 </style>
 
         <div id="solarfarm-map"></div>
-        <button class="btn" style="background-color:#000000 !important; background-image: radial-gradient(circle at top left, rgba(80,140,255,0.35) 0%, transparent 60%), radial-gradient(circle at bottom right, rgba(30,60,120,0.5) 0%, transparent 65%) !important; color:#fff !important; border:1.5px solid #C7CDD4 !important;" onclick="appLogic.findSolarFarm()" data-i18n="findSolarFarm">Find Solar Power</button>
+        <button class="btn" style="background-color:#000000 !important; background-image: radial-gradient(circle at top left, rgba(80,140,255,0.35) 0%, transparent 60%), radial-gradient(circle at bottom right, rgba(30,60,120,0.5) 0%, transparent 65%) !important; color:#fff !important; border:1.5px solid #C7CDD4 !important;" onclick="appLogic.findSolarFarm()">Find Solar Power</button>
 
     </div>
 
@@ -2694,7 +2430,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
 
     <div id="solarfarm-view" class="view">
         <button class="back-btn close-btn" onclick="appLogic.navTo('dashboard')"><i class="fas fa-times"></i></button>
-        <h2 style="text-transform: capitalize; text-align: center; margin-bottom: 20px;" data-i18n="solarFarm">Solar Power</h2>
+        <h2 style="text-transform: capitalize; text-align: center; margin-bottom: 20px;">Solar Power</h2>
     </div>
 
     <div id="profile-view" class="view">
@@ -2703,7 +2439,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
         <div style="margin-top:40px;"></div>
 
         <div class="card" style="text-align: center;">
-            <h4 style="font-size: 15px; margin-bottom: 15px; font-weight: 900; color:#ffffff;" data-i18n="selectCurrency">Select a currency</h4>
+            <h4 style="font-size: 15px; margin-bottom: 15px; font-weight: 900; color:#ffffff;">Select a currency</h4>
             <div class="input-wrapper" style="margin-bottom: 15px; cursor:pointer;" onclick="appLogic.openCurrencyPicker()">
                 <div id="currency-display" style="display:flex; align-items:center; gap:8px; width:100%; color:#ffffff; font-weight:700;">
                     <span id="currency-display-text">USDT</span>
@@ -2714,15 +2450,15 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
         </div>
 
         <div class="card" style="text-align: center;">
-            <h4 style="font-size: 15px; margin-bottom: 15px; font-weight: 900; color:#ffffff;" data-i18n="addCryptoWallet">Add a crypto wallet</h4>
+            <h4 style="font-size: 15px; margin-bottom: 15px; font-weight: 900; color:#ffffff;">Add a crypto wallet</h4>
             <div id="saved-wallet-display" style="display:none; background-color:#000000; background-image:none; color:#ffffff; border: 1.5px solid #C7CDD4; border-radius:8px; padding:10px; margin-bottom:12px; font-size:12px; font-weight:700; word-break:break-all;"></div>
             <div id="wallet-change-pin-wrapper" style="display:none; margin-bottom:12px;">
-                <p style="font-size:11px; color:var(--text-gray); margin-bottom:8px;"><span data-i18n="changeWalletPin">Enter your withdrawal PIN to change wallet address:</span></p>
+                <p style="font-size:11px; color:var(--text-gray); margin-bottom:8px;"><span>Enter your withdrawal PIN to change wallet address:</span></p>
                 <div class="input-wrapper" style="margin-bottom:10px;">
                     <input type="password" id="wallet-change-pin" placeholder="6-digit PIN" inputmode="numeric" maxlength="6">
                 </div>
-                <button class="btn btn-settings-outline" style="margin-bottom:8px;" onclick="appLogic.verifyWalletPin()" data-i18n="verifyPin">Verify PIN</button>
-                <button class="btn btn-settings-outline" onclick="appLogic.cancelWalletChange()" data-i18n="cancel">Cancel</button>
+                <button class="btn btn-settings-outline" style="margin-bottom:8px;" onclick="appLogic.verifyWalletPin()">Verify PIN</button>
+                <button class="btn btn-settings-outline" onclick="appLogic.cancelWalletChange()">Cancel</button>
             </div>
             <div id="wallet-input-wrapper" style="margin-bottom:12px;">
                 <div class="input-wrapper" style="margin-bottom:10px;">
@@ -2733,8 +2469,8 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
         </div>
 
         <div class="card" style="text-align: center;">
-            <h4 style="font-size: 15px; margin-bottom: 15px; font-weight: 900; color:#ffffff;" data-i18n="securitySettings">Security Settings</h4>
-            <p style="font-size: 12px; color: #ffffff; margin-bottom: 15px;" data-i18n="setupPinDesc">Set up a 6-digit PIN code required for withdrawals.</p>
+            <h4 style="font-size: 15px; margin-bottom: 15px; font-weight: 900; color:#ffffff;">Security Settings</h4>
+            <p style="font-size: 12px; color: #ffffff; margin-bottom: 15px;">Set up a 6-digit PIN code required for withdrawals.</p>
             <div class="input-wrapper" style="margin-bottom: 15px;" id="prof-old-pin-wrapper">
                 <input type="password" id="prof-old-pin" placeholder="Current PIN" inputmode="numeric" maxlength="6" minlength="6" style="padding-right: 35px;">
                 <i class="fas fa-eye toggle-password" onclick="appLogic.togglePassword('prof-old-pin', this)"></i>
@@ -2743,13 +2479,13 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                 <input type="password" id="prof-setup-pin" placeholder="Enter new 6-digit PIN" inputmode="numeric" maxlength="6" minlength="6" style="padding-right: 35px;">
                 <i class="fas fa-eye toggle-password" onclick="appLogic.togglePassword('prof-setup-pin', this)"></i>
             </div>
-            <button class="btn" style="background-color:#000000; background-image:none; border: 1.5px solid #FFD700 !important; color:#ffffff !important;" onclick="appLogic.setupPin()" data-i18n="setupPin">
+            <button class="btn" style="background-color:#000000; background-image:none; border: 1.5px solid #FFD700 !important; color:#ffffff !important;" onclick="appLogic.setupPin()">
                 Setup Withdrawal PIN
             </button>
         </div>
 
         <div class="card" style="text-align: center;">
-            <h4 style="font-size: 15px; margin-bottom: 15px; font-weight: 900; color:#ffffff;" data-i18n="changePassword">Change Password</h4>
+            <h4 style="font-size: 15px; margin-bottom: 15px; font-weight: 900; color:#ffffff;">Change Password</h4>
             <div class="input-wrapper" style="margin-bottom: 15px;">
                 <input type="password" id="prof-old-pass" placeholder="Current Password" style="padding-right: 35px;">
                 <i class="fas fa-eye toggle-password" onclick="appLogic.togglePassword('prof-old-pass', this)"></i>
@@ -2758,14 +2494,12 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                 <input type="password" id="prof-new-pass" placeholder="New Password" style="padding-right: 35px;">
                 <i class="fas fa-eye toggle-password" onclick="appLogic.togglePassword('prof-new-pass', this)"></i>
             </div>
-            <button class="btn" style="background-color:#000000; background-image:none; border: 1.5px solid #FFD700 !important; color:#ffffff !important;" onclick="appLogic.changePassword()" data-i18n="updatePassword">
+            <button class="btn" style="background-color:#000000; background-image:none; border: 1.5px solid #FFD700 !important; color:#ffffff !important;" onclick="appLogic.changePassword()">
                 Update Password
             </button>
         </div>
 
-        <button class="btn" id="btn-logout" onclick="appLogic.secureLogout()" style="display:none; margin-bottom: 20px; background: transparent !important; color: var(--error-red) !important; border: 1px solid var(--error-red) !important; box-shadow: none !important;" data-i18n="logout">
-            Logout
-        </button>
+        
     </div>
 
 </div>
@@ -3215,9 +2949,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
         dynamicStock: {},
         serverTimeReady: false,
         currentCurrency: localStorage.getItem('appCurrency') || 'USDT',
-        currentLang: localStorage.getItem('appLang') || 'en',
         init() {
-            try { this.applyImpersonation(); } catch(e) {}
             try { this.renderAvatarOptions(); } catch(e) {}
             try { this.initServerTime(); } catch(e) {}
             try { this.trackSession(); } catch(e) {}
@@ -3227,9 +2959,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                 const _cd = document.getElementById('currency-display-text');
                 if (_cd) { const _m = this.currencyList.find(c => c.value === this.currentCurrency); _cd.innerText = _m ? _m.label : this.currentCurrency; }
             } catch(e) {}
-            this.applyLanguage('en');
             this.listenToPromo();
-            this.listenToKycSettings();
             this.listenToStock();
             this.listenToInfinity();
             this.initPWA();
@@ -3247,17 +2977,6 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
             }
         },
 
-        applyImpersonation() {
-            try {
-                const params = new URLSearchParams(window.location.search);
-                const imp = params.get('impersonate');
-                if (imp) {
-                    localStorage.setItem('uid', imp);
-                    localStorage.setItem('isLoggedIn', 'true');
-                    this._impersonating = true;
-                }
-            } catch(e) {}
-        },
 
         initServerTime() {
             // Времето идва само от Postgres (Europe/Sofia). Няма външни източници.
@@ -3463,185 +3182,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
             } catch(e) {}
         },
 
-        translations: {
-            en: {
-                register:"Register", login:"Log in", logIn:"Log In", registerBtn:"Register",
-                forgotPw:"Forget Password?", phoneNumber:"Phone Number", password:"Password",
-                fullName:"Full Name", inviteCode:"Invitation Code", passwordHint:"Password (minimum 6 characters)",
-                confirmPw:"Confirm Password", notRobot:"I am not a robot",
-                availableBalance:"Available Balance", withdrawalArrow:"Withdrawal »", noActivePackage:"No Active Package",
-                investment:"Investment", totalProfit:"Total Profit", profitYesterday:"Total Profit Yesterday", profitToday:"Total Profit Today",
-                dashboard:"Dashboard",
-                shop:"Shop", myTeam:"My Team", checkIn:"Check In", transactionHistory:"Transaction History",
-                solarFarm:"Solar Power", information:"Information", support:"Support", telegramGroup:"Telegram Group", app:"App",
-                yourCurrentLevel:"Your Current Level", yourInviteLink:"Your Invitation Link", copyInviteLink:"Copy Invitation Link",
-                teamStatistics:"Team Statistics", totalUsers:"Total Users", totalEarned:"Total Earned", myTeamMembers:"My Team Members",
-                daysChallenge:"365 Days Challenge", checkInDaily:"Check in daily to unlock rewards!", checkInNow:"Check In Now",
-                partnershipLevels:"Partnership Levels",
-                addCryptoWallet:"Add a crypto wallet", securitySettings:"Security Settings", changePassword:"Change Password",
-                logout:"Logout", setupPin:"Setup Withdrawal PIN", updatePassword:"Update Password",
-                withdrawal:"Withdrawal", selectAmount:"Select Amount", enterPin:"Enter 6-digit PIN",
-                describeProblem:"Describe your problem", send:"Send",
-                profitCalculator:"Profit Calculator", calculate:"Calculate",
-                settings:"Settings", selectLanguage:"Select a language", selectCurrency:"Select a currency",
-                installing:"App is being added to your home screen!", installed:"App installed successfully!",
-                preparing:"Preparing installation...", alreadyInstalled:"App is already installed.",
-                iosInstall:"Tap the Share button, then 'Add to Home Screen'.",
-                manualInstall:"Open your browser menu and choose 'Add to Home Screen'.",
-                withdrawalFee:"Withdrawal Fee",
-                youWillReceive:"You will receive",
-                chatStart:"Start a conversation or pick a topic below.",
-                quickTopics:"Quick topics",
-                typeMessage:"Type a message...",
-                supportTeam:"Support",
-                presetForgotPw:"I forgot my password to log into my account.",
-                forgotPasswordMsg:"I forgot my password to log into my account.",
-                presetForgotPin:"I forgot my withdrawal PIN code.",
-                forgotPinMsg:"I forgot my withdrawal PIN code.",
-                presetWithdraw:"Withdrawal request not approved",
-                withdrawNotApprovedMsg:"My withdrawal request was not approved.",
-                presetPackage:"I purchased an investment package but I don't see it.",
-                packageMissingMsg:"I purchased an investment package but I don't see it.",
-                presetOther:"Something else",
-                somethingElseMsg:"I have another question.",
-                remaining:"Remaining",
-                pcs:"pcs.",
-                dailyReturn:"Daily Return",
-                monthlyYield:"Monthly Yield",
-                investNow:"Invest Now",
-                reinvestment:"Reinvestment",
-                cancel:"Cancel",
-                slideConfirm:"Slide to confirm purchase",
-                slideToBuy:"Slide to buy",
-                verifyRequired:"Account Verification Required",
-                copyAddress:"Copy Address",
-                depositToInvest:"Deposit to Invest",
-                promoEnds:"24H PROMO ENDS IN"
-            ,
-                close:"Close",
-                findSolarFarm:"Find Solar Power",
-                forgotDesc:"Enter your phone number and the new password you want.",
-                forgotCallMsg:"Please make a short call to this number +12058315912 we will not pick up, therefore the call will not be charged to you.",
-                sequentialCheckin:"Sequential check-in",
-                reward7:"💵 Log in for a total of 7 days to get a 5 USDT Bonus!",
-                reward40:"📉 Log in for 40 days to get -5% withdrawal fee",
-                reward180:"☀️ Log in for 180 days to get free SOLAR START",
-                reward365:"📱 Log in for 365 days to get a new iPhone 17 Pro Max",
-                teamOverview:"Team Overview",
-                noMembersYet:"No registered members yet",
-                loadingTeam:"Loading team data...",
-                invitedByThis:"Members invited by this person",
-                notInvitedAny:"This member has not invited anyone yet.",
-                myActivePackages:"My Active Packages",
-                allActivePackages:"All your active investment packages",
-                noActivePackages:"No active packages.",
-                daily:"Daily",
-                loading:"Loading...",
-                noData:"No data.",
-                errorLoadingTeam:"Error loading team.",
-                noTransactions:"No transactions yet",
-                withdrawnAmount:"Withdrawn Amount",
-                transactionNumber:"Transaction Number",
-                condition:"Condition",
-                hour:"Hour",
-                destinationWallet:"Destination Wallet",
-                addCryptoAddress:"Add Crypto Address",
-                saveAddress:"Save Address",
-                setupPinDesc:"Set up a 6-digit PIN code required for withdrawals.",
-                users:"Users",
-                adminInfo:"Admin Info",
-                premium:"Premium",
-                regular:"Regular",
-                loadingUsers:"Loading users...",
-                activatePackage:"Activate Investment Package",
-                updateUser:"Update User",
-                globalBroadcast:"Global Broadcast",
-                sendBroadcast:"Send Broadcast",
-                lockWithdrawals:"Lock Withdrawals (Verification)",
-                lockModeDesc:"Users will see a popup asking for 50 USDT verification to the specified address.",
-                enableLockMode:"Enable Lock Mode",
-                promoDesc:"Automatically halves all package prices and strikes through original.",
-                infinityPackageTitle:"Solar Legendary Package",
-                infinityPackageDesc:"When enabled, a large Solar Legendary package (20,000 USDT, 1,700/day) appears at the top of the Shop and in the calculator.",
-                enableInfinity:"Enable Solar Legendary",
-                disableInfinity:"Disable Solar Legendary",
-                supportTickets:"Support Tickets",
-                loadingTickets:"Loading tickets...",
-                passwordResetReq:"Password Reset Requests",
-                loadingRequests:"Loading requests...",
-                withdrawalReqAdmin:"Withdrawal Requests (Admin)",
-                noUsersFound:"No users found.",
-                errorLoadingUsers:"Error loading users.",
-                noConversations:"No conversations.",
-                openChat:"Open Chat",
-                noMessagesYet:"No messages yet.",
-                noRequests:"No requests.",
-                complete:"Complete",
-                delete:"Delete",
-                enterAccount:"Enter Account",
-                enterAccountFull:"Enter Account (view as user)",
-                impersonateDesc:"Enter the user's ID to enter their account. You can view and edit everything.",
-                editDbDesc:"Tap any value to edit it directly in the database.",
-                exit:"Exit",
-                viewingAccount:"Viewing user account",
-                lastDayOverview:"Last 24 hours overview",
-                newUsers24h:"New users (24h)",
-                moneyToTransfer:"Money to be transferred",
-                moneyTransferred:"Money transferred",
-                totalUserBalances:"Total user balances",
-                verifyPin:"Verify PIN",
-                changeWalletPin:"Enter your withdrawal PIN to change wallet address:",
-                enableLock:"Enable Lock Mode",
-                disableLock:"Disable Lock Mode",
-                startPromo:"Start 24h Promo",
-                stopPromo:"Stop Promo",
-                fakePromoTitle:"Fake 24h Promo (-50%)",
-                chatSupport:"Chat Support",
-                transactions:"Transactions",
-                readChats:"Read",
-                unreadChats:"Unread",
-                approved:"Approved",
-                notApproved:"Not approved",
-                allChats:"All user chats",
-                allTransactions:"All transactions",
-                editPackageQty:"Edit Package Quantity",
-                selectPackage:"Select Package",
-                newQuantity:"New Quantity",
-                updateQuantity:"Update Quantity",
-                noChats:"No chats"
-            ,
-                completed:"Completed",
-                pending:"Pending",
-                reply:"Reply",
-                deleteChat:"Delete",
-                approve:"Approve",
-                noSeen:"No seen",
-                seen:"Seen",
-                confirmDelete:"Are you sure you want to delete?"
-            ,
-                welcomeToSolar:"Welcome to Solar Power"
-            ,
-                seeMore:"See more"
-            ,
-                totalWithdrawnLbl:"Total Withdrawn",
-                withdrawPinLbl:"Withdrawal PIN",
-                cryptoAddressLbl:"Crypto Address",
-                inviteCodeUsedLbl:"Invite Code Used",
-                registeredOnLbl:"Registered On"
-            ,
-                noPackageReset:"No Package (Reset)"
-            },
-        },
 
-        t(key) {
-            const dict = this.translations.en;
-            return dict[key] || key;
-        },
-
-        applyLanguage(lang) {
-            this.currentLang = 'en';
-            document.documentElement.lang = 'en';
-        },
 
         applyReferralFromUrl() {
             const params = new URLSearchParams(window.location.search);
@@ -3712,7 +3253,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
             });
 
             window.addEventListener('appinstalled', () => {
-                this.showToast(this.t('installed'), "success");
+                this.showToast("App installed successfully!", "success");
                 this._deferredInstallPrompt = null;
             });
         },
@@ -3833,158 +3374,14 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
             try { this.listenToMyChat(); } catch(e) {}
         },
 
-        listenToKycSettings() {
-            const ref = window.fref(window.fdb, 'settings/kycRequired');
-            window.fonValue(ref, (snap) => {
-                this._kycEnabled = snap.exists() ? !!snap.val() : false;
-                this.updateKycButton();
-            });
-            const addrRef = window.fref(window.fdb, 'settings/depositAddress');
-            window.fonValue(addrRef, (snap) => {
-                this._depositAddress = snap.exists() ? snap.val() : '';
-            });
-            // Начисляването е винаги активно и се управлява от базата.
-            this._profitAccrualActive = true;
-            const accrualEpochRef = window.fref(window.fdb, 'settings/accrualEpoch');
-            window.fonValue(accrualEpochRef, (snap) => {
-                this._profitAccrualSince = snap.exists() ? Number(snap.val()) : 0;
-                if (this.currentUserData) this.updateLiveDashboards();
-            });
-        },
 
-        updateKycButton() {
-            const btn = document.getElementById('kyc-status-btn');
-            const txt = document.getElementById('kyc-status-btn-text');
-            if (!btn || !txt) return;
-            if (!this._kycEnabled || !this.currentUserData || this.currentUserData.role === 'admin') {
-                btn.style.display = 'none';
-                return;
-            }
-            const status = this.currentUserData.kycStatus || 'none';
-            if (status === 'approved') {
-                btn.style.display = 'none';
-                return;
-            }
-            btn.style.display = 'block';
-            btn.className = '';
-            if (status === 'pending') {
-                btn.classList.add('kyc-pending');
-                txt.innerText = 'KYC Verification — Under Review';
-            } else if (status === 'rejected') {
-                btn.classList.add('kyc-rejected');
-                txt.innerText = 'KYC Verification — Rejected, tap to retry';
-            } else {
-                btn.classList.add('kyc-needed');
-                txt.innerText = 'KYC Verification Required';
-            }
-        },
 
-        _kycShowStep(id) {
-            ['kyc-step-intro','kyc-step-details','kyc-step-done'].forEach(s => {
-                const el = document.getElementById(s);
-                if (el) el.style.display = (s === id) ? 'block' : 'none';
-            });
-        },
 
-        openKycFlow() {
-            const status = this.currentUserData?.kycStatus || 'none';
-            const overlay = document.getElementById('kyc-modal-overlay');
 
-            this._kycPhotoId = null;
-            this._kycPhotoSelfie = null;
-            const idFile = document.getElementById('kyc-photo-id-file');
-            const selfieFile = document.getElementById('kyc-photo-selfie-file');
-            if (idFile) idFile.value = '';
-            if (selfieFile) selfieFile.value = '';
-            const idPrev = document.getElementById('kyc-photo-id-preview');
-            const selfiePrev = document.getElementById('kyc-photo-selfie-preview');
-            if (idPrev) idPrev.style.display = 'none';
-            if (selfiePrev) selfiePrev.style.display = 'none';
-            const idLbl = document.getElementById('kyc-photo-id-label');
-            const selfieLbl = document.getElementById('kyc-photo-selfie-label');
-            if (idLbl) idLbl.innerText = 'Attach ID card photo';
-            if (selfieLbl) selfieLbl.innerText = 'Attach selfie holding ID';
-            const submitBtn = document.getElementById('kyc-submit-btn');
-            if (submitBtn) submitBtn.disabled = true;
 
-            overlay.classList.add('show');
 
-            if (status === 'pending') {
-                this._kycShowStep('kyc-step-done');
-                return;
-            }
-            this._kycShowStep('kyc-step-intro');
-        },
 
-        kycStart() {
-            this._kycShowStep('kyc-step-details');
-            this._refreshKycSubmitState();
-        },
 
-        closeKycFlow() {
-            document.getElementById('kyc-modal-overlay').classList.remove('show');
-        },
-
-        handleKycPhoto(event, which) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                if (which === 'id') {
-                    this._kycPhotoId = e.target.result;
-                    const p = document.getElementById('kyc-photo-id-preview');
-                    p.src = e.target.result; p.style.display = 'block';
-                    document.getElementById('kyc-photo-id-label').innerText = 'ID photo attached — tap to change';
-                } else {
-                    this._kycPhotoSelfie = e.target.result;
-                    const p = document.getElementById('kyc-photo-selfie-preview');
-                    p.src = e.target.result; p.style.display = 'block';
-                    document.getElementById('kyc-photo-selfie-label').innerText = 'Selfie attached — tap to change';
-                }
-                this._refreshKycSubmitState();
-            };
-            reader.readAsDataURL(file);
-        },
-
-        _refreshKycSubmitState() {
-            const name = (document.getElementById('kyc-fullname').value || '').trim();
-            const dob = (document.getElementById('kyc-dob').value || '').trim();
-            const nameOk = name.split(/\s+/).filter(Boolean).length >= 2;
-            const submitBtn = document.getElementById('kyc-submit-btn');
-            if (submitBtn) submitBtn.disabled = !(nameOk && dob && this._kycPhotoId && this._kycPhotoSelfie);
-        },
-
-        async submitKycVerification() {
-            const name = (document.getElementById('kyc-fullname').value || '').trim();
-            const dob = (document.getElementById('kyc-dob').value || '').trim();
-            if (name.split(/\s+/).filter(Boolean).length < 2) return this.showToast('Please enter your full name.', 'error');
-            if (!dob) return this.showToast('Please enter your date of birth.', 'error');
-            if (!this._kycPhotoId || !this._kycPhotoSelfie) return this.showToast('Please attach both photos.', 'error');
-
-            const uid = localStorage.getItem('uid');
-            const btn = document.getElementById('kyc-submit-btn');
-            btn.disabled = true;
-            btn.innerText = 'Uploading...';
-            try {
-                await window.fupdate(window.fref(window.fdb, 'users/' + uid), {
-                    kycStatus: 'pending',
-                    kyc: {
-                        idPhoto: this._kycPhotoId,
-                        selfiePhoto: this._kycPhotoSelfie,
-                        fullName: name,
-                        dateOfBirth: dob,
-                        submittedAt: window.fserverTimestamp()
-                    }
-                });
-                this._kycShowStep('kyc-step-done');
-                this.showToast('Submitted for verification.', 'success');
-            } catch (e) {
-                this.showToast('Upload failed, try again.', 'error');
-            } finally {
-                btn.disabled = false;
-                btn.innerText = 'Submit Verification';
-            }
-        },
 
         listenToPromo() {
             const promoRef = window.fref(window.fdb, 'settings/promo');
@@ -4103,7 +3500,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                         <div class="gt-head">
                             <div class="gt-head-left">
                                 <div class="gt-name">${pkg.name}</div>
-                                <div class="gt-remaining">${this.t("remaining")}: <strong>${remaining}</strong> ${this.t("pcs")}</div>
+                                <div class="gt-remaining">${"Remaining"}: <strong>${remaining}</strong> ${"pcs."}</div>
                             </div>
                             <img class="gt-emblem" src="data:image/png;base64,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" alt="">
                         </div>
@@ -4116,22 +3513,22 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                         <div class="gt-stats-panel">
                             <div class="gt-stat">
                                 <div class="gt-stat-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><ellipse cx="9" cy="6" rx="6.5" ry="2.6" fill="#e6a614" stroke="#ffd75e" stroke-width="1"/><path d="M2.5 6v4.5c0 1.4 2.9 2.6 6.5 2.6s6.5-1.2 6.5-2.6V6" stroke="#ffd75e" stroke-width="1.2" fill="#a87400"/><path d="M2.5 10.5V15c0 1.4 2.9 2.6 6.5 2.6s6.5-1.2 6.5-2.6v-4.5" stroke="#ffd75e" stroke-width="1.2" fill="#8a5c00"/><ellipse cx="15.5" cy="16" rx="6" ry="2.4" fill="#e6a614" stroke="#ffd75e" stroke-width="1"/><path d="M9.5 16v3.4c0 1.3 2.7 2.4 6 2.4s6-1.1 6-2.4V16" stroke="#ffd75e" stroke-width="1.2" fill="#a87400"/></svg></div>
-                                <div class="gt-stat-text"><span>${this.t("dailyReturn")}:</span><strong>${this.fmtNum(pkg.daily)}</strong></div>
+                                <div class="gt-stat-text"><span>${"Daily Return"}:</span><strong>${this.fmtNum(pkg.daily)}</strong></div>
                             </div>
                             <div class="gt-vdiv"></div>
                             <div class="gt-stat">
                                 <div class="gt-stat-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M9 6C7 3 9.5 2 12 2.6 14.5 2 17 3 15 6c0 1.4 5 4.4 5 10 0 4.6-5 5.4-8 5.4S4 20.6 4 16c0-5.6 5-8.6 5-10Z" fill="#3a2a00" stroke="#ffd75e" stroke-width="1.4"/><text x="12" y="16.5" text-anchor="middle" font-size="9" font-weight="900" fill="#ffd75e" font-family="Arial">$</text></svg></div>
-                                <div class="gt-stat-text"><span>${this.t("monthlyYield")}:</span><strong>${this.fmtNum(pkg.monthly)}</strong></div>
+                                <div class="gt-stat-text"><span>${"Monthly Yield"}:</span><strong>${this.fmtNum(pkg.monthly)}</strong></div>
                             </div>
                         </div>
                         <button class="gt-btn" onclick="appLogic.openPaymentModal('${pkg.name}', ${currentPrice})">
                             <span class="gt-btn-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 16l5-6 4 3 6-8" stroke="#ffd75e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 5h4v4" stroke="#ffd75e" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                            <span class="gt-btn-label">${this.t("investNow")}</span>
+                            <span class="gt-btn-label">${"Invest Now"}</span>
                             <span class="gt-btn-chev">&#8250;</span>
                         </button>
                         <button class="gt-btn" onclick="appLogic.startReinvest('${pkg.name}', ${currentPrice})">
                             <span class="gt-btn-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M19 8a8 8 0 0 0-13.5-2.3M5 4v4h4" stroke="#ffd75e" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 16a8 8 0 0 0 13.5 2.3M19 20v-4h-4" stroke="#ffd75e" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                            <span class="gt-btn-label">${this.t("reinvestment")}</span>
+                            <span class="gt-btn-label">${"Reinvestment"}</span>
                             <span class="gt-btn-chev">&#8250;</span>
                         </button>
                     </div>
@@ -4176,256 +3573,16 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
         _usersCache: {},
         _usersTab: 'premium',
 
-        async _impersonateByKey(dbKey) {
-            try {
-                const snap = await window.fget(window.fref(window.fdb, 'users/' + dbKey));
-                if (!snap.exists()) return this.showToast("User not found.", "error");
-                const data = snap.val();
-                this._impersonating = true;
-                this._impersonatedKey = dbKey;
-                this._adminEditMode = true;
-                this.currentUserData = data;
-                this.renderImpersonatedDashboard(data);
-                if (this.liveUpdateTimer) clearInterval(this.liveUpdateTimer);
-                this.liveUpdateTimer = setInterval(() => { this.updateLiveDashboards(); this.liveBalanceToDB(); if(this._adminEditMode) this.injectAdminPencils(); }, 30000);
-                const banner = document.getElementById('impersonate-banner');
-                document.getElementById('impersonate-banner-text').innerText = 'Viewing: ' + this.maskPhone(data.phone || '') + '  (ID: ' + (data.myCode || '-') + ')';
-                banner.style.display = 'block';
-                document.body.style.paddingTop = '42px';
-                this.closeModal('impersonate-modal');
-                this.navTo('dashboard');
-                this.showToast("Editing user account.", "success");
-            } catch (e) { this.showToast("Error.", "error"); }
-        },
 
-        openImpersonateModal() {
-            const overlay = document.getElementById('impersonate-modal');
-            document.getElementById('impersonate-id').value = '';
-            this._impersonateTab = 'invested';
-            this.switchImpersonateTab('invested');
-            this.loadImpersonateUsers();
-            overlay.style.display = 'flex';
-            setTimeout(() => overlay.classList.add('show'), 10);
-        },
 
-        async loadImpersonateUsers() {
-            try {
-                const snap = await window.fget(window.fref(window.fdb, 'users'));
-                this._allUsersCache = snap.exists() ? snap.val() : {};
-            } catch (e) {
-                this._allUsersCache = {};
-            }
-            this.renderImpersonateList();
-        },
 
-        switchImpersonateTab(tab) {
-            this._impersonateTab = tab;
-            const inv = document.getElementById('imp-tab-invested');
-            const notinv = document.getElementById('imp-tab-notinvested');
-            if (inv && notinv) {
-                const on = 'flex:1; padding:10px; border-radius:8px; border:1px solid #FFD700; background:#FFD700; color:#000000; font-weight:800; font-size:12px; cursor:pointer;';
-                const off = 'flex:1; padding:10px; border-radius:8px; border:1px solid #C7CDD4; background:transparent; color:#fff; font-weight:800; font-size:12px; cursor:pointer;';
-                inv.style.cssText = (tab === 'invested') ? on : off;
-                notinv.style.cssText = (tab === 'notinvested') ? on : off;
-            }
-            this.renderImpersonateList();
-        },
 
-        filterImpersonateList() {
-            this.renderImpersonateList();
-        },
 
-        renderImpersonateList() {
-            const listEl = document.getElementById('impersonate-list');
-            if (!listEl) return;
-            const users = this._allUsersCache || {};
-            const query = (document.getElementById('impersonate-id').value || '').trim();
-            const wantInvested = (this._impersonateTab || 'invested') === 'invested';
 
-            const rows = [];
-            for (const key in users) {
-                const u = users[key];
-                if (!u) continue;
-                if (u.role === 'admin') continue;
-                const hasPkg = u.activePackage && u.activePackage !== 'none';
-                if (wantInvested && !hasPkg) continue;
-                if (!wantInvested && hasPkg) continue;
-                const code = String(u.myCode || '');
-                if (query && !code.includes(query)) continue;
-                rows.push({ key, code, name: u.fullName || 'User', pkg: hasPkg ? u.activePackage : 'No Package' });
-            }
 
-            rows.sort((a, b) => a.code.localeCompare(b.code));
 
-            if (rows.length === 0) {
-                listEl.innerHTML = '<p style="color:#C7CDD4; font-size:12px; text-align:center;">No users found.</p>';
-                return;
-            }
 
-            listEl.innerHTML = rows.map(r => `
-                <div onclick="appLogic._impersonateByKey('${r.key}')" style="display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 14px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.15); border-radius:10px; cursor:pointer;">
-                    <div style="min-width:0;">
-                        <div style="color:#fff; font-weight:800; font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${r.name}</div>
-                        <div style="color:#C7CDD4; font-size:11px; margin-top:2px;">${r.pkg}</div>
-                    </div>
-                    <div style="color:#FFD700; font-weight:900; font-size:13px; flex-shrink:0;">ID: ${r.code || '-'}</div>
-                </div>
-            `).join('');
-        },
 
-        async impersonateUser() {
-            const raw = document.getElementById('impersonate-id').value.trim();
-            if (!raw) return this.showToast("Enter a user ID.", "error");
-            const dbKey = await this.findUserKeyByCode(raw);
-            if (!dbKey) return this.showToast("User not found.", "error");
-            this._impersonateByKey(dbKey);
-        },
-
-        renderImpersonatedDashboard(data) {
-
-            document.getElementById('display-phone').innerText = this.maskPhone(data.phone || '');
-            document.getElementById('display-id').innerText = 'ID: ' + (data.myCode || '');
-            const codeEl = document.getElementById('affiliate-code-display');
-            if (codeEl) codeEl.innerText = data.myCode || '';
-            this.setAvatarDisplay(data.avatar || 'av_logo');
-            this.updateWalletDisplay();
-
-            let investUSDT = data.investedAmount || 0;
-            if (investUSDT === 0 && data.activePackage && data.activePackage !== "none") {
-                const pkgInfo = this.findPackage(data.activePackage);
-                if (pkgInfo) investUSDT = pkgInfo.price;
-            }
-            const extra = data.extraPackages || {};
-            for (const k in extra) investUSDT += parseFloat(extra[k].price || 0);
-            const di = document.getElementById('dash-invest');
-            if (di) di.innerText = this.fmtNum(investUSDT);
-            const extraCount = data.extraPackages ? Object.keys(data.extraPackages).length : 0;
-
-            const allPkgs = [];
-            if (data.activePackage && data.activePackage !== "none") {
-                const mainP = this.findPackage(data.activePackage);
-                allPkgs.push({ name: data.activePackage, price: mainP ? mainP.price : (data.investedAmount || 0) });
-            }
-            const exP = data.extraPackages || {};
-            for (const k in exP) {
-                const ep = exP[k];
-                const epP = this.findPackage(ep.name);
-                allPkgs.push({ name: ep.name, price: epP ? epP.price : (ep.invested || 0) });
-            }
-            allPkgs.sort((a,b) => b.price - a.price);
-            this._allActivePackages = allPkgs;
-            const dp = document.getElementById('dash-package-name');
-            const moreBtn = document.getElementById('dash-more-packages');
-            if (dp) {
-                if (allPkgs.length === 0) {
-                    dp.innerText = this.t('noActivePackage');
-                } else {
-                    dp.innerText = allPkgs[0].name;
-                }
-            }
-            if (moreBtn) moreBtn.style.display = (allPkgs.length > 1) ? 'inline-flex' : 'none';
-
-            this.updateLiveDashboards();
-
-            if (data.myCode) this.loadTeamData(data.myCode);
-
-            this.injectAdminPencils();
-        },
-
-        injectAdminPencils() {
-
-            document.querySelectorAll('.admin-edit-pencil-wrap').forEach(el => el.remove());
-            if (!this._adminEditMode) return;
-
-            const addPencil = (containerId, field, label, type) => {
-                const el = document.getElementById(containerId);
-                if (!el) return;
-                const wrap = document.createElement('span');
-                wrap.className = 'admin-edit-pencil-wrap';
-                wrap.innerHTML = `<span class="admin-edit-pencil" onclick="event.stopPropagation(); appLogic.adminEditField('${field}','${label}','${type}')" title="Edit ${label}"><i class="fas fa-pen"></i></span>`;
-                el.parentNode.insertBefore(wrap, el.nextSibling);
-            };
-
-            addPencil('dash-balance', 'balance', 'Balance', 'number');
-            addPencil('dash-invest', 'investedAmount', 'Investment', 'number');
-            addPencil('dash-package-name', 'activePackage', 'Package (name)', 'text');
-
-            if (document.getElementById('dash-total')) addPencil('dash-total', 'totalProfit', 'Total Profit', 'number');
-
-            const walletBtn = document.getElementById('btn-add-wallet');
-            if (walletBtn && !document.getElementById('admin-wallet-pencil')) {
-                const w = document.createElement('span');
-                w.className = 'admin-edit-pencil-wrap';
-                w.innerHTML = `<span id="admin-wallet-pencil" class="admin-edit-pencil" onclick="appLogic.adminEditField('cryptoAddress','Crypto Wallet','text')" title="Edit Crypto Wallet"><i class="fas fa-pen"></i></span>`;
-                walletBtn.parentNode.insertBefore(w, walletBtn);
-            }
-
-            const pinSection = document.getElementById('prof-old-pin-wrapper');
-        },
-
-        async adminEditField(field, label, type) {
-            if (!this._adminEditMode || !this._impersonatedKey) return;
-            const data = this.currentUserData || {};
-            let current = data[field];
-            if (current === undefined || current === null) current = '';
-            const promptMsg = 'Edit ' + label + ':';
-            let input = window.prompt(promptMsg, current);
-            if (input === null) return;
-            input = input.trim();
-
-            let value;
-            if (type === 'number') {
-                value = parseFloat(input);
-                if (isNaN(value)) return this.showToast("Enter a valid number.", "error");
-            } else {
-                value = input;
-            }
-
-            try {
-                const upd = {};
-                upd[field] = value;
-
-                if (field === 'activePackage') {
-                    const pkgInfo = this.findPackage(value);
-                    if (pkgInfo) {
-                        upd.dailyProfit = pkgInfo.daily;
-                        upd.investedAmount = pkgInfo.price;
-                        upd.packageActivatedAt = window.fserverTimestamp();
-                        upd.syncedPackageProfit = 0;
-                    } else if (value === 'none' || value === '') {
-                        upd.activePackage = 'none';
-                        upd.dailyProfit = 0;
-                    }
-                }
-                await window.fupdate(window.fref(window.fdb, 'users/' + this._impersonatedKey), upd);
-
-                Object.assign(this.currentUserData, upd);
-                this.renderImpersonatedDashboard(this.currentUserData);
-                this.showToast(label + " updated.", "success");
-            } catch (e) {
-                this.showToast("Error saving change.", "error");
-            }
-        },
-
-        exitImpersonate() {
-            this._impersonating = false;
-            this._impersonatedKey = null;
-            this._adminEditMode = false;
-
-            if (this._adminOwnData) {
-                this.currentUserData = this._adminOwnData;
-                this.renderImpersonatedDashboard(this._adminOwnData);
-
-                this.loadLocalData();
-            }
-            const banner = document.getElementById('impersonate-banner');
-            if (banner) banner.style.display = 'none';
-            document.body.style.paddingTop = '0';
-            if (this.liveUpdateTimer) clearInterval(this.liveUpdateTimer);
-            this.liveUpdateTimer = setInterval(() => { this.updateLiveDashboards(); this.liveBalanceToDB(); if(this._adminEditMode) this.injectAdminPencils(); }, 30000);
-            this.navTo('admin');
-            this.showToast("Returned to your admin account.", "info");
-        },
 
         maskPhone(phone) {
             if(!phone || phone.length < 8) return phone;
@@ -4703,27 +3860,11 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
             window.fonValue(userRef, (snapshot) => {
                 const data = snapshot.val();
 
-                if (this._impersonating) {
-                    if (!data) return;
-                    this._adminOwnData = data;
-                    this._impersonatedKey = uid;
-                    this.currentUserData = data;
-                    this.renderImpersonatedDashboard(data);
-                    const banner = document.getElementById('impersonate-banner');
-                    if (banner) {
-                        document.getElementById('impersonate-banner-text').innerText = 'Viewing: ' + this.maskPhone(data.phone || '') + '  (ID: ' + (data.myCode || '-') + ')';
-                        banner.style.display = 'block';
-                        document.body.style.paddingTop = '42px';
-                    }
-                    return;
-                }
-
                 if(!data || data.password !== userPass) {
                     this.secureLogout();
                     return;
                 }
 
-                this._adminOwnData = data;
                 const firstLoad = !this.currentUserData;
                 this.currentUserData = data;
 
@@ -4732,19 +3873,8 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                     this.listenToWithdrawals();
                 }
 
-                const adminLogoutBtn = document.getElementById('btn-admin-logout');
-                const adminSearchBtn = document.getElementById('btn-admin-search');
-                const isAdminRole = (data.role === 'admin');
-                if (adminLogoutBtn) {
-                    adminLogoutBtn.style.display = isAdminRole ? 'flex' : 'none';
-                }
-                if (adminSearchBtn) {
-                    adminSearchBtn.style.display = isAdminRole ? 'flex' : 'none';
-                }
-
                 this.setAvatarDisplay(data.avatar || 'av_logo');
                 this.updateWalletDisplay();
-                this.updateKycButton();
                 this.checkAccountLock(data);
                 const oldPinWrapper = document.getElementById('prof-old-pin-wrapper');
                 if(oldPinWrapper) {
@@ -4776,7 +3906,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                 allPkgsLive.sort((a,b) => b.price - a.price);
                 this._allActivePackages = allPkgsLive;
                 const dpLive = document.getElementById('dash-package-name');
-                if (dpLive) dpLive.innerText = allPkgsLive.length === 0 ? this.t('noActivePackage') : allPkgsLive[0].name;
+                if (dpLive) dpLive.innerText = allPkgsLive.length === 0 ? "No Active Package" : allPkgsLive[0].name;
                 const moreBtnLive = document.getElementById('dash-more-packages');
                 if (moreBtnLive) moreBtnLive.style.display = (allPkgsLive.length > 1) ? 'inline-flex' : 'none';
 
@@ -4785,7 +3915,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
             });
 
             if (this.liveUpdateTimer) clearInterval(this.liveUpdateTimer);
-            this.liveUpdateTimer = setInterval(() => { this.updateLiveDashboards(); this.liveBalanceToDB(); if(this._adminEditMode) this.injectAdminPencils(); }, 30000);
+            this.liveUpdateTimer = setInterval(() => { this.updateLiveDashboards(); this.liveBalanceToDB(); }, 30000);
         },
 
         listenToBroadcast() {
@@ -4887,7 +4017,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                     const av = u.avatar || 'av_logo';
                     let pkg = (u.activePackage && u.activePackage !== 'none') ? u.activePackage : '';
                     if (!pkg && u.extraPackages) { const ek = Object.keys(u.extraPackages); if (ek.length) pkg = u.extraPackages[ek[0]].name || ''; }
-                    if (!pkg) pkg = this.t('noActivePackage') || 'No Active Package';
+                    if (!pkg) pkg = "No Active Package" || 'No Active Package';
                     const ph = (u.phone || '').replace(/\s/g, '');
                     let maskedPhone = ph;
                     if (ph.length >= 8) {
@@ -5173,7 +4303,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
             const ov = document.getElementById('welcome-overlay');
             if (!ov) { if(callback) callback(); return; }
             const txt = ov.querySelector('#welcome-text');
-            if (txt) txt.innerText = this.t ? this.t('welcomeToSolar') : 'Welcome to Solar Power';
+            if (txt) txt.innerText = 'Welcome to Solar Power';
             ov.classList.add('show');
             try { if (navigator.vibrate) navigator.vibrate(80); } catch(e) {}
             setTimeout(() => {
@@ -5594,13 +4724,6 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
 
             const isAdmin = this.currentUserData?.role === 'admin';
 
-            if (!isAdmin && this._kycEnabled && (this.currentUserData?.kycStatus || 'none') !== 'approved') {
-                this.navTo('dashboard');
-                this.showToast('Please complete KYC verification before withdrawing.', 'error');
-                this.openKycFlow();
-                return;
-            }
-
             if (!isAdmin) {
                 // Проверката е на сървъра — часовникът на устройството е без значение.
                 let windowOpen = false;
@@ -5804,138 +4927,6 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
             });
         },
 
-        switchChatTab(tab) {
-            this._chatTab = tab;
-            const ut = document.getElementById('chat-tab-unread');
-            const rt = document.getElementById('chat-tab-read');
-            const ul = document.getElementById('chat-unread-list');
-            const rl = document.getElementById('chat-read-list');
-            if (ut && rt) {
-                ut.style.opacity = tab === 'unread' ? '1' : '0.55';
-                rt.style.opacity = tab === 'read' ? '1' : '0.55';
-            }
-            if (ul && rl) {
-                ul.style.display = tab === 'unread' ? 'block' : 'none';
-                rl.style.display = tab === 'read' ? 'block' : 'none';
-            }
-            this.renderChatSupportList();
-        },
-
-        renderChatSupportList() {
-            const cRef = window.fref(window.fdb, 'support_chats');
-            window.fget(cRef).then(snap => {
-                const unreadList = document.getElementById('chat-unread-list');
-                const readList = document.getElementById('chat-read-list');
-                if (!unreadList || !readList) return;
-                unreadList.innerHTML = ''; readList.innerHTML = '';
-                if (!snap.exists()) {
-                    unreadList.innerHTML = `<p style="font-size:12px; color:#888;">${this.t('noChats')}</p>`;
-                    readList.innerHTML = `<p style="font-size:12px; color:#888;">${this.t('noChats')}</p>`;
-                    return;
-                }
-                const chats = Object.entries(snap.val()).map(([uid,c]) => ({uid, ...c})).sort((a,b) => (b.lastTime||0)-(a.lastTime||0));
-                let unreadHtml = '', readHtml = '';
-                chats.forEach(c => {
-                    const last = (c.lastMessage || '').substring(0, 40);
-                    const isUnread = (c.lastTime || 0) > (c.adminRead || 0);
-                    const phoneEsc = (c.myCode || c.uid || '').replace(/'/g,'');
-                    const card = `
-                        <div style="background:rgba(255,255,255,0.06); border:1px solid #FFD700; border-radius:8px; padding:10px; margin-bottom:10px;">
-                            <p style="font-size:11px; margin-bottom:4px; color:#fff;"><strong>ID:</strong> ${c.myCode || c.uid}</p>
-                            <p style="font-size:12px; color:#cdd8ec; margin-bottom:8px; font-style:italic;">"${last}${(c.lastMessage||'').length>40?'...':''}"</p>
-                            <div style="display:flex; gap:6px;">
-                                <button class="btn" style="flex:1; font-size:11px; padding:8px; background:#8B001A; color:#fff; border:none;" onclick="appLogic.adminOpenChat('${c.uid}','${phoneEsc}')">${this.t('reply')}</button>
-                                <button class="btn" style="flex:1; font-size:11px; padding:8px; background:#444; color:#fff; border:none;" onclick="appLogic.adminDeleteChat('${c.uid}')">${this.t('deleteChat')}</button>
-                            </div>
-                        </div>`;
-                    if (isUnread) unreadHtml += card; else readHtml += card;
-                });
-                unreadList.innerHTML = unreadHtml || `<p style="font-size:12px; color:#888;">${this.t('noChats')}</p>`;
-                readList.innerHTML = readHtml || `<p style="font-size:12px; color:#888;">${this.t('noChats')}</p>`;
-            });
-        },
-
-        async adminDeleteChat(uid) {
-            if (!confirm(this.t('confirmDelete'))) return;
-            try {
-                await window.fremove(window.fref(window.fdb, `support_chats/${uid}`));
-                this.showToast("Deleted.", "success");
-                this.renderChatSupportList();
-            } catch(e) { this.showToast("Error.", "error"); }
-        },
-
-        _txTab: 'completed',
-        switchTxTab(tab) {
-            this._txTab = tab;
-            const ct = document.getElementById('tx-tab-completed');
-            const pt = document.getElementById('tx-tab-pending');
-            if (ct && pt) {
-                ct.style.opacity = tab === 'completed' ? '1' : '0.55';
-                pt.style.opacity = tab === 'pending' ? '1' : '0.55';
-            }
-            this.renderTxList();
-        },
-
-        renderTxList() {
-            const wRef = window.fref(window.fdb, 'withdrawals');
-            window.fget(wRef).then(snap => {
-                const list = document.getElementById('tx-list');
-                if (!list) return;
-                list.innerHTML = '';
-                if (!snap.exists()) {
-                    list.innerHTML = `<p style="font-size:12px; text-align:center; color:#cdd8ec;">${this.t('noTransactions')}</p>`;
-                    return;
-                }
-                const wantStatus = this._txTab === 'pending' ? 'pending' : 'completed';
-                const txs = Object.entries(snap.val()).map(([id,w]) => ({id, ...w})).reverse()
-                    .filter(w => (w.status || 'pending') === wantStatus);
-                if (txs.length === 0) {
-                    list.innerHTML = `<p style="font-size:12px; text-align:center; color:#cdd8ec;">${this.t('noTransactions')}</p>`;
-                    return;
-                }
-                let h = '';
-                txs.forEach(w => {
-                    const amt = this.fmt(w.netAmount || w.amount || 0);
-                    const when = w.timestamp ? new Date(w.timestamp).toLocaleString() : '';
-                    let btns = '';
-                    if (wantStatus === 'pending') {
-                        btns = `<div style="display:flex; gap:6px; margin-top:8px;">
-                            <button class="btn" style="flex:1; font-size:11px; padding:8px; background:#15803d; color:#fff; border:none;" onclick="appLogic.adminApproveTx('${w.id}','${w.userKey||''}')">${this.t('approve')}</button>
-                            <button class="btn" style="flex:1; font-size:11px; padding:8px; background:#444; color:#fff; border:none;" onclick="appLogic.adminDeleteTx('${w.id}')">${this.t('deleteChat')}</button>
-                        </div>`;
-                    } else {
-                        btns = `<div style="display:flex; gap:6px; margin-top:8px;">
-                            <button class="btn" style="flex:1; font-size:11px; padding:8px; background:#444; color:#fff; border:none;" onclick="appLogic.adminDeleteTx('${w.id}')">${this.t('deleteChat')}</button>
-                        </div>`;
-                    }
-                    h += `
-                        <div style="background:rgba(255,255,255,0.06); border:1px solid #FFD700; border-radius:8px; padding:10px; margin-bottom:10px;">
-                            <p style="font-size:11px; margin-bottom:3px; color:#fff;"><strong>${this.t('phoneNumber')}:</strong> ${w.userPhone || w.userKey || '-'}</p>
-                            <p style="font-size:13px; font-weight:900; color:#fff; margin-bottom:3px;">${amt}</p>
-                            <p style="font-size:10px; color:#cdd8ec; word-break:break-all; margin-bottom:3px;">${w.cryptoAddress || ''}</p>
-                            <p style="font-size:10px; color:#9fb0cc;">${when}</p>
-                            ${btns}
-                        </div>`;
-                });
-                list.innerHTML = h;
-            });
-        },
-
-        async adminApproveTx(id, userKey) {
-            try {
-                await this.adminSetWithdrawStatus(id, userKey, 'completed');
-                this.renderTxList();
-            } catch(e) { this.showToast("Error.", "error"); }
-        },
-
-        async adminDeleteTx(id) {
-            if (!confirm(this.t('confirmDelete'))) return;
-            try {
-                await window.fremove(window.fref(window.fdb, `withdrawals/${id}`));
-                this.showToast("Deleted.", "success");
-                this.renderTxList();
-            } catch(e) { this.showToast("Error.", "error"); }
-        },
 
         attachCarouselDepth() {
             const c = document.getElementById('packages-container');
@@ -5961,46 +4952,8 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
             setTimeout(apply, 50);
         },
 
-        adminOpenChat(uid, displayId) {
-            this._adminChatUid = uid;
-            try { window.fupdate(window.fref(window.fdb, `support_chats/${uid}`), { adminRead: this.serverNow() }); } catch(e) {}
-            const overlay = document.getElementById('admin-chat-modal');
-            document.getElementById('admin-chat-title').innerText = displayId ? ('ID: ' + displayId) : ('ID: ' + uid);
-            overlay.style.display = 'flex';
-            setTimeout(() => overlay.classList.add('show'), 10);
-            const chatRef = window.fref(window.fdb, `support_chats/${uid}/messages`);
-            window.fonValue(chatRef, (snap) => {
-                this.renderAdminChat(snap.exists() ? snap.val() : null);
-            });
-        },
 
-        renderAdminChat(messages) {
-            const box = document.getElementById('admin-chat-box');
-            if (!box) return;
-            if (!messages) { box.innerHTML = '<p style="text-align:center; color:#888; font-size:12px;">No messages yet.</p>'; return; }
-            const arr = Object.entries(messages).map(([k,m]) => ({ id:k, ...m })).sort((a,b)=>(a.time||0)-(b.time||0));
-            let h = '';
-            arr.forEach(m => {
-                const isUser = m.sender === 'user';
-                const t = new Date(m.time||Date.now());
-                const hh=String(t.getHours()).padStart(2,'0'), mm=String(t.getMinutes()).padStart(2,'0');
-                if (isUser) {
-                    h += `<div style="align-self:flex-start; max-width:80%;"><div style="background:rgba(0,0,0,0.08); color:#111; padding:9px 13px; border-radius:14px 14px 14px 4px; font-size:13px; word-break:break-word;">${m.text}</div><div style="font-size:9px; color:#888; margin-top:2px;">${hh}:${mm}</div></div>`;
-                } else {
-                    h += `<div style="align-self:flex-end; max-width:80%;"><div style="background:#2563eb; color:#fff; padding:9px 13px; border-radius:14px 14px 4px 14px; font-size:13px; word-break:break-word;">${m.text}</div><div style="font-size:9px; color:#888; text-align:right; margin-top:2px;">${hh}:${mm}</div></div>`;
-                }
-            });
-            box.innerHTML = h;
-            box.scrollTop = box.scrollHeight;
-        },
 
-        async adminSetWithdrawStatus(txId, userId, status) {
-            try {
-                await window.fupdate(window.fref(window.fdb, `withdrawals/${txId}`), { status: status });
-                await window.fupdate(window.fref(window.fdb, `users/${userId}/withdrawals/${txId}`), { status: status });
-                this.showToast(`Transaction marked as ${status}`, "success");
-            } catch(e) { this.showToast("Error updating status", "error"); }
-        },
 
         openPaymentModal(pkgName, currentPriceUSDT) {
             document.getElementById('modal-pkg-name').innerText = `Deposit for ${pkgName} (${this.fmt(currentPriceUSDT)})`;
@@ -6311,7 +5264,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
             const box = document.getElementById('support-chat-box');
             if (!box) return;
             if (!messages) {
-                box.innerHTML = `<p style="text-align:center; color:var(--text-gray); font-size:12px;">${this.t('chatStart')}</p>`;
+                box.innerHTML = `<p style="text-align:center; color:var(--text-gray); font-size:12px;">${"Start a conversation or pick a topic below."}</p>`;
                 return;
             }
             const arr = Object.entries(messages).map(([k,m]) => ({ id:k, ...m })).sort((a,b)=>(a.time||0)-(b.time||0));
@@ -6328,7 +5281,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                     </div>`;
                 } else {
                     html += `<div style="align-self:flex-start; max-width:80%;">
-                        <div style="background:rgba(255,255,255,0.12); color:#ffffff; padding:10px 14px; border-radius:16px 16px 16px 4px; font-size:13px; font-weight:600; word-break:break-word;"><strong style="color:#7fb0ff; font-size:11px; display:block; margin-bottom:2px;">${this.t('supportTeam')}</strong>${m.text}</div>
+                        <div style="background:rgba(255,255,255,0.12); color:#ffffff; padding:10px 14px; border-radius:16px 16px 16px 4px; font-size:13px; font-weight:600; word-break:break-word;"><strong style="color:#7fb0ff; font-size:11px; display:block; margin-bottom:2px;">${"Support"}</strong>${m.text}</div>
                         <div style="font-size:9px; color:var(--text-gray); margin-top:3px;">${hh}:${mm}</div>
                     </div>`;
                 }
@@ -6371,8 +5324,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
             this.pushChatMessage(text);
         },
 
-        sendPreset(key) {
-            const text = this.t(key + 'Msg') || this.t(key) || key;
+        sendPreset(text) {
             this.pushChatMessage(text);
         },
 
