@@ -1312,42 +1312,61 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
 .db-who .display-id{ font-size:10.5px; color:#8B939D; font-weight:700; }
 
 #dashboard-view.view{ background-color:#000000 !important; background-image:none !important; }
-.db-grid{ display:grid; grid-template-columns:1fr; gap:13px; padding-bottom:20px; }
-@media (min-width:760px){ .db-grid{ grid-template-columns:repeat(3,1fr); } }
+.db-grid{ display:grid; grid-template-columns:1fr; gap:15px; padding-bottom:22px; }
 
-.db-tile{ position:relative; overflow:hidden; display:flex; align-items:center; gap:14px;
-  min-height:78px; padding:14px 16px; border-radius:12px; cursor:pointer;
-  border:1.5px solid var(--db-line); background:linear-gradient(120deg,var(--db-a),var(--db-b));
-  box-shadow:0 0 14px var(--db-glow), inset 0 0 18px var(--db-inner); }
-.db-tile:active{ transform:translateY(1px); }
-.db-red{ --db-line:#FF2D3E; --db-glow:rgba(255,45,62,.45); --db-inner:rgba(255,45,62,.20);
-  --db-a:#2A0207; --db-b:#12070A; }
-.db-blue{ --db-line:#2E7BFF; --db-glow:rgba(46,123,255,.45); --db-inner:rgba(46,123,255,.20);
-  --db-a:#031029; --db-b:#070C18; }
-.db-gold{ --db-line:#E0A22A; --db-glow:rgba(224,162,42,.42); --db-inner:rgba(224,162,42,.22);
-  --db-a:#2A1B02; --db-b:#160F04; }
-.db-green{ --db-line:#22B457; --db-glow:rgba(34,180,87,.42); --db-inner:rgba(34,180,87,.20);
-  --db-a:#02220F; --db-b:#06120B; }
+.db-tile{
+  container-type:inline-size;
+  position:relative; overflow:hidden; cursor:pointer;
+  display:flex; align-items:center; gap:18px;
+  aspect-ratio:385/155; padding:0 22px;
+  color:var(--db-line);
+  clip-path:polygon(15px 0,calc(100% - 15px) 0,100% 15px,100% calc(100% - 15px),
+                    calc(100% - 15px) 100%,15px 100%,0 calc(100% - 15px),0 15px);
+  background:
+    radial-gradient(115% 150% at 78% 60%, var(--db-glow) 0%, rgba(4,5,10,0) 58%),
+    #030408;
+  box-shadow:
+    inset 0 0 0 1.2px rgba(255,255,255,.95),
+    inset 0 0 0 2.8px var(--db-line),
+    inset 0 0 0 6px #030408,
+    inset 0 0 0 7px rgba(255,255,255,.75),
+    inset 0 0 0 8.4px var(--db-line);
+  filter:drop-shadow(0 0 6px var(--db-halo)); }
+.db-tile:active{ filter:drop-shadow(0 0 12px var(--db-halo)); }
 
-.db-streak{ position:absolute; right:-18%; top:-60%; width:70%; height:220%;
-  transform:rotate(24deg); pointer-events:none;
-  background:linear-gradient(90deg, transparent, rgba(255,255,255,.10), transparent); }
+.db-red{ --db-line:#E31026; --db-halo:rgba(227,16,38,.7); --db-glow:rgba(178,10,26,.62); }
+.db-blue{ --db-line:#1E6BE8; --db-halo:rgba(30,107,232,.7); --db-glow:rgba(16,68,160,.62); }
+.db-gold{ --db-line:#C98A12; --db-halo:rgba(201,138,18,.65); --db-glow:rgba(158,106,8,.66); }
+.db-green{ --db-line:#12A03E; --db-halo:rgba(18,160,62,.65); --db-glow:rgba(11,116,44,.64); }
 
-.db-ico{ position:relative; z-index:1; flex:0 0 auto; width:46px; height:46px;
+.db-swoosh{ position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+
+.db-ico{ position:relative; z-index:1; flex:0 0 auto;
+  width:24%; max-width:88px; aspect-ratio:1;
   display:flex; align-items:center; justify-content:center; }
 .db-ico svg{ width:100%; height:100%; }
-.db-ico-num{ font-family:'Oswald','Montserrat',sans-serif; font-size:34px; font-weight:600; color:#fff; }
-.db-art{ position:absolute; inset:0; border-radius:50%;
-  background-size:cover; background-position:center; }
+.db-ico svg circle,.db-ico svg rect,.db-ico svg path,.db-ico svg text,.db-ico svg ellipse,.db-ico svg line,.db-ico svg polygon{
+  stroke:#ffffff; }
+.db-ico-num{ font-family:'Oswald','Montserrat',sans-serif; font-weight:600; color:#fff;
+  font-size:clamp(30px,9.5cqw,46px); line-height:1; }
+.db-art{ position:absolute; inset:0; border-radius:50%; background-size:cover; background-position:center; }
+.db-art[hidden]{ display:none; }
 .db-plan-art{ background-image:url("data:image/jpeg;base64,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"); }
-.db-ico > svg{ position:relative; }
-.db-art + svg{ display:none; }
-.db-sym{ font-family:'Oswald','Montserrat',sans-serif; font-size:36px; font-weight:600; color:#fff; line-height:1; }
+.db-art:not([hidden]) + svg{ display:none; }
+.db-sym{ font-family:'Oswald','Montserrat',sans-serif; font-weight:600; color:#fff; line-height:1;
+  font-size:clamp(32px,10cqw,50px); }
 
-.db-body{ position:relative; z-index:1; min-width:0; }
-.db-label{ font-size:15px; font-weight:800; letter-spacing:.3px; color:#ffffff; line-height:1.15; }
-.db-value{ margin-top:3px; font-size:15px; font-weight:700; color:#E4E9EF; word-break:break-word; }
-.db-sub{ margin-top:2px; font-size:11px; font-weight:700; color:#B9C1CB; }
+.db-body{ position:relative; z-index:1; flex:1; min-width:0; }
+.db-label{ font-size:clamp(16px,5.4cqw,27px); font-weight:800; letter-spacing:.2px;
+  color:#ffffff; line-height:1.12; overflow-wrap:anywhere; }
+.db-value{ margin-top:5px; font-size:clamp(14px,4.6cqw,23px); font-weight:600;
+  color:#E7ECF2; overflow-wrap:anywhere; }
+.db-sub{ margin-top:3px; font-size:clamp(10px,2.9cqw,14px); font-weight:700; color:#C3CAD3; }
+
+@media (min-width:760px){
+  #app-container:has(#dashboard-view.active){ max-width:1180px; }
+  .db-grid{ grid-template-columns:repeat(3,1fr); gap:17px; }
+}
 
 @media (min-width:760px){
   #app-container:has(#dashboard-view.active){ max-width:1040px; }
@@ -1682,17 +1701,32 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
             </div>
         </div>
 
+        <svg width="0" height="0" aria-hidden="true" style="position:absolute">
+            <defs>
+                <linearGradient id="dbSw" x1="0" y1="1" x2="1" y2="0">
+                    <stop offset="0%" stop-color="currentColor" stop-opacity="0"/>
+                    <stop offset="55%" stop-color="currentColor" stop-opacity=".18"/>
+                    <stop offset="100%" stop-color="currentColor" stop-opacity="0"/>
+                </linearGradient>
+                <linearGradient id="dbSw2" x1="0" y1="1" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+                    <stop offset="60%" stop-color="#ffffff" stop-opacity=".12"/>
+                    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+                </linearGradient>
+            </defs>
+        </svg>
+
         <div class="db-grid">
                 <div class="db-tile db-red" onclick="appLogic.navTo('packages')">
-                    <div class="db-streak"></div>
-                    <div class="db-ico"><div id="db-plan-img" class="db-art db-plan-art" style="display:none"></div><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="none" stroke="#fff" stroke-width="2.6"/><text x="24" y="32" text-anchor="middle" font-size="24" font-weight="700" fill="#fff">?</text></svg></div>
+                    <svg class="db-swoosh" viewBox="0 0 400 160" preserveAspectRatio="none" aria-hidden="true"><path d="M-20 190 C 120 178, 300 112, 430 -30" fill="none" stroke="url(#dbSw)" stroke-width="16"/><path d="M-20 168 C 130 158, 310 96, 430 -46" fill="none" stroke="url(#dbSw2)" stroke-width="5"/></svg>
+                    <div class="db-ico"><div id="db-plan-img" class="db-art db-plan-art" hidden></div><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="none" stroke="#fff" stroke-width="2.6"/><text x="24" y="32" text-anchor="middle" font-size="24" font-weight="700" fill="#fff">?</text></svg></div>
                     <div class="db-body">
                         <div class="db-label">MY PLAN</div>
                         <div class="db-value" id="db-plan">&mdash;</div>
                     </div>
                 </div>
                 <div class="db-tile db-red" onclick="appLogic.navTo('affiliate')">
-                    <div class="db-streak"></div>
+                    <svg class="db-swoosh" viewBox="0 0 400 160" preserveAspectRatio="none" aria-hidden="true"><path d="M-20 190 C 120 178, 300 112, 430 -30" fill="none" stroke="url(#dbSw)" stroke-width="16"/><path d="M-20 168 C 130 158, 310 96, 430 -46" fill="none" stroke="url(#dbSw2)" stroke-width="5"/></svg>
                     <div class="db-ico"><div id="db-rank-img" class="db-art tl-gem-silver"></div><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="none" stroke="#fff" stroke-width="2.6"/><text x="24" y="32" text-anchor="middle" font-size="24" font-weight="700" fill="#fff">?</text></svg></div>
                     <div class="db-body">
                         <div class="db-label">MY RANK</div>
@@ -1700,7 +1734,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                     </div>
                 </div>
                 <div class="db-tile db-red" onclick="appLogic.navTo('checkin')">
-                    <div class="db-streak"></div>
+                    <svg class="db-swoosh" viewBox="0 0 400 160" preserveAspectRatio="none" aria-hidden="true"><path d="M-20 190 C 120 178, 300 112, 430 -30" fill="none" stroke="url(#dbSw)" stroke-width="16"/><path d="M-20 168 C 130 158, 310 96, 430 -46" fill="none" stroke="url(#dbSw2)" stroke-width="5"/></svg>
                     <div class="db-ico db-ico-num" id="db-checkin-days">0</div>
                     <div class="db-body">
                         <div class="db-label">CHECK-IN</div>
@@ -1708,7 +1742,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                     </div>
                 </div>
                 <div class="db-tile db-blue" >
-                    <div class="db-streak"></div>
+                    <svg class="db-swoosh" viewBox="0 0 400 160" preserveAspectRatio="none" aria-hidden="true"><path d="M-20 190 C 120 178, 300 112, 430 -30" fill="none" stroke="url(#dbSw)" stroke-width="16"/><path d="M-20 168 C 130 158, 310 96, 430 -46" fill="none" stroke="url(#dbSw2)" stroke-width="5"/></svg>
                     <div class="db-ico"><svg viewBox="0 0 48 48"><rect x="5" y="9" width="38" height="30" rx="3" fill="none" stroke="#fff" stroke-width="2.6"/><circle cx="21" cy="24" r="8" fill="none" stroke="#fff" stroke-width="2.4"/><circle cx="21" cy="24" r="2.4" fill="#fff"/><path d="M21 16v3M21 29v3M13 24h3M26 24h3" stroke="#fff" stroke-width="2"/><rect x="35" y="18" width="4" height="12" rx="1.5" fill="#fff"/></svg></div>
                     <div class="db-body">
                         <div class="db-label">TOTAL INVEST</div>
@@ -1716,7 +1750,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                     </div>
                 </div>
                 <div class="db-tile db-blue" >
-                    <div class="db-streak"></div>
+                    <svg class="db-swoosh" viewBox="0 0 400 160" preserveAspectRatio="none" aria-hidden="true"><path d="M-20 190 C 120 178, 300 112, 430 -30" fill="none" stroke="url(#dbSw)" stroke-width="16"/><path d="M-20 168 C 130 158, 310 96, 430 -46" fill="none" stroke="url(#dbSw2)" stroke-width="5"/></svg>
                     <div class="db-ico"><svg viewBox="0 0 48 48"><path d="M18 12C14 7 19 4.5 24 5.7 29 4.5 34 7 30 12c0 2.6 10 8.4 10 19 0 8.6-9.6 10.3-16 10.3S8 39.6 8 31c0-10.6 10-16.4 10-19Z" fill="#fff"/></svg></div>
                     <div class="db-body">
                         <div class="db-label">TOTAL BONUS</div>
@@ -1724,7 +1758,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                     </div>
                 </div>
                 <div class="db-tile db-blue" onclick="appLogic.openWithdrawalModal()">
-                    <div class="db-streak"></div>
+                    <svg class="db-swoosh" viewBox="0 0 400 160" preserveAspectRatio="none" aria-hidden="true"><path d="M-20 190 C 120 178, 300 112, 430 -30" fill="none" stroke="url(#dbSw)" stroke-width="16"/><path d="M-20 168 C 130 158, 310 96, 430 -46" fill="none" stroke="url(#dbSw2)" stroke-width="5"/></svg>
                     <div class="db-ico"><span class="db-sym">₮</span></div>
                     <div class="db-body">
                         <div class="db-label">CASH ACCOUNT</div>
@@ -1732,7 +1766,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                     </div>
                 </div>
                 <div class="db-tile db-gold" >
-                    <div class="db-streak"></div>
+                    <svg class="db-swoosh" viewBox="0 0 400 160" preserveAspectRatio="none" aria-hidden="true"><path d="M-20 190 C 120 178, 300 112, 430 -30" fill="none" stroke="url(#dbSw)" stroke-width="16"/><path d="M-20 168 C 130 158, 310 96, 430 -46" fill="none" stroke="url(#dbSw2)" stroke-width="5"/></svg>
                     <div class="db-ico"><svg viewBox="0 0 48 48"><path d="M40 18A17 17 0 0 0 11 12M8 6v12h12" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 30a17 17 0 0 0 29 6M40 42V30H28" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
                     <div class="db-body">
                         <div class="db-label">REINVEST</div>
@@ -1740,7 +1774,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                     </div>
                 </div>
                 <div class="db-tile db-gold" onclick="appLogic.navTo('affiliate')">
-                    <div class="db-streak"></div>
+                    <svg class="db-swoosh" viewBox="0 0 400 160" preserveAspectRatio="none" aria-hidden="true"><path d="M-20 190 C 120 178, 300 112, 430 -30" fill="none" stroke="url(#dbSw)" stroke-width="16"/><path d="M-20 168 C 130 158, 310 96, 430 -46" fill="none" stroke="url(#dbSw2)" stroke-width="5"/></svg>
                     <div class="db-ico"><svg viewBox="0 0 48 48"><circle cx="24" cy="15" r="9" fill="#fff"/><path d="M6 44c0-9.9 8.1-16 18-16s18 6.1 18 16Z" fill="#fff"/></svg></div>
                     <div class="db-body">
                         <div class="db-label">MY TEAM</div>
@@ -1748,7 +1782,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                     </div>
                 </div>
                 <div class="db-tile db-gold" onclick="appLogic.navTo('history')">
-                    <div class="db-streak"></div>
+                    <svg class="db-swoosh" viewBox="0 0 400 160" preserveAspectRatio="none" aria-hidden="true"><path d="M-20 190 C 120 178, 300 112, 430 -30" fill="none" stroke="url(#dbSw)" stroke-width="16"/><path d="M-20 168 C 130 158, 310 96, 430 -46" fill="none" stroke="url(#dbSw2)" stroke-width="5"/></svg>
                     <div class="db-ico"><svg viewBox="0 0 48 48"><rect x="7" y="30" width="34" height="7" rx="1.6" fill="#fff"/><rect x="12" y="22" width="24" height="7" rx="1.6" fill="#fff"/><rect x="17" y="14" width="14" height="7" rx="1.6" fill="#fff"/></svg></div>
                     <div class="db-body">
                         <div class="db-label">PAID OUT</div>
@@ -1756,7 +1790,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                     </div>
                 </div>
                 <div class="db-tile db-green" >
-                    <div class="db-streak"></div>
+                    <svg class="db-swoosh" viewBox="0 0 400 160" preserveAspectRatio="none" aria-hidden="true"><path d="M-20 190 C 120 178, 300 112, 430 -30" fill="none" stroke="url(#dbSw)" stroke-width="16"/><path d="M-20 168 C 130 158, 310 96, 430 -46" fill="none" stroke="url(#dbSw2)" stroke-width="5"/></svg>
                     <div class="db-ico"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="none" stroke="#fff" stroke-width="2.6"/><ellipse cx="24" cy="24" rx="8" ry="18" fill="none" stroke="#fff" stroke-width="2.2"/><path d="M6 24h36M9.5 14h29M9.5 34h29" stroke="#fff" stroke-width="2.2"/></svg></div>
                     <div class="db-body">
                         <div class="db-label">TOTAL NETWORK EARNINGS</div>
@@ -1764,7 +1798,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                     </div>
                 </div>
                 <div class="db-tile db-green" >
-                    <div class="db-streak"></div>
+                    <svg class="db-swoosh" viewBox="0 0 400 160" preserveAspectRatio="none" aria-hidden="true"><path d="M-20 190 C 120 178, 300 112, 430 -30" fill="none" stroke="url(#dbSw)" stroke-width="16"/><path d="M-20 168 C 130 158, 310 96, 430 -46" fill="none" stroke="url(#dbSw2)" stroke-width="5"/></svg>
                     <div class="db-ico"><span class="db-sym">₮</span></div>
                     <div class="db-body">
                         <div class="db-label">PROFIT TODAY</div>
@@ -1772,7 +1806,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                     </div>
                 </div>
                 <div class="db-tile db-green" >
-                    <div class="db-streak"></div>
+                    <svg class="db-swoosh" viewBox="0 0 400 160" preserveAspectRatio="none" aria-hidden="true"><path d="M-20 190 C 120 178, 300 112, 430 -30" fill="none" stroke="url(#dbSw)" stroke-width="16"/><path d="M-20 168 C 130 158, 310 96, 430 -46" fill="none" stroke="url(#dbSw2)" stroke-width="5"/></svg>
                     <div class="db-ico"><span class="db-sym">₮</span></div>
                     <div class="db-body">
                         <div class="db-label">PROFIT YESTERDAY</div>
@@ -3216,8 +3250,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                 const extra = allPkgsLive.length > 1 ? ' +' + (allPkgsLive.length - 1) : '';
                 document.getElementById('db-plan').innerText =
                     allPkgsLive.length === 0 ? 'No Active Package' : allPkgsLive[0].name + extra;
-                document.getElementById('db-plan-img').style.display =
-                    allPkgsLive.length ? 'block' : 'none';
+                document.getElementById('db-plan-img').hidden = allPkgsLive.length === 0;
 
                 this.loadTeamData(data.myCode);
                 this.updateLiveDashboards(true);
