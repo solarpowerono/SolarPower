@@ -1199,8 +1199,9 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
 
 #support-view.view.active{
   display:flex !important; flex-direction:column;
+  position:fixed; top:0; left:50%; transform:translateX(-50%);
+  width:100%; max-width:480px; bottom:0; z-index:50;
   padding:0 !important; margin:0;
-  height:100vh; height:100dvh; max-height:100vh; max-height:100dvh;
   overflow:hidden; animation:none;
 }
 #support-view.view.active .sec-bar{ margin:0; flex:0 0 auto; }
@@ -5056,7 +5057,8 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
             const input = document.getElementById('support-chat-input');
             const applyOffset = () => {
                 if (!supportView || !supportView.classList.contains('active')) return;
-                supportView.style.height = vv.height + 'px';
+                const kb = Math.max(0, window.innerHeight - vv.height - vv.offsetTop);
+                supportView.style.bottom = kb + 'px';
                 window.scrollTo(0, 0);
                 const box = document.getElementById('support-chat-box');
                 if (box) box.scrollTop = box.scrollHeight;
@@ -5064,9 +5066,12 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
             vv.addEventListener('resize', applyOffset);
             vv.addEventListener('scroll', applyOffset);
             if (input) {
-                input.addEventListener('focus', () => setTimeout(applyOffset, 50));
+                input.addEventListener('focus', () => {
+                    setTimeout(applyOffset, 50);
+                    setTimeout(applyOffset, 300);
+                });
                 input.addEventListener('blur', () => {
-                    if (supportView) supportView.style.height = '';
+                    if (supportView) supportView.style.bottom = '0px';
                 });
             }
         },
