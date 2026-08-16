@@ -418,20 +418,6 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
         }
 
         @keyframes spin { to { transform: rotate(360deg); } }
-.btn-settings-outline{
-            background: #1a56db !important;
-            color: #ffffff !important;
-            border: 1px solid #1a56db !important;
-            backdrop-filter: none !important;
-            box-shadow: 0 2px 8px rgba(26,86,219,0.25) !important;
-            text-shadow: none !important;
-        }
-.btn-settings-outline:hover:not(:disabled){
-            background: #1648c0 !important;
-        }
-.btn-settings-outline:active:not(:disabled){
-            background: #1240a8 !important;
-        }
 #profile-view .card,#affiliate-view .card{
             background-color:#070B12 !important;
             background-image: radial-gradient(circle at top left, rgba(80,140,255,0.35) 0%, transparent 60%), radial-gradient(circle at bottom right, rgba(30,60,120,0.5) 0%, transparent 65%) !important;
@@ -449,7 +435,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
 #profile-view #wallet-input-wrapper .input-wrapper{
             background-color:#070B12 !important;
             background-image: radial-gradient(circle at top left, rgba(80,140,255,0.35) 0%, transparent 60%), radial-gradient(circle at bottom right, rgba(30,60,120,0.45) 0%, transparent 65%) !important;
-            border: 1.5px solid rgba(201,162,39,0.28) !important;
+            border: 1.5px solid rgba(198,205,214,0.4) !important;
         }
 #profile-view #wallet-input-wrapper .input-wrapper input,#profile-view #wallet-input-wrapper .input-wrapper input::placeholder{
             color:#ffffff !important;
@@ -541,16 +527,8 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
 .modal-content .input-wrapper{ background: rgba(0,0,0,0.25) !important; border-color: rgba(255,255,255,0.3) !important; }
 #shop-calc-modal .modal-content{ border: 1.5px solid rgba(201,162,39,0.28) !important; }
 .close-modal-x{ color:#ffffff !important; }
-#saved-wallet-display{ color:#ffffff !important; }
 #affiliate-team-size,#affiliate-earned{ color:#ffffff !important; }
 #affiliate-link-display{ color:#ffffff !important; background:transparent !important; border:none !important; padding:0 !important; }
-#profile-view .btn-settings-outline{
-            background-color:#070B12; background-image:none;
-            color:#ffffff !important;
-            border:1px solid #C9A227 !important;
-        }
-#profile-view .btn-settings-outline *{ color:#ffffff !important; }
-#saved-wallet-display{ color:#ffffff !important; }
 #withdrawal-view{
             background-color: #070B12;
             background-image:
@@ -726,7 +704,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
             background-attachment: fixed !important;
             min-height: 100vh;
         }
-.btn,.btn-settings-outline,#btn-login,#btn-register{
+.btn,#btn-login,#btn-register{
             background-color: transparent !important;
             background-image: none !important;
             color: #ffffff !important;
@@ -1200,28 +1178,20 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
   background: rgba(255,255,255,0.12) !important;
   border:1.5px solid rgba(198,205,214,0.4) !important;
   color:#ffffff !important;
+  caret-color:#C6CDD6 !important;
 }
 #profile-view .pin-box:focus{
   border-color:#C6CDD6 !important;
   background: rgba(255,255,255,0.18) !important;
   outline:none !important;
 }
+#profile-view .pin-grid{ justify-content:flex-start; gap:9px; }
 .currency-row{ display:flex; gap:8px; justify-content:center; }
 .currency-btn{ flex:1; padding:16px 0; font-size:30px; font-weight:900; color:#ffffff;
   background:rgba(255,255,255,.04); border:1.5px solid rgba(198,205,214,.4); border-radius:14px;
   cursor:pointer; line-height:1; }
 .currency-btn.active{ background:linear-gradient(135deg,#FBE7A6 0%,#E5BC53 40%,#BE8A11 100%);
   color:#221602; border-color:transparent; box-shadow:0 4px 14px rgba(201,162,39,.35); }
-
-#gold-loader-overlay{ display:none; position:fixed; top:0; left:50%; transform:translateX(-50%);
-  width:100%; max-width:480px; bottom:0; z-index:99990; background:#000000;
-  align-items:center; justify-content:center; }
-#gold-loader-overlay.show{ display:flex; }
-.gold-loader-track{ width:70%; max-width:260px; height:24px; border-radius:999px;
-  border:1.5px solid rgba(198,205,214,.4); background:rgba(255,255,255,.05); overflow:hidden; }
-.gold-loader-fill{ height:100%; width:0%; border-radius:999px;
-  background:linear-gradient(135deg,#FBE7A6 0%,#E5BC53 40%,#BE8A11 100%);
-  box-shadow:0 0 18px rgba(201,162,39,.7); }
 
 #support-chat-box{ background:rgba(255,255,255,.04);
   border:1px solid rgba(198,205,214,.35); border-radius:16px; padding:14px;
@@ -1294,16 +1264,9 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
   border:1px solid rgba(198,205,214,.5); background:transparent; color:#D7DCE2;
   font-size:18px; line-height:1; cursor:pointer; }
 
-#profile-view .btn-settings-outline{
-  background-color:transparent !important; background-image:none !important;
-  border:1px solid rgba(226,190,96,.85) !important;
-  color:#F1D48A !important; border-radius:12px !important; }
-#profile-view .btn-settings-outline *{ color:#F1D48A !important; }
-#profile-view .btn-settings-outline:active:not(:disabled){
-  background-color:rgba(226,190,96,.12) !important; }
 #profile-view .btn{
   background-color:transparent !important; background-image:none !important;
-  border:1px solid rgba(226,190,96,.85) !important; color:#F1D48A !important; }
+  border:1px solid rgba(198,205,214,.5) !important; color:#F1D48A !important; }
 #profile-view .btn *{ color:#F1D48A !important; }
 
 .pc-card{ position:relative; width:100%; max-width:430px; margin:0 auto 18px;
@@ -2297,7 +2260,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
         <div class="card" style="text-align: center">
             <h4 style="font-size: 15px; margin-bottom: 15px; font-weight: 900; color:#ffffff">Select a currency</h4>
             <div class="currency-row" id="currency-row">
-                <button type="button" class="currency-btn" data-value="₮" onclick="appLogic.selectCurrency('₮','₮ USDT')">₮</button>
+                <button type="button" class="currency-btn" data-value="USDT" onclick="appLogic.selectCurrency('USDT','₮ USDT')">₮</button>
                 <button type="button" class="currency-btn" data-value="$" onclick="appLogic.selectCurrency('$','USD ($)')">$</button>
                 <button type="button" class="currency-btn" data-value="€" onclick="appLogic.selectCurrency('€','EUR (€)')">€</button>
                 <button type="button" class="currency-btn" data-value="£" onclick="appLogic.selectCurrency('£','GBP (£)')">£</button>
@@ -2307,18 +2270,20 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
 
         <div class="card" style="text-align: center">
             <h4 style="font-size: 15px; margin-bottom: 15px; font-weight: 900; color:#ffffff">Add a crypto wallet</h4>
-            <div id="saved-wallet-display" style="display:none; background-color:#070B12; background-image:none; color:#ffffff; border: 1.5px solid rgba(198,205,214,0.4); border-radius:8px; padding:10px; margin-bottom:12px; font-size:12px; font-weight:700; word-break:break-all"></div>
-            <div id="wallet-change-pin-wrapper" style="display:none; margin-bottom:12px">
-                <p style="font-size:11px; color:var(--text-gray); margin-bottom:8px"><span>Enter your withdrawal PIN to change wallet address:</span></p>
-                <div class="input-wrapper" style="margin-bottom:10px">
-                    <input type="password" id="wallet-change-pin" placeholder="6-digit PIN" inputmode="numeric" maxlength="6">
-                </div>
-                <button class="btn btn-settings-outline" style="margin-bottom:8px" onclick="appLogic.verifyWalletPin()">Verify PIN</button>
-                <button class="btn btn-settings-outline" onclick="appLogic.cancelWalletChange()">Cancel</button>
-            </div>
             <div id="wallet-input-wrapper" style="margin-bottom:12px">
                 <div class="input-wrapper" style="margin-bottom:10px">
-                    <input type="text" id="prof-crypto-addr" placeholder="USDT (ERC20) Address">
+                    <input type="text" id="prof-crypto-addr" placeholder="USDT Address">
+                </div>
+            </div>
+            <div id="wallet-change-pin-wrapper" style="display:none; margin-bottom:12px">
+                <p style="font-size:11px; color:var(--text-gray); margin-bottom:8px; text-align:left">Current PIN</p>
+                <div class="pin-grid" id="wallet-change-pin-grid" style="margin-bottom:0">
+                    <input type="password" inputmode="numeric" class="pin-box" maxlength="1" onkeyup="appLogic.movePin(this, 1)">
+                    <input type="password" inputmode="numeric" class="pin-box" maxlength="1" onkeyup="appLogic.movePin(this, 2)">
+                    <input type="password" inputmode="numeric" class="pin-box" maxlength="1" onkeyup="appLogic.movePin(this, 3)">
+                    <input type="password" inputmode="numeric" class="pin-box" maxlength="1" onkeyup="appLogic.movePin(this, 4)">
+                    <input type="password" inputmode="numeric" class="pin-box" maxlength="1" onkeyup="appLogic.movePin(this, 5)">
+                    <input type="password" inputmode="numeric" class="pin-box" maxlength="1" onkeyup="appLogic.movePin(this, 6)">
                 </div>
             </div>
             <button id="btn-add-wallet" class="btn" style="background-color:#070B12; background-image:none; border: 1.5px solid #C6CDD6 !important; box-shadow: 0 0 10px rgba(198,205,214,0.35) !important; color:#ffffff !important" onclick="appLogic.saveCryptoAddress()">Save Crypto Address</button>
@@ -2860,7 +2825,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
         promoTimerInterval: null,
         dynamicStock: {},
         FOUNDER_CODE: '87412',
-        currentCurrency: localStorage.getItem('appCurrency') || '₮',
+        currentCurrency: localStorage.getItem('appCurrency') || 'USDT',
 
         init() {
             this.bindAuthInputs();
@@ -2868,7 +2833,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
             this.trackSession();
             Landing.init();
 
-            if (!cRates[this.currentCurrency]) this.currentCurrency = '₮';
+            if (!cRates[this.currentCurrency]) this.currentCurrency = 'USDT';
             document.getElementById('global-currency').value = this.currentCurrency;
             document.querySelectorAll('.currency-btn').forEach(b => {
                 b.classList.toggle('active', b.dataset.value === this.currentCurrency);
@@ -3763,53 +3728,48 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
             }, 3000);
         },
 
-        verifyWalletPin() {
-            const enteredPin = document.getElementById('wallet-change-pin').value;
-            const correctPin = this.currentUserData?.withdrawPin;
-            if (!correctPin) return this.showToast("No withdrawal PIN set.", "error");
-            if (enteredPin !== correctPin) return this.showToast("Incorrect PIN!", "error");
-            document.getElementById('wallet-change-pin-wrapper').style.display = 'none';
-            document.getElementById('wallet-input-wrapper').style.display = 'block';
-            const addBtn = document.getElementById('btn-add-wallet');
-            if (addBtn) { addBtn.style.display = 'block'; addBtn.innerText = 'Save Crypto Address'; }
-        },
-
-        cancelWalletChange() {
-            document.getElementById('wallet-change-pin-wrapper').style.display = 'none';
-            this.updateWalletDisplay();
-        },
-
         updateWalletDisplay() {
             const addr = this.currentUserData?.cryptoAddress;
-            const display = document.getElementById('saved-wallet-display');
-            const addBtn = document.getElementById('btn-add-wallet');
-            const inputWrap = document.getElementById('wallet-input-wrapper');
-            if (display && addBtn) {
-                if (addr) {
-                    display.style.display = 'block';
-                    display.innerText = addr;
-                    addBtn.style.display = 'none';
-                    if (inputWrap) inputWrap.style.display = 'none';
-                } else {
-                    display.style.display = 'none';
-                    addBtn.style.display = 'block';
-                    addBtn.innerText = 'Save Crypto Address';
-                    if (inputWrap) inputWrap.style.display = 'block';
-                }
-            }
+            const input = document.getElementById('prof-crypto-addr');
+            if (input && addr && !input.value) input.value = addr;
         },
 
-        async saveCryptoAddress() {
-            const addr = document.getElementById('prof-crypto-addr').value.trim();
-            if(!addr || addr.length < 15) return this.showToast("Enter a valid crypto address", "error");
-            await this.showGoldLoader();
+        saveCryptoAddress() {
+            const pinWrap = document.getElementById('wallet-change-pin-wrapper');
+            const btn = document.getElementById('btn-add-wallet');
+
+            if (pinWrap && pinWrap.style.display !== 'none') {
+                let pin = '';
+                document.querySelectorAll('#wallet-change-pin-grid .pin-box').forEach(el => { pin += el.value; });
+                if (!/^\d{6}$/.test(pin)) return this.showToast("Enter your 6-digit PIN.", "error");
+                if (pin !== this.currentUserData?.withdrawPin) {
+                    this.showToast("Incorrect PIN!", "error");
+                    document.querySelectorAll('#wallet-change-pin-grid .pin-box').forEach(el => { el.value = ''; });
+                    return;
+                }
+                return this._confirmSaveCryptoAddress(pinWrap, btn);
+            }
+
+            const addrInput = document.getElementById('prof-crypto-addr');
+            const addr = addrInput.value.replace(/\s+/g, '');
+            addrInput.value = addr;
+            if (!/^[a-zA-Z0-9]{25,64}$/.test(addr)) return this.showToast("Enter a valid USDT address", "error");
+            if (!this.currentUserData?.withdrawPin) return this.showToast("Please set up your withdrawal PIN first.", "error");
+
+            if (pinWrap) pinWrap.style.display = 'block';
+            if (btn) btn.innerText = 'Confirm PIN & Save';
+        },
+
+        async _confirmSaveCryptoAddress(pinWrap, btn) {
+            const addr = document.getElementById('prof-crypto-addr').value.replace(/\s+/g, '');
             const uid = localStorage.getItem('uid');
             try {
                 await window.fupdate(window.fref(window.fdb, 'users/' + uid), { cryptoAddress: addr });
                 this.showToast("Crypto address saved!", "success");
-                document.getElementById('prof-crypto-addr').value = '';
                 if (this.currentUserData) this.currentUserData.cryptoAddress = addr;
-                this.updateWalletDisplay();
+                if (pinWrap) pinWrap.style.display = 'none';
+                document.querySelectorAll('#wallet-change-pin-grid .pin-box').forEach(el => { el.value = ''; });
+                if (btn) btn.innerText = 'Save Crypto Address';
             } catch(e) { this.showToast("Error saving address", "error"); }
         },
 
@@ -3907,8 +3867,6 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                 if(oldPin !== existingPin) return this.showToast("Incorrect current PIN!", "error");
             }
 
-            await this.showGoldLoader();
-
             const uid = localStorage.getItem('uid');
             try {
                 await window.fupdate(window.fref(window.fdb, 'users/' + uid), { withdrawPin: pin });
@@ -3924,8 +3882,6 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
             if(!oldPass || !newPass) return this.showToast("Please fill both fields.", "error");
             if(oldPass !== this.currentUserData.password) return this.showToast("Incorrect current password!", "error");
             if(newPass.length < 6) return this.showToast("Password must be at least 6 characters.", "error");
-
-            await this.showGoldLoader();
 
             const uid = localStorage.getItem('uid');
             try {
@@ -5351,44 +5307,19 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
             const ov = document.getElementById('currency-picker-overlay');
             if (ov) ov.style.display = 'none';
         },
-        async selectCurrency(value, label) {
+        selectCurrency(value, label) {
             const hidden = document.getElementById('global-currency');
             if (hidden) hidden.value = value;
             document.querySelectorAll('.currency-btn').forEach(b => {
                 b.classList.toggle('active', b.dataset.value === value);
             });
-            await this.showGoldLoader();
             this.changeCurrency(value);
-        },
-        showGoldLoader(duration = 2500) {
-            return new Promise(resolve => {
-                const overlay = document.getElementById('gold-loader-overlay');
-                const fill = document.getElementById('gold-loader-fill');
-                if (!overlay || !fill) return resolve();
-                fill.style.transition = 'none';
-                fill.style.width = '0%';
-                overlay.classList.add('show');
-                requestAnimationFrame(() => {
-                    requestAnimationFrame(() => {
-                        fill.style.transition = `width ${duration}ms linear`;
-                        fill.style.width = '100%';
-                    });
-                });
-                setTimeout(() => {
-                    overlay.classList.remove('show');
-                    resolve();
-                }, duration);
-            });
         }
     };
 
     window.appLogic = appLogic;
     document.addEventListener('DOMContentLoaded', () => { window.appLogic.init(); });
 </script>
-
-    <div id="gold-loader-overlay">
-        <div class="gold-loader-track"><div class="gold-loader-fill" id="gold-loader-fill"></div></div>
-    </div>
 
     <div id="currency-picker-overlay" style="display:none; position:fixed; inset:0; z-index:100000; background:rgba(0,0,0,0.55); align-items:flex-start; justify-content:center" onclick="if(event.target===this) appLogic.closeCurrencyPicker()">
         <div style="margin-top:14vh; width:90%; max-width:340px; max-height:70vh; display:flex; flex-direction:column; background-color:#000000; background-image:none; border:1px solid rgba(198,205,214,0.6); border-radius:16px; overflow:hidden; box-shadow:0 12px 40px rgba(0,0,0,0.6)">
