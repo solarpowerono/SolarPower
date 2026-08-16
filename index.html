@@ -1192,6 +1192,37 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
 .menu-dot{ display:none; position:absolute; top:6px; right:6px; width:9px; height:9px;
   border-radius:50%; background:#E5484D; box-shadow:0 0 6px rgba(229,72,77,.8); }
 
+#profile-view .input-wrapper:focus-within{
+  border-color:#C6CDD6 !important;
+  box-shadow:0 0 16px rgba(198,205,214,.5), 0 0 28px rgba(198,205,214,.3) !important;
+}
+#profile-view .pin-box{
+  background: rgba(255,255,255,0.12) !important;
+  border:1.5px solid rgba(198,205,214,0.4) !important;
+  color:#ffffff !important;
+}
+#profile-view .pin-box:focus{
+  border-color:#C6CDD6 !important;
+  background: rgba(255,255,255,0.18) !important;
+  outline:none !important;
+}
+.currency-row{ display:flex; gap:8px; justify-content:center; }
+.currency-btn{ flex:1; padding:16px 0; font-size:30px; font-weight:900; color:#ffffff;
+  background:rgba(255,255,255,.04); border:1.5px solid rgba(198,205,214,.4); border-radius:14px;
+  cursor:pointer; line-height:1; }
+.currency-btn.active{ background:linear-gradient(135deg,#FBE7A6 0%,#E5BC53 40%,#BE8A11 100%);
+  color:#221602; border-color:transparent; box-shadow:0 4px 14px rgba(201,162,39,.35); }
+
+#gold-loader-overlay{ display:none; position:fixed; top:0; left:50%; transform:translateX(-50%);
+  width:100%; max-width:480px; bottom:0; z-index:99990; background:#000000;
+  align-items:center; justify-content:center; }
+#gold-loader-overlay.show{ display:flex; }
+.gold-loader-track{ width:70%; max-width:260px; height:24px; border-radius:999px;
+  border:1.5px solid rgba(198,205,214,.4); background:rgba(255,255,255,.05); overflow:hidden; }
+.gold-loader-fill{ height:100%; width:0%; border-radius:999px;
+  background:linear-gradient(135deg,#FBE7A6 0%,#E5BC53 40%,#BE8A11 100%);
+  box-shadow:0 0 18px rgba(201,162,39,.7); }
+
 #support-chat-box{ background:rgba(255,255,255,.04);
   border:1px solid rgba(198,205,214,.35); border-radius:16px; padding:14px;
   min-height:320px; max-height:52vh; overflow-y:auto; margin-bottom:12px;
@@ -2265,18 +2296,18 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
 
         <div class="card" style="text-align: center">
             <h4 style="font-size: 15px; margin-bottom: 15px; font-weight: 900; color:#ffffff">Select a currency</h4>
-            <div class="input-wrapper" style="margin-bottom: 15px; cursor:pointer" onclick="appLogic.openCurrencyPicker()">
-                <div style="display:flex; align-items:center; gap:8px; width:100%; color:#ffffff; font-weight:700">
-                    <span id="currency-display-text">USDT</span>
-                    <i class="fas fa-chevron-down" style="margin-left:auto; font-size:11px; color:#C9A227"></i>
-                </div>
-                <input type="hidden" id="global-currency" value="USDT">
+            <div class="currency-row" id="currency-row">
+                <button type="button" class="currency-btn" data-value="₮" onclick="appLogic.selectCurrency('₮','₮ USDT')">₮</button>
+                <button type="button" class="currency-btn" data-value="$" onclick="appLogic.selectCurrency('$','USD ($)')">$</button>
+                <button type="button" class="currency-btn" data-value="€" onclick="appLogic.selectCurrency('€','EUR (€)')">€</button>
+                <button type="button" class="currency-btn" data-value="£" onclick="appLogic.selectCurrency('£','GBP (£)')">£</button>
             </div>
+            <input type="hidden" id="global-currency" value="USDT">
         </div>
 
         <div class="card" style="text-align: center">
             <h4 style="font-size: 15px; margin-bottom: 15px; font-weight: 900; color:#ffffff">Add a crypto wallet</h4>
-            <div id="saved-wallet-display" style="display:none; background-color:#070B12; background-image:none; color:#ffffff; border: 1.5px solid rgba(201,162,39,0.28); border-radius:8px; padding:10px; margin-bottom:12px; font-size:12px; font-weight:700; word-break:break-all"></div>
+            <div id="saved-wallet-display" style="display:none; background-color:#070B12; background-image:none; color:#ffffff; border: 1.5px solid rgba(198,205,214,0.4); border-radius:8px; padding:10px; margin-bottom:12px; font-size:12px; font-weight:700; word-break:break-all"></div>
             <div id="wallet-change-pin-wrapper" style="display:none; margin-bottom:12px">
                 <p style="font-size:11px; color:var(--text-gray); margin-bottom:8px"><span>Enter your withdrawal PIN to change wallet address:</span></p>
                 <div class="input-wrapper" style="margin-bottom:10px">
@@ -2290,21 +2321,35 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                     <input type="text" id="prof-crypto-addr" placeholder="USDT (ERC20) Address">
                 </div>
             </div>
-            <button id="btn-add-wallet" class="btn" style="background-color:#070B12; background-image:none; border: 1.5px solid #C9A227 !important; box-shadow: 0 0 10px rgba(255,215,0,0.35) !important; color:#ffffff !important" onclick="appLogic.saveCryptoAddress()">Save Crypto Address</button>
+            <button id="btn-add-wallet" class="btn" style="background-color:#070B12; background-image:none; border: 1.5px solid #C6CDD6 !important; box-shadow: 0 0 10px rgba(198,205,214,0.35) !important; color:#ffffff !important" onclick="appLogic.saveCryptoAddress()">Save Crypto Address</button>
         </div>
 
         <div class="card" style="text-align: center">
             <h4 style="font-size: 15px; margin-bottom: 15px; font-weight: 900; color:#ffffff">Security Settings</h4>
             <p style="font-size: 12px; color: #ffffff; margin-bottom: 15px">Set up a 6-digit PIN code required for withdrawals.</p>
-            <div class="input-wrapper" style="margin-bottom: 15px" id="prof-old-pin-wrapper">
-                <input type="password" id="prof-old-pin" placeholder="Current PIN" inputmode="numeric" maxlength="6" minlength="6" style="padding-right: 35px">
-                <i class="fas fa-eye toggle-password" onclick="appLogic.togglePassword('prof-old-pin', this)"></i>
+            <div style="margin-bottom: 18px" id="prof-old-pin-wrapper">
+                <p style="font-size:11px; color:var(--text-gray); margin-bottom:8px; text-align:left">Current PIN</p>
+                <div class="pin-grid" id="prof-old-pin-grid" style="margin-bottom:0">
+                    <input type="password" inputmode="numeric" class="pin-box" maxlength="1" onkeyup="appLogic.movePin(this, 1)">
+                    <input type="password" inputmode="numeric" class="pin-box" maxlength="1" onkeyup="appLogic.movePin(this, 2)">
+                    <input type="password" inputmode="numeric" class="pin-box" maxlength="1" onkeyup="appLogic.movePin(this, 3)">
+                    <input type="password" inputmode="numeric" class="pin-box" maxlength="1" onkeyup="appLogic.movePin(this, 4)">
+                    <input type="password" inputmode="numeric" class="pin-box" maxlength="1" onkeyup="appLogic.movePin(this, 5)">
+                    <input type="password" inputmode="numeric" class="pin-box" maxlength="1" onkeyup="appLogic.movePin(this, 6)">
+                </div>
             </div>
-            <div class="input-wrapper" style="margin-bottom: 15px">
-                <input type="password" id="prof-setup-pin" placeholder="Enter new 6-digit PIN" inputmode="numeric" maxlength="6" minlength="6" style="padding-right: 35px">
-                <i class="fas fa-eye toggle-password" onclick="appLogic.togglePassword('prof-setup-pin', this)"></i>
+            <div style="margin-bottom: 18px">
+                <p style="font-size:11px; color:var(--text-gray); margin-bottom:8px; text-align:left">New 6-digit PIN</p>
+                <div class="pin-grid" id="prof-setup-pin-grid" style="margin-bottom:0">
+                    <input type="password" inputmode="numeric" class="pin-box" maxlength="1" onkeyup="appLogic.movePin(this, 1)">
+                    <input type="password" inputmode="numeric" class="pin-box" maxlength="1" onkeyup="appLogic.movePin(this, 2)">
+                    <input type="password" inputmode="numeric" class="pin-box" maxlength="1" onkeyup="appLogic.movePin(this, 3)">
+                    <input type="password" inputmode="numeric" class="pin-box" maxlength="1" onkeyup="appLogic.movePin(this, 4)">
+                    <input type="password" inputmode="numeric" class="pin-box" maxlength="1" onkeyup="appLogic.movePin(this, 5)">
+                    <input type="password" inputmode="numeric" class="pin-box" maxlength="1" onkeyup="appLogic.movePin(this, 6)">
+                </div>
             </div>
-            <button class="btn" style="background-color:#070B12; background-image:none; border: 1.5px solid #C9A227 !important; color:#ffffff !important" onclick="appLogic.setupPin()">
+            <button class="btn" style="background-color:#070B12; background-image:none; border: 1.5px solid #C6CDD6 !important; color:#ffffff !important" onclick="appLogic.setupPin()">
                 Setup Withdrawal PIN
             </button>
         </div>
@@ -2319,7 +2364,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                 <input type="password" id="prof-new-pass" placeholder="New Password" style="padding-right: 35px">
                 <i class="fas fa-eye toggle-password" onclick="appLogic.togglePassword('prof-new-pass', this)"></i>
             </div>
-            <button class="btn" style="background-color:#070B12; background-image:none; border: 1.5px solid #C9A227 !important; color:#ffffff !important" onclick="appLogic.changePassword()">
+            <button class="btn" style="background-color:#070B12; background-image:none; border: 1.5px solid #C6CDD6 !important; color:#ffffff !important" onclick="appLogic.changePassword()">
                 Update Password
             </button>
         </div>
@@ -2815,7 +2860,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
         promoTimerInterval: null,
         dynamicStock: {},
         FOUNDER_CODE: '87412',
-        currentCurrency: localStorage.getItem('appCurrency') || 'USDT',
+        currentCurrency: localStorage.getItem('appCurrency') || '₮',
 
         init() {
             this.bindAuthInputs();
@@ -2823,11 +2868,11 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
             this.trackSession();
             Landing.init();
 
-            if (!cRates[this.currentCurrency]) this.currentCurrency = 'USDT';
+            if (!cRates[this.currentCurrency]) this.currentCurrency = '₮';
             document.getElementById('global-currency').value = this.currentCurrency;
-            const match = this.currencyList.find(c => c.value === this.currentCurrency);
-            document.getElementById('currency-display-text').innerText =
-                match ? match.label : this.currentCurrency;
+            document.querySelectorAll('.currency-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.value === this.currentCurrency);
+            });
 
             this.listenToPromo();
             this.listenToStock();
@@ -3757,6 +3802,7 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
         async saveCryptoAddress() {
             const addr = document.getElementById('prof-crypto-addr').value.trim();
             if(!addr || addr.length < 15) return this.showToast("Enter a valid crypto address", "error");
+            await this.showGoldLoader();
             const uid = localStorage.getItem('uid');
             try {
                 await window.fupdate(window.fref(window.fdb, 'users/' + uid), { cryptoAddress: addr });
@@ -3848,8 +3894,10 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
         },
 
         async setupPin() {
-            const pin = document.getElementById('prof-setup-pin').value;
-            const oldPin = document.getElementById('prof-old-pin').value;
+            let pin = '';
+            document.querySelectorAll('#prof-setup-pin-grid .pin-box').forEach(el => { pin += el.value; });
+            let oldPin = '';
+            document.querySelectorAll('#prof-old-pin-grid .pin-box').forEach(el => { oldPin += el.value; });
 
             if(!/^\d{6}$/.test(pin)) return this.showToast("PIN must be exactly 6 digits.", "error");
 
@@ -3859,12 +3907,13 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
                 if(oldPin !== existingPin) return this.showToast("Incorrect current PIN!", "error");
             }
 
+            await this.showGoldLoader();
+
             const uid = localStorage.getItem('uid');
             try {
                 await window.fupdate(window.fref(window.fdb, 'users/' + uid), { withdrawPin: pin });
                 this.showToast("Withdrawal PIN set successfully!", "success");
-                document.getElementById('prof-setup-pin').value = '';
-                document.getElementById('prof-old-pin').value = '';
+                document.querySelectorAll('#prof-setup-pin-grid .pin-box, #prof-old-pin-grid .pin-box').forEach(el => { el.value = ''; });
             } catch(e) { this.showToast("Error setting PIN", "error"); }
         },
 
@@ -3875,6 +3924,8 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
             if(!oldPass || !newPass) return this.showToast("Please fill both fields.", "error");
             if(oldPass !== this.currentUserData.password) return this.showToast("Incorrect current password!", "error");
             if(newPass.length < 6) return this.showToast("Password must be at least 6 characters.", "error");
+
+            await this.showGoldLoader();
 
             const uid = localStorage.getItem('uid');
             try {
@@ -5300,19 +5351,44 @@ button,[onclick]{ touch-action: manipulation; -webkit-tap-highlight-color: trans
             const ov = document.getElementById('currency-picker-overlay');
             if (ov) ov.style.display = 'none';
         },
-        selectCurrency(value, label) {
+        async selectCurrency(value, label) {
             const hidden = document.getElementById('global-currency');
-            const disp = document.getElementById('currency-display-text');
             if (hidden) hidden.value = value;
-            if (disp) disp.innerText = label;
+            document.querySelectorAll('.currency-btn').forEach(b => {
+                b.classList.toggle('active', b.dataset.value === value);
+            });
+            await this.showGoldLoader();
             this.changeCurrency(value);
-            this.closeCurrencyPicker();
+        },
+        showGoldLoader(duration = 2500) {
+            return new Promise(resolve => {
+                const overlay = document.getElementById('gold-loader-overlay');
+                const fill = document.getElementById('gold-loader-fill');
+                if (!overlay || !fill) return resolve();
+                fill.style.transition = 'none';
+                fill.style.width = '0%';
+                overlay.classList.add('show');
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        fill.style.transition = `width ${duration}ms linear`;
+                        fill.style.width = '100%';
+                    });
+                });
+                setTimeout(() => {
+                    overlay.classList.remove('show');
+                    resolve();
+                }, duration);
+            });
         }
     };
 
     window.appLogic = appLogic;
     document.addEventListener('DOMContentLoaded', () => { window.appLogic.init(); });
 </script>
+
+    <div id="gold-loader-overlay">
+        <div class="gold-loader-track"><div class="gold-loader-fill" id="gold-loader-fill"></div></div>
+    </div>
 
     <div id="currency-picker-overlay" style="display:none; position:fixed; inset:0; z-index:100000; background:rgba(0,0,0,0.55); align-items:flex-start; justify-content:center" onclick="if(event.target===this) appLogic.closeCurrencyPicker()">
         <div style="margin-top:14vh; width:90%; max-width:340px; max-height:70vh; display:flex; flex-direction:column; background-color:#000000; background-image:none; border:1px solid rgba(198,205,214,0.6); border-radius:16px; overflow:hidden; box-shadow:0 12px 40px rgba(0,0,0,0.6)">
